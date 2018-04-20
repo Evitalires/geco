@@ -1,0 +1,40 @@
+{
+  "user": {
+    "name": "MesaExpress",
+    "productos": [
+
+      {
+        "id": "1251245670",
+        "quantity": "1",
+        "name": "Cerveza Sol 320ml",
+        "price": "3000",
+        "costo": "2500",
+        "inventario": "34"
+      },
+      {
+        "id": "1412490768",
+        "quantity": "1",
+        "name": "Leche Entera Alquería Megalitro 900ml",
+        "price": "2000",
+        "costo": "1800",
+        "inventario": "10"
+      },
+      {
+        "id": "12234565056",
+        "quantity": "1",
+        "name": "Leche Entera Alquería Megalitro 1 litro",
+        "price": "3000",
+        "costo": "2500",
+        "inventario": "10"
+      },
+      {
+        "id": "56012304504",
+        "quantity": "1",
+        "name": "Packa de leche Alquería Megalitro 6 unidades",
+        "price": "3000",
+        "costo": "2500",
+        "inventario": "10"
+      }
+    ]
+  }
+}
