@@ -3,6 +3,7 @@ import ProductoUI from './ProductoUI'
 
 class Producto extends Component {
   state = {
+    className: this.props.className,
     helper: this.props.helper,
     quantity: this.props.quantity,
     id: this.props.id,

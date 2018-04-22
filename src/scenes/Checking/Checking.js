@@ -8,6 +8,13 @@ class Checking extends Component {
     length: 0,
     options: [],
     products: [],
+    user: Data.user.name,
+    casher: Data.user.cashiers[0].name,
+    atm: Data.user.cashiers[0].atm,
+    nit: Data.user.nit,
+    addresses: Data.user.addresses,
+    effective: '',
+    change: '',
     total: 0
   }
   setRef = element => {
@@ -28,14 +35,14 @@ class Checking extends Component {
       else if(productos[i].name == text){
         array = productos[i]
         this.setState({
-          options: [array],
+          options: [this.state.options, array],
           length: productos[i].name.length
         })
       }
       else if(productos[i].price == text) {
-        array = productos[i]
+        array = [...array, productos[i]]
         this.setState({
-          options: [array],
+          options: array,
           length: productos[i].price.length
         })
       }
@@ -57,6 +64,9 @@ class Checking extends Component {
     this.setState({
       total: total
     })
+  }
+  handlePrintSave = () => {
+    this.handleSave()
   }
   handleAdd = data => {
     this.setState({
@@ -80,8 +90,40 @@ class Checking extends Component {
   handleChange = event => {
     this.fetchData(event.target.value)
   }
+  handleChangeTotal = event => {
+    let effective = Number(event.target.value.replace(/([^0-9])/gi, ''))
+    this.setState({
+      effective: `$ ${effective}`,
+      change: `$ ${effective - this.state.total}`
+    })
+  }
   handleSave = event => {
-    console.log('Se guardo la factura');
+    console.log(Data);
+    Data.user.checks = [...Data.user.checks, {
+      user: this.state.user,
+      nit: this.state.nit,
+      casher: this.state.casher,
+      products: this.state.products,
+      atm: this.state.atm,
+      addresses: this.state.addresses,
+      effective: this.state.effective,
+      change: this.state.change,
+      total: this.state.total
+    }]
+    this.setState({
+      length: 0,
+      options: [],
+      products: [],
+      user: Data.user.name,
+      casher: Data.user.cashiers[0].name,
+      atm: Data.user.cashiers[0].atm,
+      nit: Data.user.nit,
+      addresses: Data.user.addresses,
+      effective: '',
+      change: '',
+      total: 0
+    })
+    console.log(Data);
   }
   handlePrint = event => {
     console.log('Se activó el modal para imprimir');
@@ -102,6 +144,8 @@ class Checking extends Component {
           handleChange={this.handleChange}
           handleSave={this.handleSave}
           handlePrint={this.handlePrint}
+          handlePrintSave={this.handlePrintSave}
+          handleChangeTotal={this.handleChangeTotal}
           handleEfective={this.handleEfective}
         />
       </div>

@@ -3,7 +3,9 @@ import ButtonUI from './ButtonUI'
 
 class Button extends Component {
   state = {
-    text: this.props.text
+    text: this.props.text,
+    type: this.props.type,
+    className: this.props.className
   }
   handleClick = event => {
     this.props.handleClick && this.props.handleClick()
@@ -11,7 +13,7 @@ class Button extends Component {
   render() {
     return(
       <ButtonUI
-        text={this.state.text}
+        {...this.state}
         handleClick={this.handleClick}
       />
     )

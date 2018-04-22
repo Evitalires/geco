@@ -1,5 +1,5 @@
 {
-  "name": "create-next-example-app",
+  "name": "GeCo",
   "scripts": {
     "dev": "next",
     "build": "next build",

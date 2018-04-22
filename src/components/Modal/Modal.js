@@ -1,10 +1,16 @@
 import * as React from 'react'
+import Button from '../Button/Button'
 
 import { Portal } from './Portal'
 
 export class Modal extends React.Component {
   state = {
-    opened: false
+    opened: false,
+    type: this.props.type,
+    textA: this.props.textA,
+    textB: this.props.textB,
+    buttonA: this.props.classButtonA,
+    buttonB: this.props.classButtonB
   }
   open = () => {
     this.setState({ opened: true })
@@ -17,20 +23,25 @@ export class Modal extends React.Component {
   render () {
     return (
       <React.Fragment>
-        <button type='button' onClick={this.open}>
-          Open Modal
-        </button>
+        <Button
+          type='button'
+          text={this.props.textA}
+          className={this.state.buttonA}
+          handleClick={this.open}/>
         {this.state.opened && (
           <Portal selector='#modal'>
             <div className='overlay'>
               <div className='modal'>
-                <p>
-                  This modal is rendered using{' '}
-                  <a href='https://reactjs.org/docs/portals.html'>portals</a>.
-                </p>
-                <button type='button' onClick={this.close}>
-                  Close Modal
-                </button>
+                <div className='Container'>
+                  <Button
+                    text={this.props.textB}
+                    type='button'
+                    handleClick={this.close}
+                    className={this.state.buttonB}/>
+                  {
+                    this.props.children
+                  }
+                </div>
               </div>
               <style jsx global>{`
                 body {
@@ -38,6 +49,9 @@ export class Modal extends React.Component {
                 }
               `}</style>
               <style jsx>{`
+                .Container {
+                  position: relative;
+                }
                 .overlay {
                   position: fixed;
                   background-color: rgba(0, 0, 0, 0.7);
@@ -49,6 +63,7 @@ export class Modal extends React.Component {
                 .modal {
                   background-color: white;
                   position: absolute;
+                  overflow: scroll;
                   top: 10%;
                   right: 10%;
                   bottom: 10%;

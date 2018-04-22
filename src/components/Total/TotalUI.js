@@ -1,26 +1,30 @@
 import React from 'react'
+import Finder from '../Finder/Finder'
 import { styleTotal } from './styles.js'
 
 const TotalUI = (props) => {
   return (
-    <div className='Total'>
+    <article className='Total'>
       <div className='TotalRef'>
-        <h2 className='TotalText'>
-          Total:
-        </h2>
-        <h2 className='TotalValor'>
-          {
-            `$ ${props.total}`
-          }
-        </h2>
+        <h2 className='TotalText'>Total:</h2>
+        <h2 className='TotalValor'>{`$ ${props.total}`}</h2>
       </div>
-      <div className='TotalButtons'>
-        {
-          props.children
-        }
+      <Finder
+        inputText={props.effective}
+        inputPlace={'$ 0'}
+        labelText='Efectivo'
+        handleBlur={true}
+        handleChange={props.handleChange}
+        handleClick={props.handleClick}
+        classDiv='finderChange'
+      />
+      <div className='TotalRef'>
+        <h4 className='TotalText'>Cambio:</h4>
+        <h4 className='TotalValor'>{props.change || '$ 0'}</h4>
       </div>
+      <section className='TotalButtons'>{props.children}</section>
       <style jsx>{ styleTotal }</style>
-    </div>
+    </article>
   )
 }
 

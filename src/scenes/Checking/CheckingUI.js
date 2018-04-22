@@ -4,18 +4,19 @@ import Button from '../../components/Button/Button'
 import Total from '../../components/Total/Total'
 import AddRemove from '../../components/Product/AddRem/AddRem'
 import Finder from '../../components/Finder/Finder'
+import Print from '../../components/Print/Print'
 import { checkingStyles } from './styles'
 
 const CheckingUI = (props) => {
   return (
     <div className={'CheckingUI'}>
       <Finder
-        text=''
-        place='Find Something'
-        input={'checkFinderInput'}
-        form={'checkFinderForm'}
-        div={'checkFinderDiv'}
+        inputText=''
         setRef={props.setRef}
+        inputPlace='Find Something'
+        classInput={'checkFinderInput'}
+        classForm={'checkFinderForm'}
+        classDiv={'checkFinderDiv'}
         handleClick={props.handleClick}
         handleChange={props.handleChange}
         >
@@ -45,10 +46,17 @@ const CheckingUI = (props) => {
       </div>
       <Total
         total={props.total}
-      >
-        <Button
-          text='Imprimir'
-          handleClick={props.handlePrint}
+        change={props.change}
+        effective={props.effective}
+        handleChange={props.handleChangeTotal}
+        >
+        <Print
+          user={props.user}
+          nit={props.nit}
+          total={props.total}
+          products={props.products}
+          addresses={props.addresses}
+          handlePrintSave={props.handlePrintSave}
         />
         <Button
           text='Guardar'

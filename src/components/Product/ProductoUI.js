@@ -8,7 +8,7 @@ import Quantity from './components/Field/Quantity/Quantity'
 import Price from './components/Field/Price/Price'
 
 const ProductoUI = (props) => (
-  <div className='Product'>
+  <div className={props.className || 'Product'}>
     <Id
       name='Id'
       value={props.id} />

@@ -12,6 +12,20 @@ export const styleProduct = css`
       transform: translateY(50px);
     }
   }
+  .ProductPrint {
+    display: flex;
+  }
+  .ProductPrint .Idu {
+    display: none;
+  }
+  .ProductPrint form input {
+    font-size: 14px;
+    color: black;
+  }
+  .ProductPrint form label,
+  .ProductPrint form p {
+    display: none;
+  }
   .Product {
     height: 70px;
     width: 90%;

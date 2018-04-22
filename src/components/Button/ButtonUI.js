@@ -4,7 +4,9 @@ import { stylesButton } from './styles'
 const ButtonUI = (props) => {
   return (
     <button
+      type={props.type}
       onClick={props.handleClick}
+      className={props.className}
       >
       {
         props.text

@@ -1,6 +1,26 @@
 {
   "user": {
-    "name": "MesaExpress",
+    "name": "AutoServicio MesaExpress",
+    "nit": "15512466",
+    "addresses": "Calle 57 A sur # 97 c 51",
+    "phones": {
+      "addresses": "7272350"
+    },
+    "cashiers": [
+      {
+        "name": "Julian Gonzales Gonzales",
+        "atm": "1"
+      },
+      {
+        "name": "Laura Juliana Margura",
+        "atm": "2"
+      }
+    ],
+    "checks": [
+      {
+        "Id": "12344"
+      }
+    ],
     "productos": [
 
       {
@@ -10,6 +30,14 @@
         "price": "3000",
         "costo": "2500",
         "inventario": "34"
+      },
+      {
+        "id": "1412490769",
+        "quantity": "1",
+        "name": "Leche Entera Colanta 900ml",
+        "price": "2000",
+        "costo": "1800",
+        "inventario": "10"
       },
       {
         "id": "1412490768",

@@ -20,6 +20,42 @@ export const Finder = css`
     color: #788895;
     border: 1px solid transparent
   }
+  .finderChange * {
+    height: 35px;
+    background: #164461;
+  }
+  .finderChange form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content:space-between;
+  }
+  .finderChange form p {
+    display: none;
+  }
+  .finderChange form label,
+  .finderChange form input {
+    width: 50%;
+    color: #778795;
+    font-size: 30px;
+    opacity: 1;
+    text-align: left;
+    font-weight: bold;
+    font-family: serif;
+    margin: 0px 40px 0px 40px;
+  }
+  .finderChange form input {
+    text-align:right;
+  }
+  .finderChange form input::placeholder {
+    color: #778795;
+  }
+  .finderChange form input:hover,
+  .finderChange form input:hover::placeholder {
+    color: white;
+    transition: .5s;
+    border-bottom: 1px solid #48ACEC;
+  }
   .checkFinderDiv {
     background: #164461;
     padding-bottom: 8px;
@@ -43,4 +79,5 @@ export const Finder = css`
     transition: .3s;
     border-bottom: 1px solid #48ACEC;
   }
+
 `

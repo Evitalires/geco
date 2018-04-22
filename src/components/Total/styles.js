@@ -13,11 +13,15 @@ export const styleTotal = css`
   .TotalRef {
     display: inline-flex;
   }
-  .TotalRef h2 {
+  .TotalRef h2,
+  .TotalRef h4 {
     color: #788895;
     margin: 20px 40px;
     font-size: 40px;
     border-bottom: 1px solid #164461;
+  }
+  .TotalRef h4 {
+    font-size: 30px;
   }
   .TotalText {
     width: 30%;
@@ -29,7 +33,6 @@ export const styleTotal = css`
   .Total .TotalValor:hover {
     color: white;
     transition: .9s;
-    border-bottom: 1px solid #48ACEC;
   }
   .TotalButtons {
     display: flex;

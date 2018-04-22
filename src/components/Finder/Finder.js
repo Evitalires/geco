@@ -10,24 +10,31 @@ import FinderUI from './FinderUI'
 class Finder extends Component {
   state = {
     seeker: this.props.seeker,
-    text: this.props.text,
-    place: this.props.place,
-    input: this.props.input,
-    form: this.props.form,
-    div: this.props.div,
+    inputPlace: this.props.inputPlace,
+    inputText: this.props.inputText,
+    labelText: this.props.labelText,
+    classDiv: this.props.classDiv,
+    classForm: this.props.classForm,
+    classInput: this.props.classInput,
+    classLabel: this.props.classLabel,
     error: false
   }
   handleClick = event => {
     this.props.handleClick && this.props.handleClick()
   }
   handleChange = event => {
-    this.setState({
-      text: event.target.value
-    })
+    this.setState({inputText: event.target.value})
     this.props.handleChange && this.props.handleChange(event)
   }
   handleBlur = event => {
-    this.setState({text: ''})
+    (this.props.handleBlur)
+    ? console.log('No voy a limpiar')
+    : this.setState({inputText: ''})
+  }
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      inputText: nextProps.inputText
+    })
   }
   render() {
     return (
