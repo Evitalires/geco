@@ -16,15 +16,17 @@ export const styleTotal = css`
   .TotalRef h2,
   .TotalRef h4 {
     color: #788895;
-    margin: 20px 40px;
-    font-size: 40px;
+    margin: 16px 40px;
+    font-size: 30px;
     border-bottom: 1px solid #164461;
   }
   .TotalRef h4 {
-    font-size: 30px;
+    font-size: 35px;
+    color: white;
   }
   .TotalText {
     width: 30%;
+    margin-left: 0px;
   }
   .TotalValor {
     width: 70%;

@@ -35,7 +35,6 @@ export const Finder = css`
   }
   .finderChange form label,
   .finderChange form input {
-    width: 50%;
     color: #778795;
     font-size: 30px;
     opacity: 1;
@@ -45,7 +44,10 @@ export const Finder = css`
     margin: 0px 40px 0px 40px;
   }
   .finderChange form input {
+    width: 55%;
     text-align:right;
+    margin-left: 0px;
+    border-bottom: 1px solid white;
   }
   .finderChange form input::placeholder {
     color: #778795;
@@ -56,6 +58,13 @@ export const Finder = css`
     transition: .5s;
     border-bottom: 1px solid #48ACEC;
   }
+  .finderChange form input:focus {
+    color: white;
+    transition: 0s;
+    font-size: 40px;
+    border-bottom: 1px solid #48ACEC;
+  }
+
   .checkFinderDiv {
     background: #164461;
     padding-bottom: 8px;

@@ -6,7 +6,7 @@ const TotalUI = (props) => {
   return (
     <article className='Total'>
       <div className='TotalRef'>
-        <h2 className='TotalText'>Total:</h2>
+        <h2 className='TotalText'>Total</h2>
         <h2 className='TotalValor'>{`$ ${props.total}`}</h2>
       </div>
       <Finder
@@ -19,7 +19,7 @@ const TotalUI = (props) => {
         classDiv='finderChange'
       />
       <div className='TotalRef'>
-        <h4 className='TotalText'>Cambio:</h4>
+        <h4 className='TotalText'>Cambio</h4>
         <h4 className='TotalValor'>{props.change || '$ 0'}</h4>
       </div>
       <section className='TotalButtons'>{props.children}</section>

@@ -6,6 +6,8 @@ import { checkingStyles } from './styles'
 class Checking extends Component {
   state = {
     length: 0,
+    typePay: true,
+    error: false,
     options: [],
     products: [],
     user: Data.user.name,
@@ -97,39 +99,47 @@ class Checking extends Component {
       change: `$ ${effective - this.state.total}`
     })
   }
+  handleTypePay = () => {
+    this.setState({typePay: false})
+  }
   handleSave = event => {
-    console.log(Data);
-    Data.user.checks = [...Data.user.checks, {
-      user: this.state.user,
-      nit: this.state.nit,
-      casher: this.state.casher,
-      products: this.state.products,
-      atm: this.state.atm,
-      addresses: this.state.addresses,
-      effective: this.state.effective,
-      change: this.state.change,
-      total: this.state.total
-    }]
-    this.setState({
-      length: 0,
-      options: [],
-      products: [],
-      user: Data.user.name,
-      casher: Data.user.cashiers[0].name,
-      atm: Data.user.cashiers[0].atm,
-      nit: Data.user.nit,
-      addresses: Data.user.addresses,
-      effective: '',
-      change: '',
-      total: 0
-    })
+    if(this.state.total > 1) {
+      Data.user.checks = [...Data.user.checks, {
+        user: this.state.user,
+        nit: this.state.nit,
+        casher: this.state.casher,
+        products: this.state.products,
+        atm: this.state.atm,
+        addresses: this.state.addresses,
+        effective: this.state.effective,
+        change: this.state.change,
+        total: this.state.total
+      }]
+      this.setState({
+        length: 0,
+        options: [],
+        products: [],
+        user: Data.user.name,
+        casher: Data.user.cashiers[0].name,
+        atm: Data.user.cashiers[0].atm,
+        nit: Data.user.nit,
+        addresses: Data.user.addresses,
+        effective: '',
+        change: '',
+        total: 0,
+        error: false
+      })
+    } else {
+      this.openModalError()
+    }
     console.log(Data);
   }
   handlePrint = event => {
     console.log('Se activó el modal para imprimir');
   }
-  handleEfective = event => {
-    console.log('Se activa modal para dejar escribir el efectivo que se recibe');
+  openModalError = () => {
+    this.setState({error: true})
+    setTimeout(() => this.setState({error: true}), 0)
   }
   render() {
     return (
@@ -146,7 +156,8 @@ class Checking extends Component {
           handlePrint={this.handlePrint}
           handlePrintSave={this.handlePrintSave}
           handleChangeTotal={this.handleChangeTotal}
-          handleEfective={this.handleEfective}
+          handleTypePay={this.handleTypePay}
+          handleCloseModalError={this.handleCloseModalError}
         />
       </div>
     )

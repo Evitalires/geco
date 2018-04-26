@@ -2,23 +2,30 @@ import * as React from 'react'
 import Button from '../Button/Button'
 
 import { Portal } from './Portal'
+import { ModalStyles } from './styles'
 
 export class Modal extends React.Component {
   state = {
-    opened: false,
+    opened: this.props.opened,
     type: this.props.type,
     textA: this.props.textA,
     textB: this.props.textB,
     buttonA: this.props.classButtonA,
-    buttonB: this.props.classButtonB
+    buttonB: this.props.classButtonB,
+    classModal: this.props.classModal,
   }
   open = () => {
     this.setState({ opened: true })
     setTimeout(() => {this.setState({ opened: true })}, 0)
   }
-
   close = () => {
     this.setState({ opened: false })
+    this.props.handleClose && this.props.handleClose()
+  }
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      opened: nextProps.opened
+    })
   }
   render () {
     return (
@@ -27,15 +34,16 @@ export class Modal extends React.Component {
           type='button'
           text={this.props.textA}
           className={this.state.buttonA}
-          handleClick={this.open}/>
+          handleClick={this.open}
+        />
         {this.state.opened && (
           <Portal selector='#modal'>
             <div className='overlay'>
-              <div className='modal'>
+              <div className={this.props.classModal}>
                 <div className='Container'>
                   <Button
-                    text={this.props.textB}
                     type='button'
+                    text={this.props.textB}
                     handleClick={this.close}
                     className={this.state.buttonB}/>
                   {
@@ -48,29 +56,7 @@ export class Modal extends React.Component {
                   overflow: hidden;
                 }
               `}</style>
-              <style jsx>{`
-                .Container {
-                  position: relative;
-                }
-                .overlay {
-                  position: fixed;
-                  background-color: rgba(0, 0, 0, 0.7);
-                  top: 0;
-                  right: 0;
-                  bottom: 0;
-                  left: 0;
-                }
-                .modal {
-                  background-color: white;
-                  position: absolute;
-                  overflow: scroll;
-                  top: 10%;
-                  right: 10%;
-                  bottom: 10%;
-                  left: 10%;
-                  padding: 1em;
-                }
-              `}</style>
+              <style jsx>{ModalStyles}</style>
             </div>
           </Portal>
         )}

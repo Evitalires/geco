@@ -1,31 +1,50 @@
 import css from 'styled-jsx/css'
 
 export const stylesButton = css`
-  .ButtonClosePrint {
+  .buttonGray {
+    width: 130px;
+    color: #788895;
+    background: #C8D2D9;
+    padding: 8px 24px;
+  }
+  .buttonGray:hover {
+    color: #C8D2D9;
+    background: #788895;
+  }
+  .buttonClosePrint {
     top: 0;
     left: 100%;
     color: #788895;
     background: white;
     position: sticky;
   }
-  .ButtonClosePrint:hover {
+  .buttonClosePrint:hover {
     color: white;
     background: #182C39;
   }
-  .ButtonPrintModal {
-    position: fixed;
+  .buttonPrintModal {
     bottom: 10%;
+    color: #788895;
+    position: fixed;
+    background: #182C39;
+  }
+  .buttonPrintModal:hover {
+    color: white;
+  }
+  .buttonDark {
+    width: 130px;
+    color: #788895;
+    background: #182C39;
+    padding: 8px 24px;
+  }
+  .buttonDark:hover {
+    color: white;
   }
   button {
-    color: #788895;
+    border: none;
+    outline: none;
     font-size: 24px;
     padding: 8px 16px;
-    background: #182C39;
-    outline: none;
-    border: none;
   }
-  button:hover {
-    color: white;
-    transition: .5s;
-  }
+
 `

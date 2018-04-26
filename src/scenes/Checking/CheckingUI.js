@@ -4,7 +4,9 @@ import Button from '../../components/Button/Button'
 import Total from '../../components/Total/Total'
 import AddRemove from '../../components/Product/AddRem/AddRem'
 import Finder from '../../components/Finder/Finder'
+import TypePay from '../../components/TypePay/TypePay'
 import Print from '../../components/Print/Print'
+import ErrorModal from '../../components/Error/Error'
 import { checkingStyles } from './styles'
 
 const CheckingUI = (props) => {
@@ -51,6 +53,7 @@ const CheckingUI = (props) => {
         handleChange={props.handleChangeTotal}
         >
         <Print
+          opened={props.opened}
           user={props.user}
           nit={props.nit}
           total={props.total}
@@ -60,13 +63,16 @@ const CheckingUI = (props) => {
         />
         <Button
           text='Guardar'
+          className='buttonDark'
           handleClick={props.handleSave}
         />
-        <Button
-          text='Efectivo'
-          handleClick={props.handleEfective}
-        />
+        <TypePay/>
       </Total>
+      <ErrorModal
+        error={props.error}
+        message='¿Está seguro de guardar esta factura sin productos registrados?'
+        handleClose={props.handleCloseModalError}
+      />
       <style jsx>{ checkingStyles }</style>
     </div>
   )

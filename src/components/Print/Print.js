@@ -4,8 +4,16 @@ import Producto from '../Product/Producto'
 import { Modal } from '../../components/Modal/Modal'
 
 class Print extends Component {
+  state = {
+    opened: this.props.opened
+  }
   print = () => {
     (this.props.handlePrintSave) && this.props.handlePrintSave()
+  }
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      opened: nextProps.opened
+    })
   }
   render() {
     let fecha = new Date()
@@ -15,7 +23,10 @@ class Print extends Component {
           textA='Imprimir'
           textB='X'
           type='button'
-          classButtonB='ButtonClosePrint'
+          opened={this.props.opened}
+          classModal='modalStandard'
+          classButtonA='buttonDark'
+          classButtonB='buttonClosePrint'
         >
         <article className="Print">
             <section className="BodyCheck">
@@ -33,9 +44,9 @@ class Print extends Component {
                 this.props.products.map((data, key) => (
                   <Producto
                     {...data}
-                    className='ProductPrint'
                     key={key}
                     helper=''
+                    className='ProductPrint'
                   />
                 ))
               }
@@ -54,7 +65,7 @@ class Print extends Component {
               <Button
                 type='button'
                 text='Imprimir'
-                className='ButtonPrintModal'
+                className='buttonPrintModal'
                 handleClick={this.print}
               />
             </section>
