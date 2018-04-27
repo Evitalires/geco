@@ -40,6 +40,12 @@ class TypePay extends Component {
             <li>Tarjeta de servicio</li>
             <li>Otros</li>
           </ul>
+          <form >
+            <label htmlFor="">
+              Hola
+              <input type="radio"/>
+            </label>
+          </form>
         </article>
         </Modal>
         <style jsx>{`
