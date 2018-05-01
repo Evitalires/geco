@@ -2,6 +2,8 @@ import React, { Fragment, Component } from 'react'
 import Button from '../Button/Button'
 import Producto from '../Product/Producto'
 import { Modal } from '../../components/Modal/Modal'
+import  Check from '../../components/Icons/check'
+import FieldCheck from './components/check'
 
 class TypePay extends Component {
   state = {
@@ -28,28 +30,40 @@ class TypePay extends Component {
           classButtonA='buttonDark'
           classButtonB='buttonClosePrint'
         >
-        <article className="Print">
           <h1>Métodos de Pago</h1>
-          <ul>
-            <li>Efectivo</li>
-            <li>Cheque</li>
-            <li>Tarjeta de crédito</li>
-            <li>Tarjeta de Débito</li>
-            <li>Monedero Electrónico</li>
-            <li>Vales de Despensa</li>
-            <li>Tarjeta de servicio</li>
-            <li>Otros</li>
-          </ul>
-          <form >
-            <label htmlFor="">
-              Hola
-              <input type="radio"/>
-            </label>
-          </form>
-        </article>
+          <article >
+            <ul>
+              <FieldCheck text='Efectivo'/>
+              <FieldCheck text='Cheque'/>
+              <FieldCheck text='Tarjeta de Crédito'/>
+              <FieldCheck text='Tarjeta de Débito'/>
+              <FieldCheck text='Monedero Electrónico'/>
+              <FieldCheck text='Vales de Despensa'/>
+              <FieldCheck text='Tarjeta de servicio'/>
+              <FieldCheck text='Otros'/>
+            </ul>
+          </article>
+          <Button
+            text='Guardar'
+            className='buttonDark center'
+          />
         </Modal>
         <style jsx>{`
-
+          article {
+            margin-bottom: 150px;
+          }
+          article ul {
+            padding: 0;
+            list-style: none;
+          }
+          h1 {
+            color: #182C39;
+            font-size: 26px;
+            margin-top: 0px;
+            margin-bottom: 56px;
+            text-align: center;
+            font-family: arial;
+          }
         `}</style>
       </Fragment>
     )

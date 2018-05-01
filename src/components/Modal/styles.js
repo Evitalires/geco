@@ -20,7 +20,7 @@ export const ModalStyles = css`
     padding: 1em;
     overflow: scroll;
     position: absolute;
-    background-color: white;
+    background-color: #E0EDF3;
   }
   .modalComplete {
     top: 0%;
@@ -30,7 +30,7 @@ export const ModalStyles = css`
     padding: 1em;
     overflow: scroll;
     position: absolute;
-    background: white;
+    background: #E0EDF3;
   }
   .modalAlert {
     top: 20%;
@@ -40,6 +40,6 @@ export const ModalStyles = css`
     padding: 1em;
     overflow: scroll;
     position: absolute;
-    background-color: white;
+    background-color: #E0EDF3;
   }
 `

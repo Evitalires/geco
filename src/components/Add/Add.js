@@ -7,7 +7,7 @@ const Add = (props) => (
     className={props.className}
     >
     <IconMore
-      size={18}
+      size={26}
       color='#788895'
     />
     <style jsx>{styleAdd}</style>

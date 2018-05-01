@@ -1,6 +1,10 @@
 import css from 'styled-jsx/css'
 
 export const stylesButton = css`
+  .center {
+    display: flex;
+    margin: 0 auto;
+  }
   .buttonGray {
     width: 130px;
     color: #788895;
@@ -15,7 +19,7 @@ export const stylesButton = css`
     top: 0;
     left: 100%;
     color: #788895;
-    background: white;
+    background: #E0EDF3;
     position: sticky;
   }
   .buttonClosePrint:hover {

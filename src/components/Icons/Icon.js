@@ -17,7 +17,7 @@ const Icon = (props) => {
           display: flex;
           justify-content: center;
           align-items: center;
-          margin: 5px;
+          margin: 0px;
         }
       `}</style>
     </div>
