@@ -40,7 +40,6 @@ class Name extends Component {
       event.target.selectionStart = event.target.value.length;
       event.target.selectionEnd = event.target.value.length;
       event.target.focus()
-      console.log(document.activeElement)
     }, 0)
   }
   render() {

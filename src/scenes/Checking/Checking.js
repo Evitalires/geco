@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import Data from '../../services/api.json'
 import CheckingUI from './CheckingUI'
 import { checkingStyles } from './styles'
@@ -7,7 +7,6 @@ class Checking extends Component {
   state = {
     length: 0,
     typePay: 'Efectivo',
-    error: false,
     options: [],
     products: [],
     user: Data.user.name,
@@ -18,6 +17,8 @@ class Checking extends Component {
     effective: '',
     change: '',
     total: 0,
+    openPrint: false,
+    openError: false,
     openTypePay: false
   }
   setRef = element => {
@@ -72,11 +73,38 @@ class Checking extends Component {
     this.handleSave()
   }
   handleAdd = data => {
-    this.setState({
-      options: [],
-      products: [...this.state.products, data],
-    })
-    setTimeout(() => this.countTotal(this.state.products), 0)
+    console.log(data);
+    let repeat
+    this.state.products.map(
+      (producto) => (producto.id == data.id)
+      ? repeat = true
+      : repeat = false
+    )
+    if(repeat) {
+      this.setState({
+        products: this.state.products.map(
+          (producto) => producto.id === data.id
+          ? data.quantity = producto.quantity
+          : repeat = false)
+      })
+      console.log(data);
+      data.quantity = `${++data.quantity}`
+      data.total = `$ ${data.price * data.quantity}`
+      console.log(data.quantity, data.total);
+      this.setState({options: []})
+      console.log(data);
+      this.handleUpdate(data)
+    }
+    else {
+      repeat = false
+      this.setState({
+        options: [],
+        products: [...this.state.products, data],
+      })
+      setTimeout(() => {
+        this.countTotal(this.state.products)
+      }, 0)
+    }
   }
   handleUpdate = data => {
     this.setState({
@@ -127,10 +155,10 @@ class Checking extends Component {
         effective: '',
         change: '',
         total: 0,
-        error: false
+        openError: false
       })
     } else {
-      this.openModalError()
+      this.handleCloseOpenError('Open')
     }
     console.log(Data);
   }
@@ -138,7 +166,6 @@ class Checking extends Component {
     this.setState({typePay: text})
   }
   handleOpenCloseTypePay = action => {
-    console.log('De nuevo acá, en checking');
     if(action == 'Open') {
       this.setState({openTypePay: true})
     }
@@ -146,13 +173,21 @@ class Checking extends Component {
       this.setState({openTypePay: false})
     }
   }
-  openModalError = () => {
-    this.setState({error: true})
-    setTimeout(() => this.setState({error: true}), 0)
+  handleCloseOpenError = action => {
+    if('Open') {
+      this.setState({openError: true})
+      setTimeout(() => this.setState({openError: true}), 0)
+      console.log('Voy a abrir el error');
+    }
+    if('Close' == action){
+      this.setState({openError: false})
+      setTimeout(() => this.setState({openError: false}), 0)
+      console.log('Voy a cerrar  el error');
+    }
   }
   render() {
     return (
-      <div>
+      <Fragment>
         <CheckingUI
           {...this.state}
           data={Data}
@@ -166,9 +201,9 @@ class Checking extends Component {
           handleSaveTypePay={this.handleSaveTypePay}
           handlePrintSave={this.handlePrintSave}
           handleChangeTotal={this.handleChangeTotal}
-          handleCloseModalError={this.handleCloseModalError}
+          handleCloseOpenError={this.handleCloseOpenError}
         />
-      </div>
+      </Fragment>
     )
   }
 }

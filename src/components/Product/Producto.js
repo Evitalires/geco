@@ -48,6 +48,15 @@ class Producto extends Component {
     }
     this.props.handleUpdate && setTimeout( () => this.props.handleUpdate(this.state), 0)
   }
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      id: nextProps.id,
+      name: nextProps.name,
+      price: nextProps.price,
+      total: nextProps.total,
+      quantity: nextProps.quantity,
+    })
+  }
   render(){
     return (
       <ProductoUI

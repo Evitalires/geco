@@ -27,11 +27,7 @@ class TypePay extends Component {
   closeModal = () => {
     (this.props.handleOpenCloseTypePay) && this.props.handleOpenCloseTypePay('Close')
   }
-  componentDidMount() {
-    console.log(this.state.opened);
-  }
   componentWillReceiveProps(nextProps) {
-    console.log('Se vienen las props');
     this.setState({opened: nextProps.opened})
   }
   render() {
@@ -46,6 +42,7 @@ class TypePay extends Component {
           classModal='modalComplete'
           classButtonA='buttonDark'
           classButtonB='buttonClosePrint'
+          handleClose={this.closeModal}
           handleClick={this.openModal}
         >
           <h1>Métodos de Pago</h1>

@@ -11,7 +11,7 @@ import { checkingStyles } from './styles'
 
 const CheckingUI = (props) => {
   return (
-    <div className={'CheckingUI'}>
+    <section className={'CheckingUI'}>
       <Finder
         inputText=''
         setRef={props.setRef}
@@ -34,7 +34,7 @@ const CheckingUI = (props) => {
           ))
         }
       </Finder>
-      <div className='CheckingProducts'>
+      <section className='CheckingProducts'>
         {
           props.products.map((data, key) => (
             <Producto
@@ -45,7 +45,7 @@ const CheckingUI = (props) => {
             />
           ))
         }
-      </div>
+      </section>
       <Total
         total={props.total}
         change={props.change}
@@ -53,11 +53,12 @@ const CheckingUI = (props) => {
         handleChange={props.handleChangeTotal}
         >
         <Print
-          opened={props.opened}
-          user={props.user}
+          opened={props.openPrint}
           nit={props.nit}
+          user={props.user}
           total={props.total}
           typePay={props.typePay}
+          change={props.change}
           products={props.products}
           addresses={props.addresses}
           handlePrintSave={props.handlePrintSave}
@@ -76,12 +77,12 @@ const CheckingUI = (props) => {
         />
       </Total>
       <ErrorModal
-        error={props.error}
+        error={props.openError}
         message='¿Está seguro de guardar esta factura sin productos registrados?'
-        handleClose={props.handleCloseModalError}
+        handleCloseOpenError={props.handleCloseOpenError}
       />
       <style jsx>{ checkingStyles }</style>
-    </div>
+    </section>
   )
 }
 

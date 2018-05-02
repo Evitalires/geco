@@ -58,7 +58,7 @@ class Print extends Component {
               <h3>Total a pagar: <span>{this.props.total}</span></h3>
               <p>Total pagado: <span>{this.props.total}</span></p>
               <p>Efectivo recibido: <span>{this.props.efective}</span></p>
-              <h3>Cambio: <span>{this.props.changet}</span></h3>
+              <h3>Cambio: <span>{this.props.change}</span></h3>
             </section>
             <section className='Remark'>
               <p>Cajero: Juan Miguel</p>

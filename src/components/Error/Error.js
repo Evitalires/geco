@@ -8,18 +8,16 @@ class ErrorModal extends Component {
     error: this.props.error,
     message: this.props.message
   }
+  handleClose = () => {
+    this.props.handleCloseOpenError && this.props.handleCloseOpenError('Close')
+  }
+  handleNext = () => {
+    this.props.handleOk && this.props.handleOk()
+  }
   componentWillReceiveProps(nextProps) {
     this.setState({
       error: nextProps.error
     })
-  }
-  handleClose = () => {
-    this.setState({error: false})
-    this.props.handleClose && this.props.handleClose()
-  }
-  handleNext = () => {
-    this.setState({error: false})
-    this.props.handleOk && this.props.handleOk()
   }
   render() {
     return (
