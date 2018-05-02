@@ -17,6 +17,7 @@ export class Modal extends React.Component {
   open = () => {
     this.setState({ opened: true })
     setTimeout(() => {this.setState({ opened: true })}, 0)
+    setTimeout(() => {(this.props.handleClick) && this.props.handleClick()}, 0)
   }
   close = () => {
     this.setState({ opened: false })

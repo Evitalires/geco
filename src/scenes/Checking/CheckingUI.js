@@ -57,6 +57,7 @@ const CheckingUI = (props) => {
           user={props.user}
           nit={props.nit}
           total={props.total}
+          typePay={props.typePay}
           products={props.products}
           addresses={props.addresses}
           handlePrintSave={props.handlePrintSave}
@@ -66,7 +67,13 @@ const CheckingUI = (props) => {
           className='buttonDark'
           handleClick={props.handleSave}
         />
-        <TypePay/>
+        <TypePay
+          onClick={props.handleOpenTypePay}
+          opened={props.openTypePay}
+          typePay={props.typePay}
+          handleSaveTypePay={props.handleSaveTypePay}
+          handleOpenCloseTypePay={props.handleOpenCloseTypePay}
+        />
       </Total>
       <ErrorModal
         error={props.error}

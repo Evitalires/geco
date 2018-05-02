@@ -6,7 +6,7 @@ import { checkingStyles } from './styles'
 class Checking extends Component {
   state = {
     length: 0,
-    typePay: true,
+    typePay: 'Efectivo',
     error: false,
     options: [],
     products: [],
@@ -17,7 +17,8 @@ class Checking extends Component {
     addresses: Data.user.addresses,
     effective: '',
     change: '',
-    total: 0
+    total: 0,
+    openTypePay: false
   }
   setRef = element => {
     this.input = element
@@ -99,14 +100,12 @@ class Checking extends Component {
       change: `$ ${effective - this.state.total}`
     })
   }
-  handleTypePay = () => {
-    this.setState({typePay: false})
-  }
   handleSave = event => {
     if(this.state.total > 1) {
       Data.user.checks = [...Data.user.checks, {
         user: this.state.user,
         nit: this.state.nit,
+        typePay: this.state.typePay,
         casher: this.state.casher,
         products: this.state.products,
         atm: this.state.atm,
@@ -120,6 +119,7 @@ class Checking extends Component {
         options: [],
         products: [],
         user: Data.user.name,
+        typePay: this.state.typePay,
         casher: Data.user.cashiers[0].name,
         atm: Data.user.cashiers[0].atm,
         nit: Data.user.nit,
@@ -134,8 +134,17 @@ class Checking extends Component {
     }
     console.log(Data);
   }
-  handlePrint = event => {
-    console.log('Se activó el modal para imprimir');
+  handleSaveTypePay = text => {
+    this.setState({typePay: text})
+  }
+  handleOpenCloseTypePay = action => {
+    console.log('De nuevo acá, en checking');
+    if(action == 'Open') {
+      this.setState({openTypePay: true})
+    }
+    else if (action == 'Close') {
+      this.setState({openTypePay: false})
+    }
   }
   openModalError = () => {
     this.setState({error: true})
@@ -153,10 +162,10 @@ class Checking extends Component {
           handleClick={this.handleClick}
           handleChange={this.handleChange}
           handleSave={this.handleSave}
-          handlePrint={this.handlePrint}
+          handleOpenCloseTypePay={this.handleOpenCloseTypePay}
+          handleSaveTypePay={this.handleSaveTypePay}
           handlePrintSave={this.handlePrintSave}
           handleChangeTotal={this.handleChangeTotal}
-          handleTypePay={this.handleTypePay}
           handleCloseModalError={this.handleCloseModalError}
         />
       </div>

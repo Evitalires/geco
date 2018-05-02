@@ -35,7 +35,7 @@ class Print extends Component {
               <p>{this.props.nit}</p>
               <h3>Gracias por su compra</h3>
               <p>4-21-2018 11:38:15 AM</p>
-              <p>Pago de Contado</p>
+              <p>Pago en {this.props.typePay}</p>
               <p>FACTURA DE VENTA: <b>53984</b></p>
             </section>
             <section className='ListProducts'>
@@ -95,10 +95,10 @@ class Print extends Component {
             justify-content: space-between;
           }
           h3, p {
-            text-align: center;
-            background: white;
             opacity: 1;
             width: 100%;
+            text-align: center;
+            background: #e0edf4;
           }
         `}</style>
       </Fragment>

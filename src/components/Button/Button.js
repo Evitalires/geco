@@ -10,6 +10,9 @@ class Button extends Component {
   handleClick = event => {
     this.props.handleClick && this.props.handleClick()
   }
+  componentWillReceiveProps(nextProps) {
+    this.setState({text: nextProps.text})
+  }
   render() {
     return(
       <ButtonUI

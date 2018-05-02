@@ -4,6 +4,7 @@ import Check from '../../../components/Icons/check'
 class FieldCheck extends Component {
   state = {
     text: this.props.text,
+    checked: this.props.checked,
     id: this.props.text.split(' ').join('')
   }
   handleClick = () => {
@@ -14,10 +15,10 @@ class FieldCheck extends Component {
     if(this.box.className.search(/checked/) < 1) {
       this.box.className = this.box.className.replace(/noChecked/, 'checked')
     }
+    this.input.focus()
   }
   handleBlur = () => {
     this.label.style.color = '#788895'
-
     this.input.checked = false
     this.input.style.background = '#788895'
 
@@ -34,6 +35,11 @@ class FieldCheck extends Component {
       this.label = this.li.firstElementChild
     }
   }
+  componentDidMount() {
+    if(this.state.checked) {
+      setTimeout(() => this.handleClick(), 0)
+    }
+  }
   render() {
     return(
       <Fragment>
@@ -45,12 +51,15 @@ class FieldCheck extends Component {
               >
               {this.state.text}
             </label>
-            <div className='box'>
+            <div
+              className='box'
+              onClick={this.handleClick}
+
+              >
               <input
                 type="radio"
                 id={this.state.id}
                 ref={this.setRef}
-                onClick={this.handleClick}
                 onBlur={this.handleBlur}
               />
               <div className='noChecked'>
@@ -84,6 +93,7 @@ class FieldCheck extends Component {
             }
             .box {
               display: flex;
+              height: 30px;
               align-items:center;
             }
             .noChecked {

@@ -46,9 +46,12 @@ export const stylesButton = css`
   }
   button {
     border: none;
+    height: 45px;
     outline: none;
+    overflow:hidden;
     font-size: 24px;
     padding: 8px 16px;
+    text-overflow: ellipsis;
   }
 
 `
