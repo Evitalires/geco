@@ -13,12 +13,12 @@ const CheckingUI = (props) => {
   return (
     <section className={'CheckingUI'}>
       <Finder
-        inputText=''
+        inputText={props.textFinder}
         setRef={props.setRef}
         inputPlace='Find Something'
         classInput={'checkFinderInput'}
         classForm={'checkFinderForm'}
-        classDiv={'checkFinderDiv'}
+        classArticle={'checkFinderArticle'}
         handleClick={props.handleClick}
         handleChange={props.handleChange}
         >

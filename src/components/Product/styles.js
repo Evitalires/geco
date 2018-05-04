@@ -15,7 +15,7 @@ export const styleProduct = css`
   .ProductPrint {
     display: flex;
   }
-  .ProductPrint .Idu {
+  .ProductPrint .Id {
     display: none;
   }
   .ProductPrint form input {
@@ -27,7 +27,8 @@ export const styleProduct = css`
     display: none;
   }
   .Product {
-    height: 70px;
+    height: 40px;
+    overflow: hidden;
     width: 90%;
     min-width: 300px;
     margin: 8px auto;

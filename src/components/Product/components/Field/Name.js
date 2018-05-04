@@ -1,28 +1,35 @@
 import React, { Component } from 'react'
-import QuantityUI from './QuantityUI'
+import Finder from '../../../Finder/Finder'
 
-class Quantity extends Component {
+class Name extends Component {
   state = {
     error: false,
-    type: this.props.type,
-    quantity: this.props.quantity
+    inputText: this.props.value,
+    inputName: this.props.type,
+    classArticle: 'productArticle',
+    classForm: 'productForm',
+    classInput: 'productInput',
+    classLabel: 'productLabel',
+    classMessage: 'productMessage',
+  }
+  setRef = element => {
+    this.input = element
   }
   handleClick = event => {
+    event.persist()
     this.handleFocus(event)
   }
   handleChange = event => {
     this.setState({
-      quantity: event.target.value
+      inputText: event.target.value
     })
-    this.props.handleChange(event.target.value, "Quantity")
   }
   handleBlur = event => {
-    this.setState({
-      quantity: event.target.value
-    })
+    console.log("Blur");
   }
   handleSubmit = event => {
     event.preventDefault()
+    console.log("Submit")
   }
   handleFocus = event => {
     event.persist()
@@ -31,23 +38,20 @@ class Quantity extends Component {
       event.target.selectionStart = event.target.value.length;
       event.target.selectionEnd = event.target.value.length;
       event.target.focus()
-    }, 0)
-  }
-  componentWillReceiveProps(nextProps){
-    this.setState({quantity: nextProps.quantity})
+    }, 200)
   }
   render() {
     return (
-      <QuantityUI
+      <Finder
         {...this.state}
+        setRef={this.setRef}
         handleChange={this.handleChange}
         handleClick={this.handleClick}
         handleBlur={this.handleBlur}
         handleSubmit={this.handleSubmit}
-        >
-      </QuantityUI>
+      />
     )
   }
 }
 
-export default Quantity
+export default Name

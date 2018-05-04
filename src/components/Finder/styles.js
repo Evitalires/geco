@@ -64,8 +64,10 @@ export const Finder = css`
     font-size: 40px;
     border-bottom: 1px solid #48ACEC;
   }
-
-  .checkFinderDiv {
+  /**
+   * Styles for Check
+   */
+  .checkFinderArticle {
     background: #164461;
     padding-bottom: 8px;
   }
@@ -89,4 +91,32 @@ export const Finder = css`
     border-bottom: 1px solid #48ACEC;
   }
 
+  /**
+   * Styles for Finder in product
+   */
+   .productArticle {
+     height: 100%;
+   }
+   .productForm {
+     height: 100%;
+     width: max-content;
+     border-right: 2px solid #788895;
+   }
+   .productLabel,
+   .productMessage
+    {
+      display: none;
+   }
+   .productInput {
+     width: 34px;
+     margin: auto;
+     font-size: 20px;
+     padding: 0px 3px;
+     text-transform: uppercase;
+   }
+   .productInput:focus {
+     width: 250px;
+     transition: .5s;
+     border-bottom: 1px solid #48ACEC;
+   }
 `

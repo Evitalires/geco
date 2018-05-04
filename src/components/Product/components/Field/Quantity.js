@@ -1,37 +1,33 @@
 import React, { Component } from 'react'
-import NameUI from './NameUI'
+import Finder from '../../../Finder/Finder'
 
-class Name extends Component {
+class Quantity extends Component {
   state = {
     error: false,
-    type: this.props.type,
-    value: this.props.value
-  }
-  setRef = element => {
-    this.input = element
+    inputText: this.props.value,
+    inputName: this.props.type,
+    classArticle: 'productArticle',
+    classForm: 'productForm',
+    classInput: 'productInput',
+    classLabel: 'productLabel',
+    classMessage: 'productMessage',
   }
   handleClick = event => {
-    if(this.input.className.search(' border') < 0) {
-      this.input.className = ' border'
-    }
     this.handleFocus(event)
   }
   handleChange = event => {
     this.setState({
-      value: event.target.value
+      inputText: event.target.value
     })
+    this.props.handleChange(event.target.value, "Quantity")
   }
   handleBlur = event => {
-    this.input.className = this.input.className.replace(' border', '')
-
     this.setState({
-      value: event.target.value
+      inputText: event.target.value
     })
-    console.log("Blur");
   }
   handleSubmit = event => {
     event.preventDefault()
-    console.log("Submit")
   }
   handleFocus = event => {
     event.persist()
@@ -42,19 +38,21 @@ class Name extends Component {
       event.target.focus()
     }, 0)
   }
+  componentWillReceiveProps(nextProps){
+    this.setState({inputText: nextProps.value})
+  }
   render() {
     return (
-      <NameUI
+      <Finder
         {...this.state}
         setRef={this.setRef}
         handleChange={this.handleChange}
         handleClick={this.handleClick}
         handleBlur={this.handleBlur}
         handleSubmit={this.handleSubmit}
-        >
-      </NameUI>
+      />
     )
   }
 }
 
-export default Name
+export default Quantity

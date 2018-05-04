@@ -2,22 +2,22 @@ import React from 'react'
 import { styleProduct } from './styles.js'
 import AddRemove from './AddRem/AddRem'
 import Add from '../Add/Add.js'
-import Id from './components/Field/Id/Id'
-import Name from './components/Field/Name/Name'
-import Quantity from './components/Field/Quantity/Quantity'
-import Price from './components/Field/Price/Price'
+import Id from './components/Field/Id'
+import Name from './components/Field/Name'
+import Price from './components/Field/Price'
+import Quantity from './components/Field/Quantity'
 
 const ProductoUI = (props) => (
   <div className={props.className || 'Product'}>
     <Id
-      name='Id'
+      type='Id'
       value={props.id} />
     <Name
       type='description'
       value={props.name}/>
     <Quantity
       type='quantity'
-      quantity={props.quantity}
+      value={props.quantity}
       handleChange={props.handleChange}
     />
     <Price

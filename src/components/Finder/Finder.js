@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import FinderUI from './FinderUI'
 /*
   Lo que hará este componente es:
@@ -9,27 +9,32 @@ import FinderUI from './FinderUI'
 */
 class Finder extends Component {
   state = {
+    action: this.props.action || '',
     seeker: this.props.seeker,
     inputPlace: this.props.inputPlace,
+    inputName: this.props.name || 'finder',
     inputText: this.props.inputText,
     labelText: this.props.labelText,
-    classDiv: this.props.classDiv,
+    classArticle: this.props.classArticle,
     classForm: this.props.classForm,
     classInput: this.props.classInput,
     classLabel: this.props.classLabel,
+    classMessage: this.props.classMessage,
     error: false
   }
   handleClick = event => {
-    this.props.handleClick && this.props.handleClick()
+    this.props.handleClick && this.props.handleClick(event)
+    event.target.focus()
   }
   handleChange = event => {
     this.setState({inputText: event.target.value})
     this.props.handleChange && this.props.handleChange(event)
   }
   handleBlur = event => {
-    (this.props.handleBlur)
-    ? console.log('No voy a limpiar')
-    : this.setState({inputText: ''})
+    this.props.handleBlur && this.props.handleBlur(event)
+  }
+  handleSubmit = event => {
+    event.preventDefault()
   }
   componentWillReceiveProps(nextProps) {
     this.setState({
@@ -38,17 +43,18 @@ class Finder extends Component {
   }
   render() {
     return (
-      <div>
+      <Fragment>
         <FinderUI
           {...this.state}
           setRef={this.props.setRef}
+          handleSubmit={this.handleSubmit}
           handleChange={this.handleChange}
           handleClick={this.handleClick}
           handleBlur={this.handleBlur}
         >
           {this.props.children}
         </FinderUI>
-      </div>
+      </Fragment>
     )
   }
 }

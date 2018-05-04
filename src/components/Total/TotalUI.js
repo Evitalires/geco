@@ -16,7 +16,7 @@ const TotalUI = (props) => {
         handleBlur={true}
         handleChange={props.handleChange}
         handleClick={props.handleClick}
-        classDiv='finderChange'
+        classArticle='finderChange'
       />
       <div className='TotalRef'>
         <h4 className='TotalText'>Cambio</h4>

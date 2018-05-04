@@ -3,12 +3,12 @@ import ProductoUI from './ProductoUI'
 
 class Producto extends Component {
   state = {
-    className: this.props.className,
     helper: this.props.helper,
-    quantity: this.props.quantity,
+    className: this.props.className,
     id: this.props.id,
     name: this.props.name,
     price: this.props.price,
+    quantity: this.props.quantity,
     total: `$ ${this.props.price * this.props.quantity}`
   }
   handleAdd = () => {
@@ -16,11 +16,13 @@ class Producto extends Component {
   }
   handleAdder = () => {
     let cantidad = Number(this.state.quantity) + 1
+    console.log(this.state.total);
     this.setState({
       quantity: cantidad,
-      total: ` $ ${this.state.price * (cantidad)}`
+      total: `$ ${this.state.price * (cantidad)}`
     })
     this.props.handleUpdate && setTimeout( () => this.props.handleUpdate(this.state), 0)
+    setTimeout(() => console.log(this.state.total))
   }
   handleRemove = () => {
     if(this.state.quantity > 0) {
@@ -33,7 +35,7 @@ class Producto extends Component {
   }
   handleChange = (value, type) => {
     value = Number(value.replace(/([ $ ])/, ""))
-    if(type == "Quantity") {
+    if(type == 'Quantity') {
       this.setState({
         quantity: value,
         total: `$ ${this.state.price * value}`

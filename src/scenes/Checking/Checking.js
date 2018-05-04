@@ -17,6 +17,7 @@ class Checking extends Component {
     effective: '',
     change: '',
     total: 0,
+    textFinder: '',
     openPrint: false,
     openError: false,
     openTypePay: false
@@ -25,6 +26,7 @@ class Checking extends Component {
     this.input = element
   }
   fetchData = text => {
+    this.setState({textFinder: text})
     let productos = Data.user.productos
     let array = []
     //Buscando coincidencias entre texto y DB de productos
@@ -73,7 +75,6 @@ class Checking extends Component {
     this.handleSave()
   }
   handleAdd = data => {
-    console.log(data);
     let repeat
     this.state.products.map(
       (producto) => (producto.id == data.id)
@@ -91,7 +92,10 @@ class Checking extends Component {
       data.quantity = `${++data.quantity}`
       data.total = `$ ${data.price * data.quantity}`
       console.log(data.quantity, data.total);
-      this.setState({options: []})
+
+      this.setState({
+        options: []
+      })
       console.log(data);
       this.handleUpdate(data)
     }
@@ -99,6 +103,7 @@ class Checking extends Component {
       repeat = false
       this.setState({
         options: [],
+        textFinder: '',
         products: [...this.state.products, data],
       })
       setTimeout(() => {
@@ -108,6 +113,7 @@ class Checking extends Component {
   }
   handleUpdate = data => {
     this.setState({
+      textFinder: '',
       products: this.state.products.map(
         (producto) => producto.id === data.id
         ? Object.assign({}, producto, {
@@ -119,10 +125,11 @@ class Checking extends Component {
     setTimeout(() => this.countTotal(this.state.products), 0)
   }
   handleChange = event => {
+    console.log('Había que hacer algunos cambios');
     this.fetchData(event.target.value)
   }
-  handleChangeTotal = event => {
-    let effective = Number(event.target.value.replace(/([^0-9])/gi, ''))
+  handleChangeTotal = value => {
+    let effective = Number(value.replace(/([^0-9])/gi, ''))
     this.setState({
       effective: `$ ${effective}`,
       change: `$ ${effective - this.state.total}`
@@ -155,6 +162,7 @@ class Checking extends Component {
         effective: '',
         change: '',
         total: 0,
+        textFinder: '',
         openError: false
       })
     } else {
@@ -177,12 +185,10 @@ class Checking extends Component {
     if('Open') {
       this.setState({openError: true})
       setTimeout(() => this.setState({openError: true}), 0)
-      console.log('Voy a abrir el error');
     }
     if('Close' == action){
       this.setState({openError: false})
       setTimeout(() => this.setState({openError: false}), 0)
-      console.log('Voy a cerrar  el error');
     }
   }
   render() {

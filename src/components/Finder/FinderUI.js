@@ -3,35 +3,40 @@ import { Finder } from './styles'
 
 const FinderUI = (props) => {
   return (
-    <div
+    <article
       onClick={props.handleClick}
-      onBlur={props.handleBlur}
-      className={props.classDiv}
+      className={props.classArticle}
       >
       <form
         autoComplete='off'
+        action={props.action}
         className={props.classForm}
+        onSubmit={props.handleSubmit}
         >
         <label
-          htmlFor="finder"
+          htmlFor={props.name}
           className={props.classLabel}
         >
           {props.labelText}
         </label>
         <input
           type="text"
-          name="finder"
+          name={props.name}
           ref={props.setRef}
           value={props.inputText}
           placeholder={props.inputPlace}
+          onBlur={props.handleBlur}
+          onClick={props.handleClick}
           onChange={props.handleChange}
           className={props.classInput}
         />
-        <p>{props.error}</p>
+        <p className={props.classMessage}>
+          {props.error}
+        </p>
       </form>
       {props.children}
       <style jsx>{ Finder }</style>
-    </div>
+    </article>
   )
 }
 
