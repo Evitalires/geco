@@ -1,6 +1,6 @@
 import React, { Fragment, Component } from 'react'
 import Button from '../Button/Button'
-import Producto from '../Product/Producto'
+import ProductSmall from '../Product/ProductSmall/ProductSmall'
 import { Modal } from '../../components/Modal/Modal'
 
 class Print extends Component {
@@ -42,7 +42,7 @@ class Print extends Component {
               <h3>Productos</h3>
               {
                 this.props.products.map((data, key) => (
-                  <Producto
+                  <ProductSmall
                     {...data}
                     key={key}
                     helper=''
@@ -64,7 +64,7 @@ class Print extends Component {
               <p>Cajero: Juan Miguel</p>
               <Button
                 type='button'
-                text='Imprimir'
+                textInput='Imprimir'
                 className='buttonPrintModal'
                 handleClick={this.print}
               />

@@ -1,17 +1,20 @@
 import React from 'react'
 import { styleProduct } from './styles.js'
 import AddRemove from './AddRem/AddRem'
-import Add from '../Add/Add.js'
-import Id from './components/Field/Id'
-import Name from './components/Field/Name'
-import Price from './components/Field/Price'
-import Quantity from './components/Field/Quantity'
+import Add from '../../Add/Add.js'
+import Id from '../components/Id'
+import Name from '../components/Name'
+import Price from '../components/Price'
+import Quantity from '../components/Quantity'
 
-const ProductoUI = (props) => (
-  <div className={props.className || 'Product'}>
+const ProductSmallUI = (props) => (
+  <article className={props.classNameArticle}>
     <Id
       type='Id'
-      value={props.id} />
+      idShort={true}
+      value={props.id}
+      inputPlaceHolder='ID'
+     />
     <Name
       type='description'
       value={props.name}/>
@@ -40,12 +43,7 @@ const ProductoUI = (props) => (
         />
     }
     <style jsx global>{styleProduct}</style>
-  </div>
+  </article>
 )
 
-export default ProductoUI
-/*
-  Producto hará:
-   fetch a la base de datos
-   recibir eventos de AddRem para cambiar el estado de cantidad
-*/
+export default ProductSmallUI

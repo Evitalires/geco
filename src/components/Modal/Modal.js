@@ -33,7 +33,7 @@ export class Modal extends React.Component {
       <React.Fragment>
         <Button
           type='button'
-          text={this.props.textA}
+          textInput={this.props.textA}
           className={this.state.buttonA}
           handleClick={this.open}
         />
@@ -44,7 +44,7 @@ export class Modal extends React.Component {
                 <div className='Container'>
                   <Button
                     type='button'
-                    text={this.props.textB}
+                    textInput={this.props.textB}
                     handleClick={this.close}
                     className={this.state.buttonB}/>
                   {

@@ -1,30 +1,21 @@
 import React, { Component } from 'react'
-import Finder from '../../../Finder/Finder'
+import Finder from '../.././Finder/Finder'
 
 class Quantity extends Component {
   state = {
     error: false,
     inputText: this.props.value,
     inputName: this.props.type,
-    classArticle: 'productArticle',
-    classForm: 'productForm',
-    classInput: 'productInput',
-    classLabel: 'productLabel',
-    classMessage: 'productMessage',
+    labelText: 'Cantidad mínima de venta'
   }
   handleClick = event => {
     this.handleFocus(event)
   }
   handleChange = event => {
-    this.setState({
-      inputText: event.target.value
-    })
     this.props.handleChange(event.target.value, "Quantity")
   }
   handleBlur = event => {
-    this.setState({
-      inputText: event.target.value
-    })
+    this.props.handleChange(event.target.value, "Quantity")
   }
   handleSubmit = event => {
     event.preventDefault()

@@ -1,15 +1,15 @@
 import React, { Component } from 'react'
-import ProductoUI from './ProductoUI'
+import ProductSmallUI from './ProductSmallUI'
 
-class Producto extends Component {
+class ProductSmall extends Component {
   state = {
     helper: this.props.helper,
-    className: this.props.className,
     id: this.props.id,
     name: this.props.name,
     price: this.props.price,
     quantity: this.props.quantity,
-    total: `$ ${this.props.price * this.props.quantity}`
+    total: `$ ${this.props.price * this.props.quantity}`,
+    classNameArticle: 'productSmall',
   }
   handleAdd = () => {
     this.props.handleAdd && this.props.handleAdd(this.state)
@@ -61,7 +61,7 @@ class Producto extends Component {
   }
   render(){
     return (
-      <ProductoUI
+      <ProductSmallUI
         {...this.state}
         handleAdd={this.handleAdd}
         handleAdder={this.handleAdder}
@@ -72,4 +72,4 @@ class Producto extends Component {
   }
 }
 
-export default Producto
+export default ProductSmall

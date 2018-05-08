@@ -128,7 +128,8 @@ class Checking extends Component {
     console.log('Había que hacer algunos cambios');
     this.fetchData(event.target.value)
   }
-  handleChangeTotal = value => {
+  handleChangeTotal = event => {
+    let value = event.target.value
     let effective = Number(value.replace(/([^0-9])/gi, ''))
     this.setState({
       effective: `$ ${effective}`,

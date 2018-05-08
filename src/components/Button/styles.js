@@ -44,7 +44,7 @@ export const stylesButton = css`
   .buttonDark:hover {
     color: white;
   }
-  button {
+  input[type=button] {
     border: none;
     height: 45px;
     outline: none;

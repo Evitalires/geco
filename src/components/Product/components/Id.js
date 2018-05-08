@@ -1,50 +1,42 @@
 import React, { Component } from 'react'
-import Finder from '../../../Finder/Finder'
+import Finder from '../.././Finder/Finder'
 
 class Id extends Component {
   state = {
     error: false,
-    inputText: "ID",
+    value: this.props.value,
+    inputText: this.props.inputText,
     inputName: this.props.type,
-    classArticle: 'productArticle',
-    classForm: 'productForm',
-    classInput: 'productInput',
-    classLabel: 'productLabel',
-    classMessage: 'productMessage'
+    inputPlaceHolder: this.props.inputPlaceHolder,
+    labelText: 'Número de identificación',
   }
   setRef = element => {
     this.input = element
   }
   handleClick =  event => {
     this.setState({
-      inputText: this.props.value
+      inputText: this.state.value
     })
     event.persist()
     this.handleFocus(event)
   }
   handleBlur = event => {
-    this.setState({
-      inputText: 'ID'
-    })
+    if(this.props.idShort) {
+      this.setState({
+        inputText: 'ID',
+        value: event.target.value
+      })
+    }
+    else {
+      this.setState({
+        inputText: event.target.value,
+        value: event.target.value
+      })
+    }
   }
   handleChange = event => {
-    let Id = this.input
-    let error = Id.nextElementSibling
-    if(/([^0-9])/gi.test(Id.value)) {
-      error.className += (error.className.search(' moveError') < 0) ? ' moveError' : ''
-      error.innerText = 'Aquí van solo numeros'
-    }
-    if(!/([^0-9])/gi.test(Id.value)) {
-      error.innerText = ''
-      error.className = error.className.replace(' moveError', '')
-    }
-    if(/([^0-9])/gi.test(Id.value)) {
-      setTimeout(()=>{ Id.value = Id.value.replace(/([^0-9])/gi, '')}, 3000)
-    }
-    this.setState({
-      inputText: Id.value,
-      error: error.innerText
-    })
+    let text = event.target.value.replace(/([^0-9])/gi, '')
+    this.setState({ inputText: text })
   }
   handleSubmit = event => {
     event.preventDefault()

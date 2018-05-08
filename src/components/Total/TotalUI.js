@@ -13,7 +13,6 @@ const TotalUI = (props) => {
         inputText={props.effective}
         inputPlace={'$ 0'}
         labelText='Efectivo'
-        handleBlur={true}
         handleChange={props.handleChange}
         handleClick={props.handleClick}
         classArticle='finderChange'

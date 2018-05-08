@@ -1,6 +1,6 @@
 import React from 'react'
-import IconMore from '../../Icons/more'
-import IconLess from '../../Icons/less'
+import IconMore from '../../../Icons/more'
+import IconLess from '../../../Icons/less'
 
 const AddRemove = (props) => (
   <div className='AddRem'>

@@ -1,8 +1,8 @@
 import React from 'react'
-import Producto from '../../components/Product/Producto'
+import ProductSmall from '../../components/Product/ProductSmall/ProductSmall'
 import Button from '../../components/Button/Button'
 import Total from '../../components/Total/Total'
-import AddRemove from '../../components/Product/AddRem/AddRem'
+import AddRemove from '../../components/Product/ProductSmall/AddRem/AddRem'
 import Finder from '../../components/Finder/Finder'
 import TypePay from '../../components/TypePay/TypePay'
 import Print from '../../components/Print/Print'
@@ -15,7 +15,7 @@ const CheckingUI = (props) => {
       <Finder
         inputText={props.textFinder}
         setRef={props.setRef}
-        inputPlace='Find Something'
+        inputPlaceHolder='Find Something'
         classInput={'checkFinderInput'}
         classForm={'checkFinderForm'}
         classArticle={'checkFinderArticle'}
@@ -25,7 +25,7 @@ const CheckingUI = (props) => {
         {
           (props.options.length > 0) &&
           props.options.map((data, key) => (
-            <Producto
+            <ProductSmall
               {...data}
               key={key}
               helper='addToChecking'
@@ -37,7 +37,7 @@ const CheckingUI = (props) => {
       <section className='CheckingProducts'>
         {
           props.products.map((data, key) => (
-            <Producto
+            <ProductSmall
               {...data}
               key={key}
               helper='addRemove'
@@ -64,7 +64,8 @@ const CheckingUI = (props) => {
           handlePrintSave={props.handlePrintSave}
         />
         <Button
-          text='Guardar'
+          type='button'
+          textInput='Guardar'
           className='buttonDark'
           handleClick={props.handleSave}
         />

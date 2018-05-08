@@ -1,6 +1,6 @@
 import React, { Fragment, Component } from 'react'
 import Button from '../Button/Button'
-import Producto from '../Product/Producto'
+import ProductSmall from '../Product/ProductSmall/ProductSmall'
 import { Modal } from '../../components/Modal/Modal'
 import  Check from '../../components/Icons/check'
 import FieldCheck from './components/FieldCheck'
@@ -83,7 +83,8 @@ class TypePay extends Component {
             </ul>
           </article>
           <Button
-            text='Guardar'
+            type='button'
+            textInput='Guardar'
             className='buttonDark center'
             handleClick={this.closeModal}
           />

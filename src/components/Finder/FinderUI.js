@@ -15,6 +15,7 @@ const FinderUI = (props) => {
         >
         <label
           htmlFor={props.name}
+          value={props.labelText}
           className={props.classLabel}
         >
           {props.labelText}

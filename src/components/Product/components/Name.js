@@ -1,16 +1,12 @@
 import React, { Component } from 'react'
-import Finder from '../../../Finder/Finder'
+import Finder from '../.././Finder/Finder'
 
 class Name extends Component {
   state = {
     error: false,
     inputText: this.props.value,
     inputName: this.props.type,
-    classArticle: 'productArticle',
-    classForm: 'productForm',
-    classInput: 'productInput',
-    classLabel: 'productLabel',
-    classMessage: 'productMessage',
+    labelText: 'Descripción',
   }
   setRef = element => {
     this.input = element

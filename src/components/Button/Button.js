@@ -3,7 +3,8 @@ import ButtonUI from './ButtonUI'
 
 class Button extends Component {
   state = {
-    text: this.props.text,
+    textInput: this.props.textInput,
+    textLabel: this.props.textLabel,
     type: this.props.type,
     className: this.props.className
   }

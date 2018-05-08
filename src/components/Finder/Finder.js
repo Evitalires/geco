@@ -11,7 +11,7 @@ class Finder extends Component {
   state = {
     action: this.props.action || '',
     seeker: this.props.seeker,
-    inputPlace: this.props.inputPlace,
+    inputPlace: this.props.inputPlaceHolder,
     inputName: this.props.name || 'finder',
     inputText: this.props.inputText,
     labelText: this.props.labelText,
@@ -31,7 +31,7 @@ class Finder extends Component {
     this.props.handleChange && this.props.handleChange(event)
   }
   handleBlur = event => {
-    this.props.handleBlur && this.props.handleBlur(event)
+    (this.props.handleBlur) && this.props.handleBlur(event)
   }
   handleSubmit = event => {
     event.preventDefault()
