@@ -1,7 +1,7 @@
 import React from 'react'
 
 const Icon = (props) => {
-  const { color, size} = props
+  const {color, size} = props
   return (
     <div>
       <svg
@@ -10,7 +10,7 @@ const Icon = (props) => {
         height={size}
         width={size}
         >
-        {props.children}//importamos el hijo de svg
+        {props.children}
       </svg>
       <style jsx>{`
         div {

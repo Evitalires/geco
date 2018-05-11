@@ -40,6 +40,10 @@ class Options extends Component {
           />
         </article>
         <style jsx>{`
+          section {
+            padding: 8px 0px;
+            margin: 24px 0px;
+          }
           .OptionsModal {
             display: flex;
             padding-top: 24px;

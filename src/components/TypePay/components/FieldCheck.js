@@ -18,6 +18,7 @@ class FieldCheck extends Component {
     this.input.focus()
   }
   handleBlur = () => {
+    //unsetting styles
     this.label.style.color = '#788895'
     this.input.checked = false
     this.input.style.background = '#788895'
