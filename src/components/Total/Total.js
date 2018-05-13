@@ -3,7 +3,7 @@ import TotalUI from './TotalUI'
 
 class Total extends Component {
   state = {
-    total: this.props.total,
+    total: `$ ${this.props.total}`,
     change: this.props.change,
     effective: this.props.effective,
   }
@@ -15,7 +15,7 @@ class Total extends Component {
   }
   componentWillReceiveProps(nextProps){
     this.setState({
-      total: nextProps.total,
+      total: `$ ${nextProps.total}`,
       change: nextProps.change,
       effective: nextProps.effective,
     })

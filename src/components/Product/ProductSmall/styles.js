@@ -5,14 +5,13 @@ export const styleProduct = css`
    * Styles for ProductSmall
    */
   .productSmall {
-    height: 40px;
+    height: 44px;
     overflow: hidden;
     width: 90%;
     margin: 8px auto;
     display: flex;
     align-items: center;
     padding: 8px 8px;
-    border: 1px solid green;
     background-color: #C8D2D9;
   }
   .productSmall:hover {
@@ -28,6 +27,9 @@ export const styleProduct = css`
   .productSmall label,
   .productSmall p {
     display: none;
+  }
+  .productSmall p {
+    margin: 0;
   }
   .productSmall input {
     margin: 0px;
@@ -45,7 +47,7 @@ export const styleProduct = css`
   .ProductPrint {
     display: flex;
   }
-  .ProductPrint .Id {
+  .ProductPrint article:nth-of-type(1) {
     display: none;
   }
   .ProductPrint form input {

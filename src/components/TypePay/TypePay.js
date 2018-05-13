@@ -28,7 +28,10 @@ class TypePay extends Component {
     (this.props.handleOpenCloseTypePay) && this.props.handleOpenCloseTypePay('Close')
   }
   componentWillReceiveProps(nextProps) {
-    this.setState({opened: nextProps.opened})
+    this.setState({
+      opened: nextProps.opened,
+      select: nextProps.typePay
+    })
   }
   render() {
     let fecha = new Date()

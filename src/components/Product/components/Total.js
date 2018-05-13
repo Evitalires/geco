@@ -1,27 +1,31 @@
 import React, { Component } from 'react'
 import Finder from '../.././Finder/Finder'
 
-class Name extends Component {
+class Total extends Component {
   state = {
     error: false,
-    inputText: this.props.value,
+    inputText: `$ ${this.props.price * this.props.quantity}`,
     inputName: this.props.type,
-    labelText: 'Descripción',
+    labelText: 'Precio final',
   }
   setRef = element => {
     this.input = element
   }
-  handleClick = event => {
+  replace = value => {
+    console.log(value);
+    return value = Number(value.replace(/([$ ])/, ""))
   }
-  handleChange = event => {
-    (this.props.handleChange) && this.props.handleChange(event.target.value)
+  handleClick = event => {
+    event.persist()
+    this.handleFocus(event)
   }
   handleBlur = event => {
-    console.log("Blur");
+    let value = this.replace(event.target.value)
+    console.log(value);
+    (this.props.handleChange) && this.props.handleChange(value, 'Total')
   }
   handleSubmit = event => {
     event.preventDefault()
-    console.log("Submit")
   }
   handleFocus = event => {
     event.persist()
@@ -30,7 +34,12 @@ class Name extends Component {
       event.target.selectionStart = event.target.value.length;
       event.target.selectionEnd = event.target.value.length;
       event.target.focus()
-    }, 200)
+    }, 0)
+  }
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      inputText: `$ ${nextProps.price * nextProps.quantity}`
+    })
   }
   render() {
     return (
@@ -46,4 +55,4 @@ class Name extends Component {
   }
 }
 
-export default Name
+export default Total

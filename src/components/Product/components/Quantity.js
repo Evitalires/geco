@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { HandleError } from './utils/utils'
 import Finder from '../.././Finder/Finder'
 
 class Quantity extends Component {
@@ -9,25 +10,15 @@ class Quantity extends Component {
     labelText: 'Cantidad mínima de venta'
   }
   handleClick = event => {
-    this.handleFocus(event)
   }
   handleChange = event => {
-    this.props.handleChange(event.target.value, "Quantity")
+    (this.props.handleChange) && this.props.handleChange(event.target.value, "Quantity")
   }
   handleBlur = event => {
-    this.props.handleChange(event.target.value, "Quantity")
+    this.handleChange(event)
   }
   handleSubmit = event => {
     event.preventDefault()
-  }
-  handleFocus = event => {
-    event.persist()
-    event.target.select()
-    setTimeout(() => {
-      event.target.selectionStart = event.target.value.length;
-      event.target.selectionEnd = event.target.value.length;
-      event.target.focus()
-    }, 0)
   }
   componentWillReceiveProps(nextProps){
     this.setState({inputText: nextProps.value})

@@ -5,14 +5,16 @@ import Add from '../../Add/Add.js'
 import Id from '../components/Id'
 import Name from '../components/Name'
 import Price from '../components/Price'
+import Total from '../components/Total'
 import Quantity from '../components/Quantity'
 
 const ProductSmallUI = (props) => (
-  <article className={props.classNameArticle}>
+  <article className={props.className}>
     <Id
       type='Id'
       idShort={true}
       value={props.id}
+      inputText='ID'
       inputPlaceHolder='ID'
      />
     <Name
@@ -23,9 +25,10 @@ const ProductSmallUI = (props) => (
       value={props.quantity}
       handleChange={props.handleChange}
     />
-    <Price
-      type='price'
-      value={props.total}
+    <Total
+      type='total'
+      price={props.price}
+      quantity={props.quantity}
       handleChange={props.handleChange}
     />
     {

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { HandleError } from './utils/utils'
 import Finder from '../.././Finder/Finder'
 
 class Id extends Component {
@@ -14,11 +15,10 @@ class Id extends Component {
     this.input = element
   }
   handleClick =  event => {
-    this.setState({
-      inputText: this.state.value
-    })
     event.persist()
-    this.handleFocus(event)
+    if(this.props.idShort) {
+      this.setState({inputText: this.props.value})
+    }
   }
   handleBlur = event => {
     if(this.props.idShort) {
@@ -27,16 +27,18 @@ class Id extends Component {
         value: event.target.value
       })
     }
-    else {
-      this.setState({
-        inputText: event.target.value,
-        value: event.target.value
-      })
-    }
   }
   handleChange = event => {
+    console.log(this.setState);
+    if(event.target.value.search(/([^0-9])/) > -1) {
+      this.setState({ error: 'Solo se permiten números' })
+      event.persist()
+      //HandleError(event, this)
+    }
     let text = event.target.value.replace(/([^0-9])/gi, '')
-    this.setState({ inputText: text })
+    this.setState({
+      inputText: text,
+    })
   }
   handleSubmit = event => {
     event.preventDefault()

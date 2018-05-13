@@ -25,7 +25,7 @@ const FinderUI = (props) => {
           name={props.name}
           ref={props.setRef}
           value={props.inputText}
-          placeholder={props.inputPlace}
+          placeholder={props.inputPlaceHolder}
           onBlur={props.handleBlur}
           onClick={props.handleClick}
           onChange={props.handleChange}

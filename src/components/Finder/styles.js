@@ -6,7 +6,7 @@ export const Finder = css`
   }
   form {
     width: 100%;
-    height: 60px;
+    height: 100%;
   }
   input {
     margin: 0px 20px;
@@ -26,12 +26,14 @@ export const Finder = css`
   }
   .finderChange form {
     display: flex;
+    height: 100%;
     flex-direction: row;
     align-items: center;
     justify-content:space-between;
   }
   .finderChange form p {
     display: none;
+    margin: 0;
   }
   .finderChange form label,
   .finderChange form input {
@@ -98,7 +100,6 @@ export const Finder = css`
      height: 100%;
    }
    .productForm {
-     height: 100%;
      width: max-content;
      border-right: 2px solid #788895;
    }

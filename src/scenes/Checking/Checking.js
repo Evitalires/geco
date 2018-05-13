@@ -63,13 +63,16 @@ class Checking extends Component {
   }
   countTotal = () => {
     let total = 0;
+    console.log(typeof total);
     let products = this.state.products
     for(let i = 0; i < products.length; i++) {
-      total += Number(products[i].total.replace('$', ''))
+      console.log(total);
+      total += Number(products[i].price * products[i].quantity)
     }
+    console.log(total);
     this.setState({
-      total: total
-    })
+       total: total
+     })
   }
   handlePrintSave = () => {
     this.handleSave()
@@ -88,15 +91,12 @@ class Checking extends Component {
           ? data.quantity = producto.quantity
           : repeat = false)
       })
-      console.log(data);
-      data.quantity = `${++data.quantity}`
-      data.total = `$ ${data.price * data.quantity}`
-      console.log(data.quantity, data.total);
+      data.quantity = ++data.quantity
+      data.total = data.price * data.quantity
 
       this.setState({
         options: []
       })
-      console.log(data);
       this.handleUpdate(data)
     }
     else {
@@ -118,14 +118,13 @@ class Checking extends Component {
         (producto) => producto.id === data.id
         ? Object.assign({}, producto, {
           quantity: data.quantity,
-          total: data.total
+          price: data.price
         })
         : producto)
     })
     setTimeout(() => this.countTotal(this.state.products), 0)
   }
   handleChange = event => {
-    console.log('Había que hacer algunos cambios');
     this.fetchData(event.target.value)
   }
   handleChangeTotal = event => {
@@ -171,9 +170,11 @@ class Checking extends Component {
     }
     console.log(Data);
   }
+
   handleSaveTypePay = text => {
     this.setState({typePay: text})
   }
+
   handleOpenCloseTypePay = action => {
     if(action == 'Open') {
       this.setState({openTypePay: true})
@@ -182,6 +183,7 @@ class Checking extends Component {
       this.setState({openTypePay: false})
     }
   }
+
   handleCloseOpenError = action => {
     if('Open') {
       this.setState({openError: true})

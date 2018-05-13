@@ -8,8 +8,7 @@ class ProductSmall extends Component {
     name: this.props.name,
     price: this.props.price,
     quantity: this.props.quantity,
-    total: `$ ${this.props.price * this.props.quantity}`,
-    classNameArticle: 'productSmall',
+    className: (this.props.className) ? this.props.className : 'productSmall' ,
   }
   handleAdd = () => {
     this.props.handleAdd && this.props.handleAdd(this.state)
@@ -18,35 +17,39 @@ class ProductSmall extends Component {
     let cantidad = Number(this.state.quantity) + 1
     console.log(this.state.total);
     this.setState({
-      quantity: cantidad,
-      total: `$ ${this.state.price * (cantidad)}`
+      quantity: cantidad
     })
     this.props.handleUpdate && setTimeout( () => this.props.handleUpdate(this.state), 0)
-    setTimeout(() => console.log(this.state.total))
   }
   handleRemove = () => {
     if(this.state.quantity > 0) {
       this.setState({
-        quantity: this.state.quantity - 1,
-        total: `$ ${this.state.price * (this.state.quantity - 1)}`
+        quantity: this.state.quantity - 1
       })
     }
     this.props.handleUpdate && setTimeout( () => this.props.handleUpdate(this.state), 0)
   }
   handleChange = (value, type) => {
-    value = Number(value.replace(/([ $ ])/, ""))
+    console.log(value % this.state.price >= 0);
+    //value = Number(value.replace(/([ $ ])/, ""))
     if(type == 'Quantity') {
-      this.setState({
-        quantity: value,
-        total: `$ ${this.state.price * value}`
-      })
+      this.setState({ quantity: value})
     }
-    else if(value % this.state.price >= 0){
-      let cant = value / this.state.price
-      this.setState({
-        quantity: cant.toFixed(),
-        total: `$ ${value}`
-      })
+    else if(type == 'Total'){
+      let cant = (value / this.state.price).toFixed()
+      console.log(this.state.price, cant);
+      if(cant < 1) {
+        this.setState({
+          quantity: 1,
+          price: value
+        })
+      }
+      else {
+        this.setState({
+          quantity: cant,
+          price: (value / cant).toFixed()
+        })
+      }
     }
     this.props.handleUpdate && setTimeout( () => this.props.handleUpdate(this.state), 0)
   }
@@ -55,7 +58,6 @@ class ProductSmall extends Component {
       id: nextProps.id,
       name: nextProps.name,
       price: nextProps.price,
-      total: nextProps.total,
       quantity: nextProps.quantity,
     })
   }

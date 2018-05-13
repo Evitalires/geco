@@ -12,7 +12,7 @@ class Button extends Component {
     this.props.handleClick && this.props.handleClick()
   }
   componentWillReceiveProps(nextProps) {
-    this.setState({text: nextProps.text})
+    this.setState({textInput: nextProps.textInput})
   }
   render() {
     return(

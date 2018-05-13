@@ -6,6 +6,8 @@ export const styleProduct = css`
     background: #E0EDF3;
   }
   .ProductExtended form {
+    height: 100%;
+    transition: .5s;
     margin: 8px 0px;
   }
   .ProductExtended label {
@@ -27,7 +29,14 @@ export const styleProduct = css`
   }
   .ProductExtended p {
     display: none;
+    color: red;
+    margin: 0px;
+    height: 30px;
+    transition: .5s;
   }
+  /**
+   * For component Options
+   */
   .ProductExtendedOptions {
     padding: 0px;
     height: 90px;

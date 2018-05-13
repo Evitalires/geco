@@ -7,7 +7,7 @@ const TotalUI = (props) => {
     <article className='Total'>
       <div className='TotalRef'>
         <h2 className='TotalText'>Total</h2>
-        <h2 className='TotalValor'>{`$ ${props.total}`}</h2>
+        <h2 className='TotalValor'>{props.total}</h2>
       </div>
       <Finder
         inputText={props.effective}

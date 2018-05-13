@@ -11,7 +11,7 @@ class Finder extends Component {
   state = {
     action: this.props.action || '',
     seeker: this.props.seeker,
-    inputPlace: this.props.inputPlaceHolder,
+    inputPlaceHolder: this.props.inputPlaceHolder,
     inputName: this.props.name || 'finder',
     inputText: this.props.inputText,
     labelText: this.props.labelText,
@@ -20,7 +20,7 @@ class Finder extends Component {
     classInput: this.props.classInput,
     classLabel: this.props.classLabel,
     classMessage: this.props.classMessage,
-    error: false
+    error: this.props.error
   }
   handleClick = event => {
     this.props.handleClick && this.props.handleClick(event)
@@ -36,9 +36,19 @@ class Finder extends Component {
   handleSubmit = event => {
     event.preventDefault()
   }
+  handleFocus = event => {
+    event.persist()
+    event.target.select()
+    setTimeout(() => {
+      event.target.selectionStart = event.target.value.length;
+      event.target.selectionEnd = event.target.value.length;
+      event.target.focus()
+    }, 0)
+  }
   componentWillReceiveProps(nextProps) {
     this.setState({
-      inputText: nextProps.inputText
+      error: nextProps.error,
+      inputText: nextProps.inputText,
     })
   }
   render() {

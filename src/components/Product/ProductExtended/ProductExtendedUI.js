@@ -14,7 +14,6 @@ const ProductExtendedUI = (props) => {
       <Id
         type='Id'
         inputText={props.id}
-        inputPlaceHolder='ID'
        />
       <Name
         type='description'
@@ -25,16 +24,17 @@ const ProductExtendedUI = (props) => {
       />
       <Price
         type='price'
-        value={props.price}
-      />
-      <Select
-        options={['Lacteos', 'Abarrote', 'Aseo Personal', 'Aseo General']}
-        mainText={'Categoría'}
-        selecText={'Selecciona una'}
+        price={props.price}
+        handleChange={props.handlePrice}
       />
       <Select
         options={['Exento', 'Otro', 'Otro']}
         mainText={'Clasificación Iva'}
+        selecText={'Selecciona una'}
+      />
+      <Select
+        options={['Lacteos', 'Abarrote', 'Aseo Personal', 'Aseo General']}
+        mainText={'Categoría'}
         selecText={'Selecciona una'}
       />
       <Options

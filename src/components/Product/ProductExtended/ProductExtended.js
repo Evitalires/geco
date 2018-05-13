@@ -5,8 +5,12 @@ class ProductExtended extends Component {
   state = {
     id: '1012422221',
     name: 'Hola',
-    price: 0,
+    price: 2000,
     quantity: 1,
+  }
+  handlePrice = value => {
+    value = value.replace(/([^0-9])/gi, '')
+    this.setState({price: value})
   }
   componentWillReceiveProps(nextProps) {
     this.setState({
@@ -21,6 +25,7 @@ class ProductExtended extends Component {
     return (
       <ProductExtendedUI
         {...this.state}
+        handlePrice={this.handlePrice}
       />
     )
   }
