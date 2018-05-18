@@ -3,12 +3,15 @@ import Button from '../Button/Button'
 import ProductSmall from '../Product/ProductSmall/ProductSmall'
 import { Modal } from '../../components/Modal/Modal'
 import  Check from '../../components/Icons/check'
-import FieldCheck from './components/FieldCheck'
+import FieldCheck from '../FieldCheck/FieldCheck'
 
 class ListCheck extends Component {
   state = {
     options: this.props.options,
     select: this.props.select
+  }
+  handleClick = text => {
+    (this.props.handleSelect) && this.props.handleSelect(text)
   }
   handleChange = event => {
     let label = event.target.parentElement.parentElement
@@ -36,8 +39,9 @@ class ListCheck extends Component {
                 this.state.options.map((text, key) => (
                   <li key={key}>
                     <FieldCheck
-                      mensaje={console.log(text)}
                       text={text}
+                      selected={this.state.select}
+                      handleClick={this.handleClick}
                       checked={this.setIsChecked(text)}/>
                   </li>
                 ))

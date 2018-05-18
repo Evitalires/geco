@@ -24,6 +24,7 @@ const SelectBox = (props) => (
         padding-left: 16px;
         transition: .5s;
         justify-content: space-between;
+        border: 1px solid #788895;
       }
       div:hover {
         border: 1px solid #48ACEC;

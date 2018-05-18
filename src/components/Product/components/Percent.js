@@ -1,28 +1,35 @@
 import React, { Component } from 'react'
 import Finder from '../.././Finder/Finder'
 
-class Name extends Component {
+class Price extends Component {
   state = {
     error: false,
-    inputText: this.props.value,
+    inputText: `% ${this.props.percent}`,
     inputName: this.props.type,
-    labelText: 'Descripción',
+    labelText: this.props.labelText,
   }
   setRef = element => {
     this.input = element
   }
+  replace = value => {
+    return value = Number(value.replace(/([% ])/, ""))
+  }
   handleClick = event => {
+    event.persist()
+    this.handleFocus(event)
   }
   handleChange = event => {
-    this.setState({inputText: event.target.value})
-    //(this.props.handleChange) && this.props.handleChange(event.target.value)
+    let value = this.replace(event.target.value)
+    console.log();
+    (this.props.handleChange) && this.props.handleChange(value, 'Total')
   }
   handleBlur = event => {
-    (this.props.handleBlur) && this.props.handleBlur(event.target.value)
+    let value = this.replace(event.target.value)
+    console.log();
+    (this.props.handleBlur) && this.props.handleBlur(value, 'Total')
   }
   handleSubmit = event => {
     event.preventDefault()
-    console.log("Submit")
   }
   handleFocus = event => {
     event.persist()
@@ -31,7 +38,12 @@ class Name extends Component {
       event.target.selectionStart = event.target.value.length;
       event.target.selectionEnd = event.target.value.length;
       event.target.focus()
-    }, 200)
+    }, 0)
+  }
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      inputText: `% ${nextProps.percent}`
+    })
   }
   render() {
     return (
@@ -47,4 +59,4 @@ class Name extends Component {
   }
 }
 
-export default Name
+export default Price

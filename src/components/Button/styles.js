@@ -35,6 +35,13 @@ export const stylesButton = css`
   .buttonPrintModal:hover {
     color: white;
   }
+  .buttonLight {
+    width: 130px;
+    margin: 0 36%;
+    color: white;
+    background: #48ACEC;
+    padding: 8px 24px;
+  }
   .buttonDark {
     width: 130px;
     color: #788895;

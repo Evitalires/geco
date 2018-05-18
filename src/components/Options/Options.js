@@ -3,15 +3,11 @@ import Button from '../../components/Button/Button'
 
 class Options extends Component {
   state = {
-    className: this.props.className,
-    typeButtons: this.props.typeButtons,
     message: this.props.message,
     messageDeny: this.props.messageDeny,
     messageDenyLabel: this.props.messageDenyLabel,
     messageConfirm: this.props.messageConfirm,
-    messageConfirmLabel: this.props.messageConfirmLabel,
-    classButtonDeny: this.props.classButtonDeny,
-    classButtonConfirm: this.props.classButtonConfirm,
+    messageConfirmLabel: this.props.messageConfirmLabel
   }
   handleConfirm = () => {
     (this.props.handleConfirm) && this.props.handleConfirm()
@@ -25,17 +21,17 @@ class Options extends Component {
         <h1>{this.state.message}</h1>
         <article>
           <Button
+            type='button'
+            className='buttonGray'
             textLabel={this.state.messageConfirmLabel}
             textInput={this.state.messageConfirm}
-            type={this.state.typeButtons}
-            className={this.props.classButtonConfirm || 'buttonGray'}
             handleClick={this.handleConfirm}
           />
           <Button
+            type='button'
+            className='buttonDark'
             textLabel={this.state.messageDenyLabel}
             textInput={this.state.messageDeny}
-            type={this.state.typeButtons}
-            className={this.props.classButtonDeny || 'buttonDark'}
             handleClick={this.handleDeny}
           />
         </article>

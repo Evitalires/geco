@@ -1,14 +1,14 @@
 import React, { Component, Fragment } from 'react'
-import Check from '../../../components/Icons/check'
+import Check from '../../components/Icons/check'
 
 class FieldCheck extends Component {
   state = {
+    selected: this.props.selected,
     text: this.props.text,
     checked: this.props.checked,
     id: this.props.text.split(' ').join('')
   }
   handleClick = event => {
-    console.log(this.state.text);
     //Setting styles
     this.label.style.color = '#48ACEC'
     this.input.style.border = '2px solid #48ACEC'
@@ -16,18 +16,22 @@ class FieldCheck extends Component {
     if(this.check.className.search(/checked/) < 1) {
       this.check.className = this.check.className.replace(/noChecked/, 'checked')
     }
-    this.input.focus()
+    (this.props.handleClick) && this.props.handleClick(this.state.text)
   }
   handleBlur = event => {
-    //unsetting styles
-    this.label.style.color = '#788895'
-    this.input.checked = false
-    this.input.style.border = '2px solid #788895'
+    setTimeout(() => {
+      if(this.state.selected != false && this.state.selected != this.state.text) {
+        //unsetting styles
+        this.label.style.color = '#788895'
+        this.input.checked = false
+        this.input.style.border = '2px solid #788895'
 
-    this.label.style.borderBottom = '1px solid #788895'
-    if(this.check.className.search(/noChecked/) < 1) {
-      this.check.className = this.check.className.replace(/checked/, 'noChecked')
-    }
+        this.label.style.borderBottom = '1px solid #788895'
+        if(this.check.className.search(/noChecked/) < 1) {
+          this.check.className = this.check.className.replace(/checked/, 'noChecked')
+        }
+      }
+    }, 100)
   }
   setRef = element => {
     this.input = element
@@ -37,9 +41,14 @@ class FieldCheck extends Component {
     }
   }
   componentDidMount() {
+    //The code below works for keep styles of this component if this is selected
     if(this.state.checked) {
-      setTimeout(() => this.handleClick(), 0)
+       setTimeout(() => this.handleClick(), 0)
     }
+  }
+  componentWillReceiveProps(nextProps) {
+    this.setState({selected: nextProps.selected})
+    this.handleBlur()
   }
   render() {
     return(
@@ -48,6 +57,7 @@ class FieldCheck extends Component {
               className='FieldCheck'
               htmlFor={this.state.id}
               onClick={this.handleClick}
+              onBlur={this.handleBlur}
               >
               {this.state.text}
               <div
@@ -58,7 +68,6 @@ class FieldCheck extends Component {
                     type="radio"
                     id={this.state.id}
                     ref={this.setRef}
-                    onBlur={this.handleBlur}
                   />
                   <div className='noChecked'>
                     <Check size={20} color='#48ACEC'/>

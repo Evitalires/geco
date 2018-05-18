@@ -12,7 +12,6 @@ class Total extends Component {
     this.input = element
   }
   replace = value => {
-    console.log(value);
     return value = Number(value.replace(/([$ ])/, ""))
   }
   handleClick = event => {

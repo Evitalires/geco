@@ -27,13 +27,13 @@ class Id extends Component {
         value: event.target.value
       })
     }
+    (this.props.handleBlur) && this.props.handleBlur(event.target.value)
   }
   handleChange = event => {
-    console.log(this.setState);
     if(event.target.value.search(/([^0-9])/) > -1) {
       this.setState({ error: 'Solo se permiten números' })
       event.persist()
-      //HandleError(event, this)
+      HandleError(event, this)
     }
     let text = event.target.value.replace(/([^0-9])/gi, '')
     this.setState({

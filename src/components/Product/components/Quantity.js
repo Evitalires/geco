@@ -7,7 +7,7 @@ class Quantity extends Component {
     error: false,
     inputText: this.props.value,
     inputName: this.props.type,
-    labelText: 'Cantidad mínima de venta'
+    labelText: this.props.labelText
   }
   handleClick = event => {
   }
@@ -15,7 +15,7 @@ class Quantity extends Component {
     (this.props.handleChange) && this.props.handleChange(event.target.value, "Quantity")
   }
   handleBlur = event => {
-    this.handleChange(event)
+    (this.props.handleBlur) && this.props.handleBlur(event.target.value)
   }
   handleSubmit = event => {
     event.preventDefault()

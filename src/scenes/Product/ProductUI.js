@@ -1,7 +1,9 @@
 import React from 'react'
 import ProductExtended from '../../components/Product/ProductExtended/ProductExtended'
 import Finder from '../../components/Finder/Finder'
-const ProductUI = () => {
+import Button from '../../components/Button/Button'
+
+const ProductUI = props => {
   return (
     <section>
       <Finder
@@ -10,7 +12,15 @@ const ProductUI = () => {
         classForm={'checkFinderForm'}
         classArticle={'checkFinderArticle'}
       />
-      <ProductExtended/>
+      <ProductExtended
+        handleUpdate={props.handleUpdate}
+      />
+      <Button
+        type='button'
+        textInput='Guardar'
+        className='buttonLight'
+        handleClick={props.handleSave}
+      />
     </section>
   )
 }

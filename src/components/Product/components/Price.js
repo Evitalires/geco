@@ -1,31 +1,49 @@
-import * as React from 'react'
+import React, { Component } from 'react'
 import Finder from '../.././Finder/Finder'
 
-class Price extends React.Component {
+class Price extends Component {
   state = {
     error: false,
-    inputText: this.props.price,
+    inputText: `$ ${this.props.price}`,
     inputName: this.props.type,
-    labelText: 'Precio de venta',
+    labelText: this.props.labelText,
   }
   setRef = element => {
     this.input = element
   }
+  replace = value => {
+    return value = Number(value.replace(/([$ ])/, ""))
+  }
   handleClick = event => {
+    event.persist()
+    this.handleFocus(event)
   }
   handleChange = event => {
-    (this.props.handleChange) && this.props.handleChange(event.target.value, 'Price')
+    let value = this.replace(event.target.value)
+    this.setState({inputText: value})
+    console.log();
+    (this.props.handleChange) && this.props.handleChange(value, 'Total')
   }
-  handleBlur = event => {
-    (this.props.handleBlur) && this.props.handleChange(event.target.value)
+  handleBlur =  event => {
+    let value =  this.replace(event.target.value)
+    console.log();
+    (this.props.handleBlur) && this.props.handleBlur(value, 'Total')
   }
   handleSubmit = event => {
     event.preventDefault()
   }
+  handleFocus = event => {
+    event.persist()
+    event.target.select()
+    setTimeout(() => {
+      event.target.selectionStart = event.target.value.length;
+      event.target.selectionEnd = event.target.value.length;
+      event.target.focus()
+    }, 0)
+  }
   componentWillReceiveProps(nextProps) {
     this.setState({
-      error: nextProps.error,
-      inputText: nextProps.price
+      inputText: `$ ${nextProps.price}`
     })
   }
   render() {

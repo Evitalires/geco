@@ -10,14 +10,16 @@ class Select extends React.Component {
     selecText: this.props.selecText
   }
   handleClick = event => {
-    setTimeout(() => {
       this.setState({hidden: !this.state.hidden})
-    }, 300)
   }
-  handleSelect = texto => {
+  handleSelect = text => {
     this.setState({
-      selecText: texto
+      selecText: text
     })
+    this.handleAnswer(text)
+  }
+  handleAnswer = text => {
+    (this.props.handleAnswer) && this.props.handleAnswer(text)
   }
   render(){
     return (
@@ -28,11 +30,18 @@ class Select extends React.Component {
         {
           (this.state.hidden)
           ? <SelectBox
+            showIcon={true}
             text={this.state.selecText}
-            className={(this.props.selecText != this.state.selecText) ? 'select': 'unSelect' }
-            showIcon={true}/>
+            className={
+              (this.props.selecText != this.state.selecText)
+              ? 'select'
+              : 'unSelect' }
+            />
           : <React.Fragment>
-              <SelectBox className='unSelect' showIcon={false}/>
+              <SelectBox
+                className='unSelect'
+                showIcon={false}
+              />
               <section>
                 <ListCheck
                   options={this.state.options}

@@ -30,8 +30,7 @@ class ProductSmall extends Component {
     this.props.handleUpdate && setTimeout( () => this.props.handleUpdate(this.state), 0)
   }
   handleChange = (value, type) => {
-    console.log(value % this.state.price >= 0);
-    //value = Number(value.replace(/([ $ ])/, ""))
+    console.log(this.setState);
     if(type == 'Quantity') {
       this.setState({ quantity: value})
     }
