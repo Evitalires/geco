@@ -4,8 +4,8 @@ import Finder from '../.././Finder/Finder'
 class Name extends Component {
   state = {
     error: false,
-    inputText: this.props.value,
-    inputName: this.props.type,
+    inputText: this.props.inputText,
+    inputName: this.props.inputName,
     labelText: 'Descripción',
   }
   setRef = element => {

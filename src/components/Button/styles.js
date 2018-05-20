@@ -51,6 +51,9 @@ export const stylesButton = css`
   .buttonDark:hover {
     color: white;
   }
+  label {
+    display: grid;
+  }
   input[type=button] {
     border: none;
     height: 45px;

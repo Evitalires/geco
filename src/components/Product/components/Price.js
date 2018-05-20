@@ -4,8 +4,8 @@ import Finder from '../.././Finder/Finder'
 class Price extends Component {
   state = {
     error: false,
-    inputText: `$ ${this.props.price}`,
-    inputName: this.props.type,
+    inputText: `$ ${this.props.inputText}`,
+    inputName: this.props.inputName,
     labelText: this.props.labelText,
   }
   setRef = element => {
@@ -43,7 +43,7 @@ class Price extends Component {
   }
   componentWillReceiveProps(nextProps) {
     this.setState({
-      inputText: `$ ${nextProps.price}`
+      inputText: `$ ${nextProps.inputText}`
     })
   }
   render() {

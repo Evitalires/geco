@@ -7,7 +7,7 @@ class Id extends Component {
     error: false,
     value: this.props.value,
     inputText: this.props.inputText,
-    inputName: this.props.type,
+    inputName: this.props.inputName,
     inputPlaceHolder: this.props.inputPlaceHolder,
     labelText: 'Número de identificación',
   }

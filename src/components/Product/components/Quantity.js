@@ -5,8 +5,8 @@ import Finder from '../.././Finder/Finder'
 class Quantity extends Component {
   state = {
     error: false,
-    inputText: this.props.value,
-    inputName: this.props.type,
+    inputText: this.props.inputText,
+    inputName: this.props.inputName,
     labelText: this.props.labelText
   }
   handleClick = event => {
@@ -21,7 +21,7 @@ class Quantity extends Component {
     event.preventDefault()
   }
   componentWillReceiveProps(nextProps){
-    this.setState({inputText: nextProps.value})
+    this.setState({inputText: nextProps.inputText})
   }
   render() {
     return (

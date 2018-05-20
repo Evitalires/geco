@@ -18,17 +18,16 @@ const ProductSmallUI = (props) => (
       inputPlaceHolder='ID'
      />
     <Name
-      type='description'
-      value={props.name}/>
+      inputName='description'
+      inputText={props.name}/>
     <Quantity
-      type='quantity'
-      value={props.quantity}
+      inputName='quantity'
+      inputText={props.quantity}
       handleChange={props.handleChange}
     />
     <Total
-      type='total'
-      price={props.price}
-      quantity={props.quantity}
+      inputName='total'
+      inputText={props.price * props.quantity}
       handleChange={props.handleChange}
     />
     {

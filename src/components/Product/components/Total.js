@@ -4,9 +4,9 @@ import Finder from '../.././Finder/Finder'
 class Total extends Component {
   state = {
     error: false,
-    inputText: `$ ${this.props.price * this.props.quantity}`,
-    inputName: this.props.type,
-    labelText: 'Precio final',
+    inputText: `$ ${this.props.inputText}`,
+    inputName: this.props.inputName,
+    labelText: this.props.labelText,
   }
   setRef = element => {
     this.input = element
@@ -37,7 +37,7 @@ class Total extends Component {
   }
   componentWillReceiveProps(nextProps) {
     this.setState({
-      inputText: `$ ${nextProps.price * nextProps.quantity}`
+      inputText: `$ ${nextProps.inputText}`
     })
   }
   render() {
