@@ -4,8 +4,6 @@ import ProductCellar from '../../components/Product/ProductCellar/ProductCellar'
 import Finder from '../../components/Finder/Finder'
 import Button from '../../components/Button/Button'
 import Tab from '../../components/Tab/Tab'
-import EditProduct from './components/EditProduct'
-import CellarProduct from './components/CellarProduct'
 
 const ProductUI = props => {
   return (

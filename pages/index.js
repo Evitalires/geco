@@ -10,6 +10,9 @@ export default () => (
     <Link href='./productos'>
       <h1>Productos</h1>
     </Link>
+    <Link href='./proveedores'>
+      <h1>Proveedores</h1>
+    </Link>
     <style jsx>{`
       margin: 0;
       display: flex;

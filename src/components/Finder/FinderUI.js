@@ -21,7 +21,7 @@ const FinderUI = (props) => {
           {props.labelText}
         </label>
         <input
-          type="text"
+          type={props.inputType || "text"}
           name={props.name}
           ref={props.setRef}
           value={props.inputText}
