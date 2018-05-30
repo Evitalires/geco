@@ -12,21 +12,10 @@ class RegisterProviders extends Component {
   render() {
     return (
       <section>
-        <section>
           <Field
             value='Hola, soy Field'
             label='Saludo'
           />
-          <style jsx>{`
-            {
-              width: 50%;
-              height: 3.8em;
-              display: grid;
-              align-items: center;
-              border: 1px solid purple;
-            }
-          `}</style>
-        </section>
         <Text
           value=''
           label='Nombre'

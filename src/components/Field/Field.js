@@ -25,6 +25,7 @@ class Field extends Component {
     (this.props.handleClick) && this.props.handleClick(event);
   }
   handleBlur = (event) => {
+    this.setState({ className: ''});
     (this.props.handleBlur) && this.props.handleBlur(event)
   }
   handleChange = event => {
@@ -68,7 +69,10 @@ class Field extends Component {
   render() {
     let children = this.props.children;
     return (
-      <article className={this.state.className}>
+      <article
+        className={this.state.className}
+        onBlur={this.handleBlur}
+        >
         <label
           onClick={this.handleClick}
           >
