@@ -1,264 +1,148 @@
-import React, { Component, Fragment } from 'react'
-import FinderUI from './FinderUI'
+import React, { Component } from 'react'
+import Field from '../Field/Field'
+import Search from '../Icons/search'
 
 class Finder extends Component {
   state = {
-    error: '',
-    id: this.props.id || this.props.inputText,
-    formClass: this.props.formClass,
-    inputText: this.props.inputText,
-    inputType: this.props.inputType,
-    inputPlaceholder: this.props.inputPlaceholder,
-    labelText: this.props.labelText,
-    formAction: '',
+    error: 'Hubo un error',
+    type: 'search',
+    type: this.props.type,
+    text: this.props.text || '',
+    placeholder: this.props.placeholder || '',
+    className: this.props.className || '',
   }
-  setRef = element => {
-    this.input = element
-  }
-  handleClick = (event) => {
-    this.setState({ formClass: this.state.formClass + ' Focus' });
-
+  handleClick = event => {
+    if(this.state.className.search('Focus') == -1) {
+      this.setState({ className: this.state.className + ' Focus' });
+    }
     (this.props.handleClick) && this.props.handleClick(event)
-    this.handleFocus(event)
   }
-  handleBlur = (event) => {
-    console.log('Hubo un blur');
-    //this.setState({formClass: ''})
-    (this.props.handleBlur) && this.props.handleBlur(event)
+  handleChange = event => {
+    console.log('Recibí un cambio');
+    console.log(event.target.value);
+    this.setState({
+      text: event.target.value
+    });
   }
-  handleChangeInput = event => {
-    console.log();
-    (this.props.handleChange) && this.props.handleChange(event.target.value)
-    //setTimeout( () => this.handleUpdate(), 0)
+  handleBlur = event => {
+    let className = this.state.className.replace('Focus', '')
+    this.setState({ className: ''});
+
+    (this.props.handleBlur) && this.props.handleBlur(event.target.value)
   }
-  handleError = event => {
-    if(this.state.error.length > 1) {
+  handleSubmit = (event) => {
+    console.log('Debería hacer una petición');
+  }
+  handleError = error => {
+    if(this.state.className.search('Error') == -1 && error != false) {
       this.setState({
-        formClass: this.state.formClass + ' formError'
+        className: this.state.className + ' Error'
       })
     }
-  }
-  handleUpdate = (event) => {
-    console.log(this.state.inputText);
-    (this.props.handleUpdate) && this.props.handleUpdate(this.state.inputText)
-  }
-  handleFocus = event => {
-    console.log('debería funcionar');
-    if(event.target == this.input) {
-      event.persist()
-      event.target.select()
-      // setTimeout(() => {
-      //    event.target.selectionStart = event.target.value.length;
-      //    event.target.selectionEnd = event.target.value.length;
-      //    event.target.focus()
-      //  }, 200)
+    else if (error == false) {
+      let className = this.state.className.replace(' Error', '')
+      this.setState({
+        className: className
+      })
     }
-    else {
-      this.input.focus()
-      this.input.select()
-    }
-  }
-  handleSubmit = event => {
-    event.preventDefault()
-    (this.props.handleSubmit) && this.props.handleSubmit(event)
-  }
-  componentDidMount() {
-    console.log(this.props.children);
   }
   componentWillReceiveProps(nextProps) {
     this.setState({
       error: nextProps.error,
-      inputText: nextProps.inputText,
-    })
+      text: nextProps.text,
+    });
+    this.handleError(nextProps.error)
   }
   render() {
-    let children = this.props.children;
     return (
-      <form
-        action={this.state.formAction}
-        autoComplete='off'
-        className={this.state.formClass}
-        onBlur={this.handleBlur}
-        onSubmit={this.handleSubmit}
-        >
-        <label
-          htmlFor={this.state.id}
-          onClick={this.handleClick}
-          className={this.state.labelClass}
-          >
-          {this.state.labelText}
-        </label>
+      <section className={this.state.className}>
         <input
           ref={this.setRef}
-          id={this.state.id}
+          value={this.state.text}
           onClick={this.handleClick}
-          type={this.state.inputType}
-          value={this.state.inputText}
-          placeholder={this.state.inputPlaceholder}
-          onChange={this.handleChangeInput}
-          className={this.state.inputClass}
+          onBlur={this.handleBlur}
+          onChange={this.handleChange}
+          placeholder={this.state.placeholder}
         />
-        <span className={this.state.spanClass}>
+          <Search
+            size={30}
+            color= {
+                    (this.state.className.search('Focus') > -1)
+                    ? 'var(--white)' : 'var(--gray)'
+                   }
+            handleClick={this.handleSubmit}
+            className='Icon'
+          />
+        <p>
           {this.state.error}
-        </span>
-        <div className='Icons'>
-          {
-            this.props.children
-          }
-        </div>
+        </p>
+        {
+          (this.props.children != undefined)
+          &&
+          <article className='Content'>
+            {
+              this.props.children
+            }
+          </article>
+        }
         <style jsx>{`
-          {
-            --bk-light: #48ACEC;
-            --bk-dark: #164461;
-            --gray: #788895;
-            --white: #E0EDF3;
-            --black: #182C39;
-          }
-          form {
-            height: 30px;
+          section {
+            padding: 16px 24px;
+            width: calc(100% - 48px);
+            background: var(--bk-dark);
             display: grid;
-            grid-template-areas:  "label Icons"
-                                  "input Icons"
-                                  "span  Icons";
-            grid-template-rows: 0px 1fr 0px;
-            grid-template-columns: 1fr 0px;
-          }
-          label {
-            display: grid;
-            opacity: 0;
-            grid-area: label;
+            grid-gap: 8px 8px;
+            grid-template-columns: 1fr 30px;
+            grid-template-rows: 34px auto;
+            grid-template-areas:  "input   Icon"
+                                  "Content Content";
           }
           input {
-            padding: 0;
-            outline: none;
-            border: none;
-            display: grid;
-            grid-area: input;
-            font-size: 20px;
-            color: var(--gray);
-          }
-          span {
-            opacity: 0;
-            display: grid;
-            grid-area: span;
-          }
-          .Icons {
-            height: 100%;
-            display: grid;
-            grid-area: Icons;
-            grid-auto-flow: column;
-            grid-template-rows: 100%;
-          }
-
-          form.Focus input {
-            border-bottom: 1px solid var(--bk-light);
-          }
-          /**
-           * Styles type form
-           */
-          .Form {
-            height: 60px;
-            margin: 16px 0px;
-            font-family: arial;
-            align-items: center;
-            grid-template-columns: 1fr ${(children) ? 100 : 0}px;
-            grid-template-rows: 16px 1fr 16px;
-            grid-template-areas:  " label Icons"
-                                  " label Icons "
-                                  " label Icons";
-          }
-          .Form label {
-            opacity: 1;
-            height: 20px;
-            display: grid;
-            font-size: 20px;
-            cursor: pointer;
-            align-items: center;
-            padding-left: 8px;
-            padding-bottom: 4px;
-            color: var(--gray);
-            border-bottom: 1px solid var(--gray);
-          }
-          .Form input {
-            display: none;
-          }
-          .Form span {
-            grid-area: span;
-          }
-          .Form.Focus {
-            transition: .3s;
-            align-items: center;
-            grid-template-rows: 16px 1fr 16px;
-            grid-template-areas:  " label Icons"
-                                  " input Icons "
-                                  " span Icons";
-          }
-          .Form.Focus label {
-            display: grid;
-            height: 16px;
+            height: 34px;
             border: none;
             padding: 0px;
-            transition: .3s;
-            font-size: 16px;
-          }
-          .Form.Focus input {
-            height: auto;
-            display: grid;
-            transition: 1s;
-            padding-left: 8px;
-            color: var(--black);
-            padding-bottom: 2px;
-            border-bottom: 1px solid var(--bk-light);
-          }
-          .Form.Focus span {
-            opacity: 1;
-            height: 16px;
-            display: grid;
-          }
-          .Finder {
-            height: 66px;
-            padding: 0px 16px;
-            background: var(--bk-dark);
-            align-items: center;
-            grid-template-rows: 16px 1fr 16px;
-            grid-template-columns: 1fr ${(children) ? 100 : 0}px;
-            grid-template-areas:  "label Icons"
-                                  "input Icons"
-                                  "span Icons";
-          }
-          .Finder input {
-            color: #E0EDF3;
-            height: 30px;
+            outline: none;
             font-size: 24px;
             min-width: 100%;
+            grid-area: input;
             align-self: center;
+            color: var(--white);
             padding-bottom: 4px;
             background: transparent;
             border-bottom: 1px solid var(--gray);
           }
-          .Finder.Focus input:focus {
-            border-bottom:  1px solid var(--bk-light);
+          input:focus {
+            border-bottom: 1px solid var(--bk-light);
           }
-          /**
-           * Styles for errors
-           */
-          .formError {
-            transition: 0s;
+          .Icon {
+            grid-area: Icon;
           }
-          .formError label {
-            color: red;
-            transition: 0s;
+          p {
+            width: 100%;
+            margin: 0px;
+            display: none;
+            grid-area: p;
+            align-items: center;
+            text-align: center;
+            color: var(--gray);
+            font-size: 20px;
+            background: var(--white);
           }
-          .formError input {
-            transition: 0s;
-            border-bottom: 1px solid red;
+          .Content {
+            grid-area: Content;
           }
-          .formError span {
-            color: red;
-            transition: 0s;
+          section.Error {
+            grid-template-rows: 40px 30px auto;
+            grid-template-areas:  "input   Icon"
+                                  "p       p"
+                                  "Content Content";
           }
+          section.Error p {
+            display: grid;
+          }
+
         `}</style>
-      </form>
+      </section>
     )
   }
 }

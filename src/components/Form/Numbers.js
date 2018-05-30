@@ -1,51 +1,54 @@
 import React, { Component } from 'react'
-import Finder from '../Finder/Finder.js'
+import Field from '../Field/Field'
 
 class Numbers extends Component {
   state = {
     error: false,
-    value: this.props.value,
-    inputType: this.props.inputType,
-    inputText: this.props.inputText,
-    inputName: this.props.inputName,
-    inputPlaceHolder: this.props.inputPlaceHolder,
-    labelText: this.props.labelText,
+    label: this.props.label,
+    text: this.props.text || '',
+    id: this.props.id || this.props.label,
+    placeholder: this.props.placeholder,
+    className: this.props.className,
   }
-  setRef = element => {
-    this.input = element
+  replace = value => {
+    return value = Number(value.replace(/([^0-9])/, ""))
   }
-  handleClick =  event => {
+  search = value => {
+    if(value.search(/([^0-9])/) > -1) {
+      this.setState({ error: 'Solo se permiten números' })
+    }
+  }
+  handleClick = event => {
+  }
+  handleChange = event => {
+    if(this.props.handleChange == undefined) {
+      this.search(event.target.value)
+      let value = this.replace(event.target.value)
+      this.setState({
+        text: value
+      })
+      setTimeout(() => {
+        this.setState({error: false})
+      }, 5000)
+    }
+    else {
+      this.props.handleChange(event)
+    }
   }
   handleBlur = event => {
     (this.props.handleBlur) && this.props.handleBlur(event.target.value)
   }
-  handleChange = event => {
-    let text = event.target.value.replace(/([^0-9])/gi, '')
-    this.setState({
-      inputText: text,
-    })
-  }
-  handleSubmit = event => {
-    event.preventDefault()
-  }
-  handleFocus = event => {
-    event.persist()
-    event.target.select()
-    setTimeout(() => {
-      event.target.selectionStart = event.target.value.length;
-      event.target.selectionEnd = event.target.value.length;
-    }, 1000)
-  }
-  render(){
-    return(
-        <Finder
-          {...this.state}
-          setRef={this.setRef}
-          handleChange={this.handleChange}
-          handleClick={this.handleClick}
-          handleBlur={this.handleBlur}
-          handleSubmit={this.handleSubmit}
-        />
+  render() {
+    return (
+      <Field
+        {...this.state}
+        handleChange={this.handleChange}
+        handleBlur={this.handleBlur}
+      >
+        {
+          this.props.children
+        }
+      </Field>
     )
   }
 }

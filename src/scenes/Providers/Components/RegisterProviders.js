@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
+import Field from '../../../components/Field/Field.js'
 import Text from '../../../components/Form/Text'
 import Numbers from '../../../components/Form/Numbers'
 import Select from '../../../components/Select/Select'
+import Edit from '../../../components/Icons/edit'
 
 class RegisterProviders extends Component {
   state = {
@@ -10,30 +12,26 @@ class RegisterProviders extends Component {
   render() {
     return (
       <section>
+        <section>
+          <Field
+            value='Hola, soy Field'
+            label='Saludo'
+          />
+          <style jsx>{`
+            {
+              width: 50%;
+              height: 3.8em;
+              display: grid;
+              align-items: center;
+              border: 1px solid purple;
+            }
+          `}</style>
+        </section>
         <Text
-          class=''
-          labelText='Nombre'
-          inputText='Input normal'
-          inputPlaceholder='Normal'
+          value=''
+          label='Nombre'
+          className='Form'
         />
-        <Text
-          class='Form'
-          labelText='Input para Formularios'
-          inputText='Input para formularios'
-          inputPlaceholder='Formularios'
-        >
-          <span>Hola</span>
-          <span>Adiós</span>
-        </Text>
-        <Text
-          class='Finder'
-          labelText='Buscador'
-          inputText='Buscador'
-          inputPlaceholder='Buscador'
-        >
-          <span>Hola</span>
-          <span>Adiós</span>
-        </Text>
         <Select
           options={['Exento', 'Gravado', 'Otro']}
           mainText={'Tipo de identificación'}
@@ -41,31 +39,15 @@ class RegisterProviders extends Component {
           handleAnswer=''
         />
         <Numbers
-          labelText='Número de identificación'
-          inputText=''
-          inputPlaceHolder='Teléfono'
+          label='Número de identificación'
+          text=''
+          className='Form'
         />
         <Select
           options={['Exento', 'Gravado', 'Otro']}
           mainText={'Razón social'}
           selecText={'Selecciona una'}
           handleAnswer=''
-        />
-        <Numbers
-          labelText='Celular'
-          inputText=''
-          inputPlaceHolder='Teléfono'
-        />
-        <Numbers
-          labelText='Teléfono'
-          inputText=''
-          inputPlaceHolder='Teléfono'
-        />
-        <Text
-          labelText='Correo electronico'
-          inputText=''
-          inputType='mail'
-          inputPlaceHolder='mail'
         />
         <Select
           options={['Exento', 'Gravado', 'Otro']}

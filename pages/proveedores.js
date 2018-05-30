@@ -5,7 +5,19 @@ import Providers from '../src/scenes/Providers/Providers'
 
 const Proveedores  = () => {
   return (
-    <Providers/>
+    <Providers>
+      <style jsx global>{`
+        body {
+          margin: 0;
+          --bk-light: #48ACEC;
+          --bk-dark: #164461;
+          --gray: #788895;
+          --white: #E0EDF3;
+          --black: #182C39;
+        }
+      `}
+      </style>
+    </Providers>
   )
 }
 export default Proveedores

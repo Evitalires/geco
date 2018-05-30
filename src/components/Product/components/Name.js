@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Finder from '../.././Finder/Finder'
+import Field from '../.././Field/Field'
 
 class Name extends Component {
   state = {
@@ -35,7 +35,7 @@ class Name extends Component {
   }
   render() {
     return (
-      <Finder
+      <Field
         {...this.state}
         setRef={this.setRef}
         handleChange={this.handleChange}

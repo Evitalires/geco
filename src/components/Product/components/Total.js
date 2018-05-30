@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Finder from '../.././Finder/Finder'
+import Field from '../.././Field/Field'
 
 class Total extends Component {
   state = {
@@ -42,7 +42,7 @@ class Total extends Component {
   }
   render() {
     return (
-      <Finder
+      <Field
         {...this.state}
         setRef={this.setRef}
         handleChange={this.handleChange}

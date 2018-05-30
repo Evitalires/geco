@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { HandleError } from './utils/utils'
-import Finder from '../.././Finder/Finder'
+import Field from '../.././Field/Field'
 
 class Quantity extends Component {
   state = {
@@ -25,7 +25,7 @@ class Quantity extends Component {
   }
   render() {
     return (
-      <Finder
+      <Field
         {...this.state}
         setRef={this.setRef}
         handleChange={this.handleChange}

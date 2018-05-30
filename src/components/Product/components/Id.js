@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { HandleError } from './utils/utils'
-import Finder from '../.././Finder/Finder'
+import Field from '../.././Field/Field'
 
 class Id extends Component {
   state = {
@@ -53,7 +53,7 @@ class Id extends Component {
   }
   render(){
     return(
-        <Finder
+        <Field
           {...this.state}
           setRef={this.setRef}
           handleChange={this.handleChange}
