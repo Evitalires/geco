@@ -3,7 +3,7 @@ import React from 'react'
 const Icon = (props) => {
   const {color, size} = props
   return (
-    <icon
+    <div
       onClick={(event) => (props.handleClick) && props.handleClick(event)}
       >
       <svg
@@ -23,7 +23,7 @@ const Icon = (props) => {
           justify-content: center;
         }
       `}</style>
-    </icon>
+    </div>
   )
 }
 

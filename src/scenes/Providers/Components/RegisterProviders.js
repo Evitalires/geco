@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import Field from '../../../components/Field/Field.js'
 import Text from '../../../components/Form/Text'
 import Numbers from '../../../components/Form/Numbers'
 import Select from '../../../components/Select/Select'
@@ -12,14 +11,9 @@ class RegisterProviders extends Component {
   render() {
     return (
       <section>
-          <Field
-            value='Hola, soy Field'
-            label='Saludo'
-          />
         <Text
           value=''
           label='Nombre'
-          className='Form'
         />
         <Select
           options={['Exento', 'Gravado', 'Otro']}
@@ -28,9 +22,8 @@ class RegisterProviders extends Component {
           handleAnswer=''
         />
         <Numbers
+          value=''
           label='Número de identificación'
-          text=''
-          className='Form'
         />
         <Select
           options={['Exento', 'Gravado', 'Otro']}
@@ -44,7 +37,30 @@ class RegisterProviders extends Component {
           selecText={'Selecciona uno'}
           handleAnswer=''
         />
-
+        <Numbers
+          value=''
+          label='Celular'
+        />
+        <Numbers
+          value=''
+          label='Teléfono'
+        />
+        <Text
+          value=''
+          label='Mail'
+        />
+        <Text
+          value=''
+          label='Dirección'
+        />
+        <Text
+          value=''
+          label='Dirección'
+        />
+        <Text
+          value=''
+          label='Método de pago'
+        />
       </section>
     )
   }

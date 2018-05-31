@@ -1,20 +1,21 @@
 import React, { Component } from 'react'
-import Field from '../Field/Field'
+import FieldInput from '../Field/FieldInput'
 
 class Text extends Component {
   state = {
     error: false,
     label: this.props.label,
-    text: this.props.text || '',
+    value: this.props.value || '',
     id: this.props.id || this.props.label,
     placeholder: this.props.placeholder,
-    className: this.props.className,
+    className: this.props.className || '',
   }
   handleClick = event => {
+    (this.props.handleClick) && this.props.handleClick(event)
   }
   handleChange = event => {
     if(this.props.handleChange == undefined) {
-      this.setState({text: event.target.value})
+      this.setState({value: event.target.value})
     }
     else {
       this.props.handleChange(event)
@@ -25,15 +26,12 @@ class Text extends Component {
   }
   render() {
     return (
-      <Field
+      <FieldInput
         {...this.state}
         handleChange={this.handleChange}
         handleBlur={this.handleBlur}
-      >
-        {
-          this.props.children
-        }
-      </Field>
+        handleClick={this.handleClick}
+      />
     )
   }
 }

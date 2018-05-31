@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
-import Field from '../Field/Field'
+import FieldInput from '../Field/FieldInput'
 
 class Numbers extends Component {
   state = {
     error: false,
     label: this.props.label,
-    text: this.props.text || '',
+    value: this.props.value || '',
     id: this.props.id || this.props.label,
     placeholder: this.props.placeholder,
-    className: this.props.className,
+    className: this.props.className || '',
   }
   replace = value => {
     return value = Number(value.replace(/([^0-9])/, ""))
@@ -19,36 +19,31 @@ class Numbers extends Component {
     }
   }
   handleClick = event => {
+    (this.props.handleClick) && this.props.handleClick(event)
   }
   handleChange = event => {
-    if(this.props.handleChange == undefined) {
-      this.search(event.target.value)
-      let value = this.replace(event.target.value)
-      this.setState({
-        text: value
-      })
-      setTimeout(() => {
-        this.setState({error: false})
-      }, 5000)
-    }
-    else {
-      this.props.handleChange(event)
-    }
+    this.search(event.target.value)
+    let value = this.replace(event.target.value)
+    console.log(value);
+    this.setState({
+      value: value
+    });
+    setTimeout(() => {
+      this.setState({error: false})
+    }, 5000);
+    (this.props.handleChange) && this.props.handleChange(event)
   }
   handleBlur = event => {
     (this.props.handleBlur) && this.props.handleBlur(event.target.value)
   }
   render() {
     return (
-      <Field
+      <FieldInput
         {...this.state}
+        handleClick={this.handleClick}
         handleChange={this.handleChange}
         handleBlur={this.handleBlur}
-      >
-        {
-          this.props.children
-        }
-      </Field>
+      />
     )
   }
 }
