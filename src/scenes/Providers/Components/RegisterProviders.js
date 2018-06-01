@@ -3,6 +3,7 @@ import Text from '../../../components/Form/Text'
 import Numbers from '../../../components/Form/Numbers'
 import Select from '../../../components/Select/Select'
 import Edit from '../../../components/Icons/edit'
+import AssignDate from '../../../components/AssignDate/AssignDate'
 
 class RegisterProviders extends Component {
   state = {
@@ -11,6 +12,8 @@ class RegisterProviders extends Component {
   render() {
     return (
       <section>
+        <AssignDate
+        />
         <Text
           value=''
           label='Nombre'
