@@ -21,7 +21,6 @@ class DayNames extends Component {
       });
     }
     else {
-      //selected = selected.filter( el => el.day != weekday)
       selected = [...selected, pickDay]
       this.setState({
         selected: selected
@@ -31,7 +30,7 @@ class DayNames extends Component {
   }
   getClassName = day => {
     let { selected } = this.state
-    console.log(typeof selected);
+    //console.log(typeof selected);
     let today = selected.find(el => el.day === day)
     return (today != undefined ? today.className : ' ')
   }

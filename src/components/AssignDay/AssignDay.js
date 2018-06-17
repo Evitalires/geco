@@ -10,6 +10,7 @@ const today = {
 class AssignDay extends Component {
   state = {
     selectedVisit: [today],
+    days: ['dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb'],
     selectedDelivery: [{day: today.day, className: ' selectedVisit'}],
     selectedDeliveryTwo: [{day: today.day, className: 'null'}]
   }
@@ -22,27 +23,79 @@ class AssignDay extends Component {
       }
     })
   }
+  getClass = (selected, day) => {
+    let today = selected.find(el => el.day === day)
+    return (today != undefined ? today.className : ' ')
+  }
+  setRange = delivery => {
+    let { selectedVisit, days } = this.state
+    //Todos los días
+    let result = days.map((day, key) => {
+      return day = {
+        day: day,
+        index: key,
+        className: this.getClass(delivery, day)
+      }
+    })
+    //separar los arrays
+    let visited = result.filter(el => el.className === ' selectedVisit')
+    let dely = delivery.filter(el => el.className === ' selectedDelivery')
+        dely = dely.length > 1
+              ? result.filter(
+                (el, i, array) =>
+                el.className === ' selectedDelivery'
+                &&
+                array[++i].className === ' selectedVisit'
+              )
+              : dely
+    //Cambiando las clases
+    result = result.map((day, key) => {
+      let max = key > dely.length-1 ? dely.length-1 : key
+      let distance = dely[max].index - visited[max].index
+
+      if( day != dely[max].day &&
+          day != visited[max].day &&
+          day.index < dely[max].index &&
+          day.index > visited[max].index &&
+          day.className != ' selectedVisit'
+        ){
+        return day = {
+          day: day.day,
+          index: key,
+          className: ' innerSelected'
+        }
+      }
+      else { return day }
+    })
+    return result
+  }
   setVisit = selected => {
     //Asignando clase para la semana de Visita
-    let selVisit = this.editClass( selected, ' selected')
+    let selectedVisit = this.editClass( selected, ' selected')
     //Asignando clase para la semana de Entrega
     let deliveryInit = this.editClass( selected, ' selectedVisit')
 
     this.setState({
-      selectedVisit: selVisit,
+      selectedVisit: selectedVisit,
       selectedDelivery: deliveryInit,
     })
   }
   setDelivery = selected => {
     //Extrayendo los sin clase
-    let deliveryEnd = selected.filter( el => el.className == ' ')
+    let deliveryEnd = selected.filter(
+      el => el.className == ' ' ||  el.className == ' selectedDelivery' )
     deliveryEnd = this.editClass(deliveryEnd, ' selectedDelivery')
+
     //Uniendo deliveryEnd con los que ya tienen clase
     let delivery = selected.filter(
       el => el.className == ' selectedVisit' ||  el.className == ' selected'
     )
     delivery = this.editClass( delivery, ' selectedVisit')
     delivery = delivery.concat(deliveryEnd);
+
+    //Remplazando clases según los grupos
+    delivery = this.setRange(delivery)
+
     this.setState({
       selectedDelivery: delivery
     });
