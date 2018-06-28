@@ -21,7 +21,6 @@ class DayNames extends Component {
       });
     }
     else {
-      //selected = selected.filter( el => el.day != weekday)
       selected = [...selected, pickDay]
       this.setState({
         selected: selected

@@ -28,12 +28,7 @@ class AssignDay extends Component {
     return (today != undefined ? today.className : ' ')
   }
   setRange = delivery => {
-    let {
-      days,
-      selectedVisit,
-      selectedDeliveryTwo
-    } = this.state
-
+    let { selectedVisit, days } = this.state
     //Todos los días
     let result = days.map((day, key) => {
       return day = {
