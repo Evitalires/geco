@@ -28,6 +28,8 @@ class Day extends Component {
         {day}
         <style jsx>{`
           span {
+            padding: 0;
+            border: none;
             cursor: pointer;
             position: relative;
             color: var(--gray);
@@ -45,7 +47,7 @@ class Day extends Component {
           .innerSelected::after {
             top: 50%;
             left: 0px;
-            width: 100%;
+            width: calc(100% + 4px);
             height: 2px;
             content: "";
             position: absolute;

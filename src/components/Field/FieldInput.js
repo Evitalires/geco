@@ -48,7 +48,7 @@ class FieldInput extends Component {
     (this.props.handleChange) && this.props.handleChange(event)
   }
   handleError = error => {
-    console.log('Recibí algún error');
+
     if(this.state.className.search('Error') == -1 && error != false) {
       this.setState({
         className: this.state.className + ' Error'
@@ -62,8 +62,7 @@ class FieldInput extends Component {
     }
   }
   handleFocus = event => {
-    console.log('Recibí el evento');
-    console.log(this.input);
+
     if(event.target == this.input) {
       event.persist()
       event.target.select()
@@ -74,7 +73,7 @@ class FieldInput extends Component {
     }
   }
   componentWillReceiveProps(nextProps) {
-    console.log('recibí nuevas propiedades');
+
     this.setState({
       error: nextProps.error,
       value: nextProps.value,

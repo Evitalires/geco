@@ -37,7 +37,6 @@ export const stylesButton = css`
   }
   .buttonLight {
     width: 130px;
-    margin: 0 36%;
     color: white;
     background: #48ACEC;
     padding: 8px 24px;
@@ -53,6 +52,7 @@ export const stylesButton = css`
   }
   label {
     display: grid;
+    justify-content: center;
   }
   input[type=button] {
     border: none;

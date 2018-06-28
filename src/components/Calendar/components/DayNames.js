@@ -10,12 +10,12 @@ const today = {
 class DayNames extends Component {
   state = {
     days: ['dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb'],
-    selected: this.props.selected || [today],
+    selected: (this.props.selected) && this.props.selected || [today],
   }
   handleClick = pickDay => {
     let selected = this.state.selected
-    if(selected.find(el => el.day == pickDay.day) != undefined) {
-      selected = selected.filter( el => el.day != pickDay.day)
+    if(pickDay.className != ' ') {
+      selected = selected.filter(el => el.day != pickDay.day);
       this.setState({
         selected: selected
       });
@@ -27,11 +27,10 @@ class DayNames extends Component {
         selected: selected
       });
     }
-    (this.props.handleClick) && this.props.handleClick(selected)
+    (this.props.handleClick) && this.props.handleClick(selected, pickDay)
   }
   getClassName = day => {
     let { selected } = this.state
-    console.log(typeof selected);
     let today = selected.find(el => el.day === day)
     return (today != undefined ? today.className : ' ')
   }
@@ -61,7 +60,7 @@ class DayNames extends Component {
           div {
             display: grid;
             text-align: center;
-            padding: 0 1em;
+            padding: 0;
             grid-auto-flow: column;
             grid-template-columns: repeat(7, 1fr);
           }
