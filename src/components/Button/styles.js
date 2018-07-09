@@ -1,6 +1,20 @@
 import css from 'styled-jsx/css'
 
 export const stylesButton = css`
+  input[type=button] {
+    border: none;
+    outline: none;
+    color: #788895;
+    overflow:hidden;
+    max-height: 2em;
+    font-size: 24px;
+    background: transparent;
+    text-overflow: ellipsis;
+  }
+  input[type=button]:hover {
+    cursor: pointer;
+    color: white;
+  }
   .center {
     display: flex;
     margin: 0 auto;
@@ -37,8 +51,8 @@ export const stylesButton = css`
   }
   .buttonLight {
     width: 130px;
-    color: white;
-    background: #48ACEC;
+    color: white !important;
+    background: #48ACEC !important;
     padding: 8px 24px;
   }
   .buttonDark {
@@ -54,14 +68,4 @@ export const stylesButton = css`
     display: grid;
     justify-content: center;
   }
-  input[type=button] {
-    border: none;
-    height: 45px;
-    outline: none;
-    overflow:hidden;
-    font-size: 24px;
-    padding: 8px 16px;
-    text-overflow: ellipsis;
-  }
-
 `

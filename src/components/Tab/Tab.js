@@ -19,6 +19,11 @@ class Tab extends Component {
       return 'tabUnactive'
     }
   }
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      selected: nextProps.selected
+    })
+  }
   render() {
     let children = this.props.children
     return (

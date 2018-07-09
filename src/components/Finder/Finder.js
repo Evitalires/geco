@@ -4,7 +4,7 @@ import Search from '../Icons/search'
 
 class Finder extends Component {
   state = {
-    error: 'Hubo un error',
+    error: '',
     type: 'search',
     type: this.props.type,
     text: this.props.text || '',
@@ -47,11 +47,13 @@ class Finder extends Component {
     }
   }
   componentWillReceiveProps(nextProps) {
-    this.setState({
-      error: nextProps.error,
-      text: nextProps.text,
-    });
-    this.handleError(nextProps.error)
+    if(nextProps.error != undefined) {
+      this.setState({
+        error: nextProps.error,
+        text: nextProps.text,
+      });
+      this.handleError(nextProps.error)
+    }
   }
   render() {
     return (

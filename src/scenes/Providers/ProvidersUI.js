@@ -1,6 +1,6 @@
 import React from 'react'
 import RegisterProviders from './Components/RegisterProviders'
-import ListProviders from './Components/ListProviders'
+import ListProviders from './Components/ListProviders/ListProviders'
 import Tab from '../../components/Tab/Tab'
 import Finder from '../../components/Finder/Finder'
 
@@ -14,9 +14,12 @@ const ProvidersUI = (props) => {
 
         }
       </Finder>
-      <Tab selected='Provedores'>
+      <Tab selected={ props.selected || 'Provedores' } >
         <RegisterProviders title='Registrar'/>
-        <ListProviders title='Provedores'/>
+        <ListProviders
+          title='Provedores'
+          handleNewProvider={props.handleNewProvider}
+        />
         <h1 title='Categorías'>Categorías</h1>
       </Tab>
       <style jsx global>{`

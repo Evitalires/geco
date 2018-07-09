@@ -8,18 +8,18 @@ import Button from '../../../components/Button/Button'
 
 class RegisterProviders extends Component {
   state = {
-    name: '',
-    typeDocumentation: '',
-    numberId: '',
-    reasonSocial: '',
-    payMethod: '',
-    cellPhone: '',
-    number: '',
-    mail: '',
-    direction: '',
-    daysVisited: [],
-    daysDelivery: [],
-    newProvider: false,
+    name: this.props.name || '',
+    typeDocumentation: this.props.typeDocumentation || '',
+    numberId: this.props.numberId || '',
+    reasonSocial: this.props.reasonSocial || '',
+    payMethod: this.props.payMethod || '',
+    cellPhone: this.props.cellPhone ||'',
+    number: this.props.number || '',
+    mail: this.props.mail || '',
+    direction: this.props.direction || '',
+    daysVisited: this.props.daysVisited || [],
+    daysDelivery: this.props.daysDelivery || [],
+    newProvider: this.props.newProvider || false,
   }
   AssignDay = (visited, delivery) => {
     this.setState({

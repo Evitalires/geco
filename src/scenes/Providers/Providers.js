@@ -3,7 +3,8 @@ import ProvidersUI from './ProvidersUI'
 
 class Providers extends Component {
   state = {
-    product: {}
+    product: {},
+    selected: this.props.selected
   }
   handleSave = product => {
     console.log('Voy a guardar');
@@ -11,12 +12,20 @@ class Providers extends Component {
   handleUpdate = product => {
     this.setState({ product: product})
   }
+  handleNewProvider = () => {
+    console.log('Creando Nuevo provedor');
+    this.setState({
+      selected: 'Registrar'
+    })
+
+  }
   render() {
     return(
       <ProvidersUI
         {...this.state}
         handleSave={this.handleSave}
         handleUpdate={this.handleUpdate}
+        handleNewProvider={this.handleNewProvider}
       />
     )
   }
