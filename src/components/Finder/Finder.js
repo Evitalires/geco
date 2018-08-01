@@ -10,6 +10,12 @@ class Finder extends Component {
     text: this.props.text || '',
     placeholder: this.props.placeholder || '',
     className: this.props.className || '',
+    //Styles
+    background: this.props.background,
+    columnEnd: this.props.columnEnd,
+    padding: this.props.padding,
+    height: this.props.height,
+    inputColor: this.props.inputColor
   }
   handleClick = event => {
     if(this.state.className.search('Focus') == -1) {
@@ -18,11 +24,10 @@ class Finder extends Component {
     (this.props.handleClick) && this.props.handleClick(event)
   }
   handleChange = event => {
-    console.log('Recibí un cambio');
-    console.log(event.target.value);
     this.setState({
       text: event.target.value
     });
+    (this.props.handleChange) && this.props.handleChange(event.target.value)
   }
   handleBlur = event => {
     let className = this.state.className.replace('Focus', '')
@@ -56,6 +61,13 @@ class Finder extends Component {
     }
   }
   render() {
+    let {
+      columnEnd,
+      background,
+      padding,
+      height,
+      inputColor,
+    } = this.state
     return (
       <section className={this.state.className}>
         <input
@@ -67,10 +79,10 @@ class Finder extends Component {
           placeholder={this.state.placeholder}
         />
           <Search
-            size={30}
+            size={25}
             color= {
                     (this.state.className.search('Focus') > -1)
-                    ? 'var(--white)' : 'var(--gray)'
+                    ? 'var(--bk-light)' : 'var(--gray)'
                    }
             handleClick={this.handleSubmit}
             className='Icon'
@@ -89,13 +101,14 @@ class Finder extends Component {
         }
         <style jsx>{`
           section {
-            padding: 16px 24px;
-            width: calc(100% - 48px);
-            background: var(--bk-dark);
+            padding: ${padding ? padding : '1em 1.5em'};
+            width:  ${columnEnd ? 'auto' : 'calc(100% - 48px)'};
+            background: ${background || 'var(--bk-dark)'};
             display: grid;
             grid-gap: 8px 8px;
-            grid-template-columns: 1fr 30px;
-            grid-template-rows: 34px auto;
+            ${columnEnd && `grid-column-end :  ${ columnEnd }`};
+            grid-template-columns: 1fr 2em;
+            grid-template-rows: ${height ? height : '2em' } auto;
             grid-template-areas:  "input   Icon"
                                   "Content Content";
           }
@@ -108,7 +121,7 @@ class Finder extends Component {
             min-width: 100%;
             grid-area: input;
             align-self: center;
-            color: var(--white);
+            color: ${inputColor ? inputColor : 'var(--white)'};
             padding-bottom: 4px;
             background: transparent;
             border-bottom: 1px solid var(--gray);

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Finder from '../../../../../components/Finder/Finder'
+import Button from '../../../../../components/Button/Button'
 import Add from '../../../../../components/Icons/Add'
 import Edit from '../../../../../components/Icons/edit'
 import IconCatalogue from '../../../../../components/Icons/catalogue'
@@ -17,9 +18,13 @@ const ModalEdit = props => {
       <Modal
         opened={ opened }
         modalClass='modalComplete'
-        title={`Proveedor ${ name }`}
-        closeText='X'
+        closerText='X'
         closeClass='buttonClosePrint'
+        headerTitle={`Proveedor ${ name }`}
+        tA={ ' center '}
+        mhb={'var(--bk-dark)'}
+        mhp={'.5em 0 0 0'}
+        mhH='2em'
         trigger={
           <Edit
           color='var(--bk-light)'
@@ -35,74 +40,144 @@ const ModalEdit = props => {
     </>
   )
 }
-const ModalCatalogue = props => {
-  let {
-    opened,
-    name,
-    products,
-  } = props
-  return (
-    <>
-      <Modal
-        opened={ opened }
-        modalClass='modalComplete'
-        closeText='X'
-        closeClass='buttonClosePrint'
-        title={`Proveedor ${ name }`}
-        tA={ ' center '}
-        mhb={'var(--white)'}
-        trigger={
-          <IconCatalogue
-            color='var(--bk-light)'
-            size='2em'
-            handleClick={ () => props.handleClick() }
-          />
-        }
-      >
-        {
-          <>
-            <Finder
-              placeholder='Buscar'
+class ModalCatalogue extends Component {
+  state = {
+    opened: this.props.opened,
+    name: this.props.name,
+    catalogue: this.props.catalogue || [], //REsultado de añadir productos
+    products: this.props.products || [], //Resultado de consultar
+  }
+  newProduct = (el, key) => {
+    console.log('nuevo Producto añadido');
+    let catalogue = [...this.state.catalogue, this.state.products[key]]
+    this.setState({
+      catalogue: catalogue
+    })
+  }
+  handleQuery = () => {
+    console.log('Hubo un cambio, debería hacer una consulta');
+    let products = ['Resultado de la consulta']
+    this.setState({
+      products: products
+    })
+  }
+  saveProvider = () => {
+    console.log('Se guardó los elementos seleccionados');
+    this.setState({ opened: false })
+  }
+  saveAllProvider = () => {
+    console.log('Se guardaron todos los provedores');
+    this.setState({ opened: false })
+  }
+  componentWillReceiveProps( nextProps ) {
+    this.setState({
+      opened: nextProps.opened
+    })
+  }
+  render(){
+    let {
+      opened,
+      name,
+      products,
+    } = this.state
+    return (
+      <>
+        <Modal
+          opened={ opened }
+          modalClass='modalComplete'
+          closerText='X'
+          closeClass='buttonClosePrint'
+          headerTitle={`Proveedor ${ name }`}
+          tA={ ' center '}
+          mhb={'var(--bk-dark)'}
+          mhp={'.5em 0 0 0'}
+          mhH='2em'
+          trigger={
+            <IconCatalogue
+              color='var(--bk-light)'
+              size='2em'
+              handleClick={ () => this.props.handleClick() }
             />
+          }
+          modalHeader={
+            <Finder
+              background='var(--white)'
+              columnEnd='2 span'
+              placeholder='Buscar'
+              height='4em'
+              inputColor='var(--dark)'
+              padding='0 .5em 0 .5em'
+              handleChange={this.handleQuery}
+            />
+          }
+          modalFooter={
             <section>
-              {
-                props.products.map( (el, key) => (
-                  <div key={ key }>
-                    <span>{ el }</span>
-                    <Add
-                      size='1.5em'
-                      c_stroke='var(--bk-light)'
-                      c_fill='transparent'
-                      p_stroke='var(--bk-light)'
-                      handleClick={ this.newProvider }
-                    />
-                    <style jsx>{`
-                      div {
-                        display: grid;
-                        padding: 0em 1em;
-                        align-items: center;
-                        align-content: center;
-                        min-height: 2em;
-                        grid-template-columns: 1fr 2em;
-                        border-bottom: 1px solid var(--gray);
-                      }
-                      div span {
-                        font-size: 1em;
-                        color: var(--gray);
-                      }
-                      div span::first-letter {
-                        text-transform: uppercase;
-                      }
-                    `}</style>
-                  </div>
-                ))
-              }
+              <Button
+                text='Guardar'
+                handleClick={this.saveProvider}
+              />
+              <Button
+                text='Guardar todos'
+                textColor={'var(--gray)'}
+                ellipsis={true}
+                background={'var(--black)'}
+                handleClick={this.saveAllProvider}
+              />
+              <style jsx>{`
+                section {
+                  padding: 1em;
+                  display: grid;
+                  justify-content: space-evenly;
+                  grid-auto-flow: column;
+                  background: var(--bk-dark);
+                }
+              `}</style>
             </section>
-          </>
-        }
-      </Modal>
-    </>
-  )
+          }
+        >
+          {
+            <>
+              <section>
+                {
+                  products.map( (el, key) => (
+                    <div key={ key }>
+                      <span>{ el }</span>
+                      <Add
+                        size='1.5em'
+                        c_stroke='var(--bk-light)'
+                        c_fill='transparent'
+                        p_stroke='var(--bk-light)'
+                        handleClick={ () => this.newProduct(el, key) }
+                      />
+                      <style jsx>{`
+                        div {
+                          display: grid;
+                          padding: 0em 1em;
+                          align-items: center;
+                          align-content: center;
+                          min-height: 2em;
+                          grid-template-columns: 1fr 2em;
+                          border-bottom: 1px solid var(--gray);
+                        }
+                        div span {
+                          font-size: 1em;
+                          color: var(--gray);
+                        }
+                        div span::first-letter {
+                          text-transform: uppercase;
+                        }
+                      `}</style>
+                    </div>
+                  ))
+                }
+              </section>
+
+            </>
+          }
+        </Modal>
+      </>
+    )
+  }
 }
 
 class Provider extends Component {

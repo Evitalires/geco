@@ -5,6 +5,10 @@ export class Portal extends React.Component {
   componentDidMount () {
     this.element = document.querySelector(this.props.selector)
   }
+  componentDidUpdate () {
+    console.log('Hubo un update')
+  }
+  
   render () {
     if (this.element === undefined) {
       return null

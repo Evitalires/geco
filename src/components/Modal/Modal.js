@@ -1,22 +1,39 @@
-import * as React from 'react'
+// import * as React from 'react'
+import React, { Component, Fragment } from 'react'
+
 import Button from '../Button/Button'
+
 
 import { Portal } from './Portal'
 
-export class Modal extends React.Component {
+export class Modal extends Component {
   state = {
-    title: this.props.title,
-    trigger: this.props.trigger,
+    //modal structure
+    modalArea: this.props.modalArea,
+    modalHeader: this.props.modalHeader,
+    modalBody: this.props.modalBody,
+    modalFooter: this.props.modalFooter,
+    modalWidth: this.props.modalWidth,
+    modalClass: this.props.modalClass,
+    //modal Status
     opened: this.props.opened,
+    headerTitle: this.props.headerTitle,
+    //modal Trigger
+    trigger: this.props.trigger,
     triggerText: this.props.triggerText,
     triggerClass: this.triggerClass,
-    modalClass: this.props.modalClass,
-    closeText: this.props.closeText,
-    closeClass: this.props.closeClass,
-
-    mhb: this.props.mhb,
-    tA: this.props.tA,
-    mbp: this.mbp,
+    //Modal Closer
+    closerText: this.props.closerText,
+    closerClass: this.props.closerClass,
+    //Styles modal
+      // Header
+      mhb: this.props.mhb,
+      mhp: this.props.mhp,
+      tA: this.props.tA,
+      mhH: this.props.mhH,
+      // Body
+      mbp: this.mbp,
+      // Footer
   }
   open = () => {
     this.setState({ opened: true })
@@ -28,11 +45,12 @@ export class Modal extends React.Component {
     this.props.handleClose && this.props.handleClose()
   }
   componentWillReceiveProps(nextProps) {
-    this.setState({
-      opened: nextProps.opened
-    })
-  }
-  componentDidMount() {
+    this.setState({ opened: nextProps.opened })
+    setTimeout(()=> {
+      this.setState({
+        opened: nextProps.opened
+      })
+    }, 0)
   }
   render () {
     let {
@@ -41,22 +59,23 @@ export class Modal extends React.Component {
       triggerClass,
       opened,
       modalClass,
-      title,
-      closeText,
+      headerTitle,
+      closerText,
       mhb,
       tA,
       mbp,
+      mhp,
+      mhH,
     } = this.state
     return (
-      <React.Fragment>
+      <Fragment>
         {
           //Trigger Modal
           trigger
           ? trigger
           :
           <Button
-            type='button'
-            textInput={ triggerText }
+            text={ triggerText }
             className={ triggerClass }
             handleClick={this.open}
           />
@@ -64,22 +83,34 @@ export class Modal extends React.Component {
         { opened && (
           <Portal selector='#modal'>
             <div className='overlay'>
-              <div className={ modalClass }>
-                <div className='modalContainer'>
-                  <div className="modalHeader">
-                    <h1>{ title }</h1>
-                    <Button
-                      type='button'
-                      textInput={ closeText }
-                      handleClick={this.close}
-                      className={this.state.closeButton || ''}
-                    />
-                  </div>
-                  <div className="modalBody">
-                    {
-                      this.props.children
-                    }
-                  </div>
+              <div className={ 'modalContainer ' + modalClass }>
+                <div className="modalHeader">
+                  <h1>
+                    { headerTitle }
+                  </h1>
+                  <Button
+                    type='button'
+                    text={ closerText }
+                    justifySelf='right'
+                    alignSelf='baseline'
+                    padding='.2em .5em 0 0'
+                    handleClick={this.close}
+                    textColorHover='var(--bk-light)'
+                    className={this.state.closeButton || ''}
+                  />
+                  {
+                    this.state.modalHeader
+                  }
+                </div>
+                <div className='modalBody'>
+                  {
+                    this.props.children || this.state.modalBody
+                  }
+                </div>
+                <div className='modalFooter'>
+                  {
+                    this.state.modalFooter
+                  }
                 </div>
               </div>
               <style jsx global>{`
@@ -99,22 +130,32 @@ export class Modal extends React.Component {
                 .modalHeader {
                   display: grid;
                   position: sticky;
-                  height: 2em;
-                  padding: .5em;
+                  min-height: 2em;
+                  padding: ${mhp ? mhp : '.5em'};
+                  background: ${mhb};
                   grid-template-columns: 1fr 2em;
                 }
                 .modalHeader h1 {
                   margin: 0;
-                  font-weight: normal;
-                  text-align: ${ tA != undefined ? tA : ' left ' };
-                  color: var(--gray);
+                  display: grid;
                   font-size: 1.5em;
+                  color: var(--gray);
+                  font-weight: normal;
+                  align-content: space-evenly;
+                  height: ${ mhH ? mhH : 'auto' };
+                  text-align: ${ tA != undefined ? tA : ' left ' };
                 }
                 .modalBody {
+                  overflow: scroll;
                   padding: ${ mbp != undefined ? mbp : '0'}em;
                 }
                 .modalContainer {
                   position: relative;
+                  display: grid;
+                  grid-template-rows: auto 1fr auto;
+                  grid-template-areas:  " modalHeader "
+                                        " modalBody "
+                                        " modalFooter";
                 }
                 .modalStandard {
                   top: 10%;
@@ -131,7 +172,7 @@ export class Modal extends React.Component {
                   left: 0%;
                   right: 0%;
                   bottom: 0%;
-                  overflow: scroll;
+                  overflow: auto;
                   position: absolute;
                   background: #E0EDF3;
                 }
@@ -153,7 +194,7 @@ export class Modal extends React.Component {
             </div>
           </Portal>
         )}
-      </React.Fragment>
+      </Fragment>
     )
   }
 }

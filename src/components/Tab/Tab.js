@@ -57,6 +57,9 @@ class Tab extends Component {
               height: 50px;
               line-height: 50px;
             }
+            nav h1:hover {
+              cursor: pointer; 
+            }
             .tabActive {
               color: #48ACEC;
               box-shadow: inset 0px -4px 0px #48ACEC;

@@ -182,13 +182,17 @@ class RegisterProviders extends Component {
           <Catalogue/>
           <Button
             type='button'
-            className='buttonLight'
-            textInput='Guardar'
-            handleClick={this.saveProvider}
+            text={ 'Guardar' }
+            className={'buttonLight'}
+            handleClick={this.close}
+            background='var(--bk-light)'
+            textColor='var(--white)'
+            justifySelf='center'
           />
 
           <style jsx>{`
             padding: 1em;
+            display: grid;
           `}</style>
         </section>
       )

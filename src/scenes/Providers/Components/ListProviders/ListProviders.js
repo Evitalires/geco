@@ -27,8 +27,9 @@ class ListProviders extends Component {
         <div>
           <Add
             size='4em'
-            stroke='white'
-            bk='var(--bk-light)'
+            c_fill='transparent'
+            c_stroke='var(--bk-light)'
+            p_stroke='var(--bk-light)'
             handleClick={ this.newProvider }
           />
         </div>

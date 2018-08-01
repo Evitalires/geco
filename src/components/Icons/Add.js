@@ -16,15 +16,15 @@ const Add = (props) => {
           r="14"
           fill={ c_fill }
           stroke={ c_stroke }
-          stroke-width="2"
+          strokeWidth="2"
         />
         <path
           d="M5.10059 10V0M0 4.99383H10"
           transform="translate(10 10)"
           stroke={ p_stroke }
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
       </Icon>
     </Fragment>
