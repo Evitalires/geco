@@ -35,8 +35,11 @@ class ListProviders extends Component {
         </div>
         <style jsx>{`
           section {
+            height: 100%;
             display: grid;
             grid-gap: .5em;
+            align-content: start;
+            background: var(--white)
           }
           section div {
             bottom: 0;

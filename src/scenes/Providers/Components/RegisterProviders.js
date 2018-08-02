@@ -189,10 +189,10 @@ class RegisterProviders extends Component {
             textColor='var(--white)'
             justifySelf='center'
           />
-
           <style jsx>{`
-            padding: 1em;
-            display: grid;
+            section {
+              display: grid;
+            }
           `}</style>
         </section>
       )
