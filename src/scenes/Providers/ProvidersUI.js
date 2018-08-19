@@ -38,6 +38,7 @@ const ProvidersUI = (props) => {
           --black: #182C39;
           --light-gray: #ABB7BF;
           --heightFinder: 4em;
+          --shadow: 0px 4px 4px rgba(0,0,0,0.25);
           background: var(--white);
         }
         ul {

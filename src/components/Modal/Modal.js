@@ -9,12 +9,11 @@ import { Portal } from './Portal'
 export class Modal extends Component {
   state = {
     //modal structure
-    modalArea: this.props.modalArea,
-    modalHeader: this.props.modalHeader,
-    modalBody: this.props.modalBody,
-    modalFooter: this.props.modalFooter,
-    modalWidth: this.props.modalWidth,
-    modalClass: this.props.modalClass,
+    area: this.props.area,
+    header: this.props.header,
+    body: this.props.body,
+    footer: this.props.footer,
+    className: this.props.className,
     //modal Status
     opened: this.props.opened,
     headerTitle: this.props.headerTitle,
@@ -22,18 +21,22 @@ export class Modal extends Component {
     trigger: this.props.trigger,
     triggerText: this.props.triggerText,
     triggerClass: this.triggerClass,
-    //Modal Closer
+    triggerColorPrimary: this.triggerColorPrimary,
+    triggerColorSecondary: this.triggerColorSecondary,
+    //modal Closer
     closerText: this.props.closerText,
     closerClass: this.props.closerClass,
     //Styles modal
       // Header
-      mhb: this.props.mhb,
-      mhp: this.props.mhp,
-      tA: this.props.tA,
-      mhH: this.props.mhH,
+      headerBackground: this.props.headerBackground,
+      headerPadding: this.props.headerPadding,
+      headerTextAlign: this.props.headerTextAlign,
+      headerHeight: this.props.headerHeight,
       // Body
-      mbp: this.mbp,
+      bodyPadding: this.props.bodyPadding,
       // Footer
+      footerAlignItems: this.props.footerAlignItems,
+      footerJustifyContent: this.props.footerJustifyContent
   }
   open = () => {
     this.setState({ opened: true })
@@ -58,14 +61,16 @@ export class Modal extends Component {
       triggerText,
       triggerClass,
       opened,
-      modalClass,
+      className,
       headerTitle,
       closerText,
-      mhb,
-      tA,
-      mbp,
-      mhp,
-      mhH,
+      headerBackground,
+      headerTextAlign,
+      bodyPadding,
+      headerPadding,
+      headerHeight,
+      footerAlignItems,
+      footerJustifyContent,
     } = this.state
     return (
       <Fragment>
@@ -83,33 +88,31 @@ export class Modal extends Component {
         { opened && (
           <Portal selector='#modal'>
             <div className='overlay'>
-              <div className={ 'modalContainer ' + modalClass }>
+              <div className={ 'modalContainer ' + className }>
                 <div className="modalHeader">
                   <h1>
                     { headerTitle }
                   </h1>
                   <Button
-                    type='button'
                     text={ closerText }
                     justifySelf='right'
                     alignSelf='baseline'
                     padding='.2em .5em 0 0'
                     handleClick={this.close}
-                    textColorHover='var(--bk-light)'
                     className={this.state.closeButton || ''}
                   />
                   {
-                    this.state.modalHeader
+                    this.state.header
                   }
                 </div>
                 <div className='modalBody'>
                   {
-                    this.props.children || this.state.modalBody
+                    this.props.children || this.state.body
                   }
                 </div>
                 <div className='modalFooter'>
                   {
-                    this.state.modalFooter
+                    this.state.footer
                   }
                 </div>
               </div>
@@ -129,10 +132,9 @@ export class Modal extends Component {
                 }
                 .modalHeader {
                   display: grid;
-                  position: sticky;
                   min-height: 2em;
-                  padding: ${mhp ? mhp : '.5em'};
-                  background: ${mhb};
+                  padding: ${headerPadding || '.5em'};
+                  background: ${headerBackground};
                   grid-template-columns: 1fr 2em;
                 }
                 .modalHeader h1 {
@@ -142,12 +144,17 @@ export class Modal extends Component {
                   color: var(--gray);
                   font-weight: normal;
                   align-content: space-evenly;
-                  height: ${ mhH ? mhH : 'auto' };
-                  text-align: ${ tA != undefined ? tA : ' left ' };
+                  height: ${ headerHeight || 'auto' };
+                  text-align: ${ headerTextAlign || ' left ' };
                 }
                 .modalBody {
                   overflow: scroll;
-                  padding: ${ mbp != undefined ? mbp : '0'}em;
+                  padding: ${ bodyPadding || '0'}em;
+                }
+                .modalFooter {
+                  display: grid;
+                  align-items: ${footerAlignItems};
+                  justify-content: ${footerJustifyContent}
                 }
                 .modalContainer {
                   position: relative;
@@ -178,7 +185,7 @@ export class Modal extends Component {
                 }
                 .modalComplete .modalHeader {
                   top: 0;
-                  background: ${ mhb != undefined ? mhb : 'var(--bk-dark)'};
+                  background: ${ headerBackground || 'var(--bk-dark)'};
                   box-shadow: 0px 4px 4px rgba(0,0,0,0.25);
                 }
                 .modalAlert {
@@ -188,7 +195,15 @@ export class Modal extends Component {
                   bottom: 35%;
                   padding: 1em;
                   position: absolute;
-                  background-color: #E0EDF3;
+                  background-color: var(--white);
+                }
+                .modalBottom {
+                  bottom: 0;
+                  left: 0;
+                  right: 0;
+                  padding: 1em;
+                  position: absolute;
+                  background-color: var(--white)
                 }
               `}</style>
             </div>

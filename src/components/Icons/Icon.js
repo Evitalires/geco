@@ -6,26 +6,54 @@ const Icon = (props) => {
     size,
     viewBox,
     height,
+    rotate,
+    area,
+    shadow,
+    colorHover,
+    position,
+    top,
+    left,
+    right,
+    bottom,
+    justifyContent
   } = props
   return (
     <div
       onClick={(event) => (props.handleClick) && props.handleClick(event)}
       >
       <svg
-        viewBox={ viewBox || '0 0 32 32'}
         fill={color}
-        height={height || size}
         width={size}
+        height={height || size}
+        viewBox={ viewBox || '0 0 32 32'}
         >
-        {props.children}
+        {
+          props.children
+        }
       </svg>
       <style jsx>{`
-        {
+        div {
           margin: 0px;
           display: grid;
           cursor: pointer;
           align-items: center;
-          justify-content: center;
+          align-self: stretch;
+          justify-content: ${justifyContent || 'center'};
+          transform: rotate(${rotate});
+          position: ${position};
+          top: ${top};
+          left: ${left};
+          right: ${right};
+          bottom: ${bottom};
+          ${area && `grid-area: ${area}`}
+        }
+        div svg {
+          transition: .1s;
+        }
+        div:hover svg {
+          transform: scale(1.1);
+          fill: ${colorHover};
+          ${shadow != null && `filter: ${shadow};`}
         }
       `}</style>
     </div>

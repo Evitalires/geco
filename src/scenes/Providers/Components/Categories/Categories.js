@@ -1,6 +1,11 @@
 import React, { Component } from 'react'
+import Button from '../../../../components/Button/Button'
 import Triangle from '../../../../components/Icons/triangle'
 import Add from '../../../../components/Icons/Add'
+import Cross from '../../../../components/Icons/cross'
+import { Modal } from '../../../../components/Modal/Modal'
+import Text from '../../../../components/Form/Text'
+
 
 let catego = [
   {
@@ -185,6 +190,58 @@ let catego = [
   }
 ]
 
+class NewCategory extends Component {
+  state = {
+    opened: false
+  }
+  open =  () => {
+    this.setState({
+      opened: true
+    })
+  }
+  render() {
+    return(
+      <Modal
+        closerText='X'
+        className='modalBottom'
+        opened={this.state.opened}
+        trigger={
+          <Add
+            size='4em'
+            c_fill='var(--white)'
+            c_stroke='var(--bk-light)'
+            p_stroke='var(--bk-light)'
+            handleClick={ this.open }
+            position='absolute'
+            bottom='0'
+            right='0'
+            justifyContent='right'
+          />
+        }
+        headerTitle={'Nueva Categoría'}
+        headerTextAlign='center'
+
+        body={
+          <Text
+            error='Escribiste mal eso'
+            placeholder='Descripción'
+            label='Descripción'
+            value=''
+          />
+        }
+        footer={
+          <Button
+            text='Guardar'
+            className='light shadow'
+          />
+        }
+        footerJustifyContent='center'
+
+      />
+    )
+  }
+}
+
 class Category extends Component {
   state = {
     name: this.props.name,
@@ -193,9 +250,8 @@ class Category extends Component {
   }
 
   showProducts = () => {
-    console.log('Debería mostrar lo que hay dentro');
     this.setState({
-      showProducts: !this.state.showProducts
+      showProducts: !this.state.showProducts,
     })
   }
 
@@ -207,47 +263,78 @@ class Category extends Component {
     } = this.state
     return (
       <ul>
-        <h2>
+        <section className='categoriesHeader'>
           <span>{name}</span>
           <span>({products.length})</span>
           <Triangle
             size={15}
-            color='var(--bk-light)'
+            color='var(--light-gray)'
             handleClick={this.showProducts}
-          />
-        </h2>
-        {
-          showProducts && products.map((el, key) => {
-              return(
-                <li key={key}>
-                  <span>el.name</span>
-                  <Add
-                    size='1.2em'
-                    c_fill='transparent'
-                    c_stroke='var(--bk-light)'
-                    p_stroke='var(--bk-light)'
-                    handleClick={ this.newProvider }
-                  />
-                </li>
-              )
+            colorHover='var(--bk-light)'
+            optionsRotate={
+              showProducts ? ["30deg", "90deg"] : ["90deg", "30deg"]
             }
+          />
+        </section>
+        {
+          showProducts &&  (
+            <>
+            <section className='categoriesBody'>
+              {
+                products.map((el, key) => {
+                    return (
+                      <li key={key}>
+                        <span>el.name</span>
+                        <Cross
+                          size='.5em'
+                          color='var(--light-gray)'
+                          colorHover='var(--bk-light)'
+                        />
+                      </li>
+                    )
+                  }
+                )
+              }
+            </section>
+            <section className='categoriesFooter'>
+              <Button
+                text='Editar'
+                textColor='var(--gray)'
+                textColorHover='var(--bk-light)'
+                className='buttonBorder'
+                position='relative'
+                left='1em'
+              />
+            </section>
+            </>
           )
         }
         <style jsx>{`
           ul {
             display: grid;
-            grid-template-rows: 2.5em;
             grid-gap: .3em;
+            margin: 0 .5em;
+            transition: .3s;
+            grid-template-rows: 2.5em;
+            border: 1px solid var(--light-gray);
+            ${showProducts && `
+              margin: 0;
+              box-shadow: 0px 4px 4px rgba(0,0,0,0.25);
+            `}
+          }
+          ul:hover {
+            margin: 0;
             box-shadow: 0px 4px 4px rgba(0,0,0,0.25);
           }
-          ul h2 {
+          ul .categoriesHeader {
             display: grid;
             align-items: center;
             grid-auto-flow: column;
             background: var(--white);
             grid-template-columns: 1fr 1fr 3em;
+            border-bottom: ${showProducts && '1px solid var(--light-gray)'}
           }
-          ul h2 span {
+          ul .categoriesHeader span {
             font-size: 1.1em;
             padding-left: 1em;
             color: var(--gray);
@@ -258,6 +345,7 @@ class Category extends Component {
             grid-auto-flow: column;
             grid-template-rows: 2em;
             align-items: center;
+            margin-left: .5em;
             grid-template-columns: 1fr 3em;
           }
           ul li span {
@@ -275,6 +363,17 @@ class Category extends Component {
           ul li span::first-letter {
             text-transform: uppercase;
           }
+          /*  Categoríes Footer */
+          ul .categoriesFooter {
+            ${ showProducts && `
+              max-height: 4em;
+              display: grid;
+              padding-right: 1em;
+              padding-bottom: 1em;
+              grid-auto-flow: column;
+              justify-items: center;
+            `}
+          }
         `}</style>
       </ul>
     )
@@ -283,7 +382,13 @@ class Category extends Component {
 
 class Categories extends Component {
   state= {
-    categories: this.props.categories || catego
+    newCategory: false,
+    categories: this.props.categories || catego,
+  }
+  newCategory = () => {
+    this.setState({
+      newCategory: true
+    })
   }
   render(){
     let {
@@ -291,37 +396,27 @@ class Categories extends Component {
     } = this.state
     return(
       <section>
-        {
-          categories.map((el, key) => {
-              return (
-                <Category {...el} key={key}/>
-              )
-
-            }
-          )
-        }
-        <div>
-          <Add
-            size='4em'
-            c_fill='transparent'
-            c_stroke='var(--bk-light)'
-            p_stroke='var(--bk-light)'
-            handleClick={ this.newProvider }
-          />
-        </div>
+        <article>
+          {
+            categories.map((el, key) => {
+                return <Category {...el} key={key}/>
+              }
+            )
+          }
+        </article>
+        <NewCategory/>
         <style jsx>{`
           section {
             display: grid;
             height: 100%;
-            align-content: start;
-            overflow: scroll;
-            grid-gap: .4em;
-            background: var(--white)
+            background: var(--white);
+            grid-template-rows: 1fr 4.2em;
           }
-          section div {
-            bottom: 0;
-            right: 0;
-            position: absolute;
+          section article {
+            display: grid;
+            grid-gap: .4em;
+            overflow: scroll;
+            align-content: start;
           }
         `}</style>
       </section>

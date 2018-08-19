@@ -5,11 +5,15 @@ const Add = (props) => {
   let {
     c_fill,
     c_stroke,
-    p_stroke
+    p_stroke,
+    colorHover
   } = props
   return (
-    <Fragment>
-      <Icon {...props}>
+    <>
+      <Icon
+        shadow='drop-shadow(0px 5px 5px var(--gray))'
+        {...props}
+        >
         <circle
           cx="15"
           cy="15"
@@ -26,8 +30,13 @@ const Add = (props) => {
           strokeLinecap="round"
           strokeLinejoin="round"
         />
+        <style jsx>{`
+          circle:hover {
+            fill: ${colorHover};
+          }
+        `}</style>
       </Icon>
-    </Fragment>
+    </>
   )
 }
 

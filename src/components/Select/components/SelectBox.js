@@ -10,8 +10,9 @@ const SelectBox = (props) => (
       (props.showIcon) &&
       <span>
         <Triangle
-          size={20}
+          size={15}
           color='#788895'
+          optionsRotate={["30deg", "90deg"]}
         />
       </span>
     }

@@ -3,7 +3,7 @@ import FieldInput from '../Field/FieldInput'
 
 class Text extends Component {
   state = {
-    error: false,
+    error: this.props.error || false,
     label: this.props.label,
     value: this.props.value || '',
     id: this.props.id || this.props.label,

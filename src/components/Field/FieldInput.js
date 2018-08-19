@@ -20,7 +20,7 @@ import Cross from '../Icons/cross.js'
 
 class FieldInput extends Component {
   state = {
-    error: false,
+    error: this.props.error || false,
     validated: false,
     label: this.props.label,
     value: this.props.value || '',
@@ -77,7 +77,7 @@ class FieldInput extends Component {
     this.setState({
       error: nextProps.error,
       value: nextProps.value,
-    })
+    });
     this.handleError(nextProps.error)
   }
   render() {
@@ -101,7 +101,7 @@ class FieldInput extends Component {
           onClick={this.handleClick}
           onChange={this.handleChange}
         />
-        <p>error</p>
+        <p>{this.state.error}</p>
         <div className='Icon'>
           {
             (this.state.validated == true) &&
@@ -113,18 +113,22 @@ class FieldInput extends Component {
           {
             (this.state.error != false) &&
               <Cross
-                size='20'
+                size='1em'
                 color='red'
               />
           }
         </div>
         <style jsx>{`
+          article * {
+            border: 1px solid red !important;
+          }
           article {
             display: grid;
             grid-template-columns: 1fr;
             grid-template-rows: 3.7em;
             grid-template-areas: "label";
           }
+
           label {
             width: 100%;
             height: 1.2em;
@@ -136,7 +140,7 @@ class FieldInput extends Component {
             border-bottom: 1px solid var(--gray)
           }
           input {
-            height: 1em;
+            height: 1.2em;
             border: none;
             padding: 0em;
             outline: none;
@@ -161,9 +165,9 @@ class FieldInput extends Component {
           }
           article.Focus {
             transition: .3s;
-            grid-gap: .1em .5em;
-            grid-template-columns: 1fr 1.7em;
-            grid-template-rows: 1em 1.5em 1em;
+            /* grid-gap: .1em .5em; */
+            grid-template-columns: 1fr ;
+            grid-template-rows: 1em 1.7em 1em;
             grid-template-areas:  "label Icon"
                                   "input Icon"
                                   "p     Icon";
