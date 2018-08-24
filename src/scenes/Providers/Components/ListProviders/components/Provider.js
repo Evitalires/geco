@@ -5,7 +5,7 @@ import Add from '../../../../../components/Icons/Add'
 import Edit from '../../../../../components/Icons/edit'
 import IconCatalogue from '../../../../../components/Icons/catalogue'
 import RegisterProviders from './../../RegisterProviders'
-import { Modal } from '../../../../../components/Modal/Modal'
+import Modal from '../../../../../components/Modal/Modal'
 
 const ModalEdit = props => {
   let {

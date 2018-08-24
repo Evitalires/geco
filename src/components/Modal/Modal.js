@@ -6,7 +6,7 @@ import Button from '../Button/Button'
 
 import { Portal } from './Portal'
 
-export class Modal extends Component {
+class Modal extends Component {
   state = {
     //modal structure
     area: this.props.area,
@@ -213,3 +213,5 @@ export class Modal extends Component {
     )
   }
 }
+
+export default Modal

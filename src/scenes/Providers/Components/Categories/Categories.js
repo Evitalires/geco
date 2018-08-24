@@ -3,8 +3,8 @@ import Button from '../../../../components/Button/Button'
 import Triangle from '../../../../components/Icons/triangle'
 import Add from '../../../../components/Icons/Add'
 import Cross from '../../../../components/Icons/cross'
-import { Modal } from '../../../../components/Modal/Modal'
-import Text from '../../../../components/Form/Text'
+import Modal  from '../../../../components/Modal/Modal'
+import Input from '../../../../components/Input/Input'
 
 
 let catego = [
@@ -222,12 +222,7 @@ class NewCategory extends Component {
         headerTextAlign='center'
 
         body={
-          <Text
-            error='Escribiste mal eso'
-            placeholder='Descripción'
-            label='Descripción'
-            value=''
-          />
+          <span>acá va un input</span>
         }
         footer={
           <Button
@@ -403,6 +398,43 @@ class Categories extends Component {
               }
             )
           }
+          {/* //Pruebas */}
+          <article>
+            <span>
+              Input para productos
+            </span>
+            <Input
+              label='Label'
+              value='Input'
+              error='Error'
+              placeholder='Adios'
+              className='Product'
+              active={true}
+              unActive={true}
+            />
+            <span>
+              Input para que cambia
+            </span>
+            <Input
+              label='Label'
+              value='Input'
+              placeholder='Adios'
+              active={true}
+              unActive={true}
+            />
+            <span>
+              Input para formularios
+            </span>
+            <Input
+              label='Label'
+              value='Input'
+              error=''
+              placeholder='Adios'
+              active={true}
+              unActive={true}
+              className='Field'
+            />
+          </article>
         </article>
         <NewCategory/>
         <style jsx>{`
@@ -417,6 +449,10 @@ class Categories extends Component {
             grid-gap: .4em;
             overflow: scroll;
             align-content: start;
+          }
+          span {
+            color: var(--bk-light);
+            font-size: 1em;
           }
         `}</style>
       </section>

@@ -2,21 +2,7 @@ import React, { Component, Fragment } from 'react'
 import Check from '../Icons/check.js'
 import Cross from '../Icons/cross.js'
 
-/*
-  FieldInput muestra
-  ________
-  input   |  icon X || ok
-  ________
 
-  -------------------------
-
-  label   |
-  ________
-  input   |  icon X || ok
-  ________
-  span    |
-  ________
-*/
 
 class FieldInput extends Component {
   state = {
@@ -119,14 +105,11 @@ class FieldInput extends Component {
           }
         </div>
         <style jsx>{`
-          article * {
-            border: 1px solid red !important;
-          }
           article {
             display: grid;
-            grid-template-columns: 1fr;
+            grid-template-columns: 1fr 1em;
             grid-template-rows: 3.7em;
-            grid-template-areas: "label";
+            grid-template-areas: "label Icon";
           }
 
           label {
@@ -256,5 +239,6 @@ class FieldInput extends Component {
     )
   }
 }
+
 
 export default FieldInput
