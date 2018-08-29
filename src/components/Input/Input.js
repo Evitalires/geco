@@ -37,17 +37,45 @@ class Input extends Component {
     icon: this.props.icon || false,
     className: this.props.className || 'default',
     validate: this.props.validate,
+    context: this.props.context || '',
     // styles
     height: this.props.height
   }
-  active = () => {
-    this.setState({ className: (this.props.className || 'default') + ' active' });
+  icon = () => {
+    let {
+      error,
+      validate
+    } = this.state
+
+    if(validate == true || error != '') {
+      return true
+    }
+    else {
+      return false
+    }
   }
-  unActive = () => {
-    this.setState({ className: (this.props.className || 'default') + ' unActive' });
+  setRef = element => {
+    this.input = element
   }
-  error = () => {
-    this.setState({ className: (this.props.className || 'default') + ' error' })
+  focus = () => {
+    this.input.focus()
+    this.input.select()
+  }
+  active = context => {
+    this.setState({
+      context: context || 'active'
+    });
+    this.focus()
+  }
+  unActive = context => {
+    this.setState({
+      context: context || 'unActive'
+    });
+  }
+  error = context => {
+    this.setState({
+      context: context
+    })
   }
   click = event => {
     this.props.active && this.active();
@@ -55,22 +83,28 @@ class Input extends Component {
     this.props.onClick && this.props.onClick();
   }
   change = event => {
+    let text = event.target.value
     this.setState({
-      value: event.target.value
+      value: text
     });
     this.props.onChange && this.props.onChange()
   }
   blur = event => {
     this.props.unActive && this.unActive();
     this.state.error != '' && this.error();
-    this.props.onBlur && this.props.onBlur()
+    this.props.onBlur && this.props.onBlur();
   }
   componentWillMount  = () => {
-    console.log('Ya me monté');
-    this.state.error != '' && this.error()
+    this.state.error != '' && this.error('error')
   }
-  componentWillReceiveProps = () => {
+  componentWillReceiveProps = (props) => {
     console.log('recibí nuevas propiedades');
+    if(props.error != '') {
+      this.error('error')
+    }
+    else {
+      this.error('')
+    }
   }
   render() {
     let {
@@ -78,144 +112,185 @@ class Input extends Component {
       value,
       error,
       view,
-      icon,
       validate,
       className,
+      context,
       placeholder,
       //Styles
       height
     } = this.state
+    let id = Math.random()
     return(
       <article
-        className={className}
         onClick={this.click}
         onBlur={this.blur}
-        >
-        <label
-          htmlFor={value}>
-          {label}
-        </label>
+        className={`${className} ${context} ${validate && 'validate'}`}>
+        <label htmlFor="">{label}</label>
         <input
-          id={value}
+          type="text"
           value={value}
-          placeholder={placeholder}
+          ref={this.setRef}
           onChange={this.change}
         />
         <p>{error}</p>
-        <div className='Icon'>
-          {
-            (this.state.validated == true) &&
-              <Check
-                size='.8em'
-                color='var(--bk-light)'
-              />
-          }
-          {
-            (this.state.error != false) &&
-              <Cross
-                size='.8em'
-                color='red'
-              />
-          }
-        </div>
+        {
+          (this.icon) &&
+          <div className='Icon'>
+            {
+              (validate == true) &&
+                <Check
+                  size='1em'
+                  color='var(--bk-light)'
+                />
+            }
+            {
+              (error != '') &&
+                <Cross
+                  size='1em'
+                  color='red'
+                />
+            }
+          </div>
+        }
         <style jsx>{`
-          {
-            --rowsDef: .7em 1.4em .8em;
-            --areasUndef:  "Input Icon"
-                            "Label Icon"
-                            "Error Icon";
-            --areasDef:     "Label Icon"
-                            "Input Icon"
-                            "Error Icon";
-          }
-          /* Default styles */
           article {
             display: grid;
-            grid-auto-flow: row;
-            align-items: center;
-            grid-template-columns:${ validate || error ? '1fr 1em' : '1fr'};
-            grid-template-rows: var(--rowsDef);
-            grid-template-areas:  var(--areasUndef);
+            grid-gap: .2em;
+            grid-auto-flow: column;
+            grid-template-columns: ${this.icon ? "1fr 4em" : "100%" };
+            --areasDefaultIcon: "Label Icon"
+                                "Input Icon"
+                                "Parrafo Icon";
+            --areasDefault: "Label"
+                            "Input"
+                            "Parrafo";
+            --areasRowDefault: .8em 1.5em .8em;
+            --areasChange:  "Input"
+                            "Label"
+                            "Parrafo";
+            --areasChange:  "Input Icon"
+                            "Label Icon"
+                            "Parrafo Icon";
           }
           label {
-            height: auto;
-            display: none;
+            font-size: .9em;
             grid-area: Label;
+            transition: .3s;
+            color: var(--light-gray);
+            border-bottom: 1px solid transparent;
           }
           input {
+            border: none;
             outline: none;
-            height: 1.5em;
-            grid-row-start: 2;
+            font-size: 1em;
             grid-area: Input;
+            transition: .3s;
+            padding-left: .5em;
+            padding-bottom: .5em;
+            color: var(--bk-dark);
+            background: transparent;
+            border-bottom: 1px solid transparent;
           }
           p {
             margin: 0;
-            height: 1em;
-            grid-area: Error;
-            display: ${ error != '' ? 'block' : 'none'};
-            opacity: ${ error != '' ? '1' : '0'};
+            display: none;
+            grid-area: Parrafo;
           }
           .Icon {
+            display: grid;
             grid-area: Icon;
-            display: ${ validate || error ? 'block' : 'none'}
           }
-          /* Context  default */
+          /* Styles Default */
+          .default {
+            grid-template-rows: var(--areasRowDefault);
+            grid-template-areas: ${this.icon ? 'var(--areasDefaultIcon)' : 'var(-areasDefault)' };
+          }
           .default input {
-            display: none;
+            transition: .5s;
+            border-bottom: 1px solid ${
+              value.length == 0 ? 'var(--gray-light)' : 'transparent'
+            };
           }
-          .default p,
-          .default label {
+          .default input:focus {
+            border-bottom: 1px solid var(--bk-light);
+          }
+          .default.unActive input {
+            border-bottom: 1px solid ${value.length == 0 ? 'var(--light-gray)' :   'transparent'};
+          }
+          .default.validate input {
+            border-bottom: 1px solid var(--bk-light);
+          }
+          /* Styles Change */
+          .change {
+            grid-template-rows: var(--areasRowDefault);
+            grid-template-areas: var(--areasChange);
+          }
+          .change input {
+            padding: 0;
+            opacity: 0;
+            font-size: .8em;
+            border-bottom: 1px solid transparent;
+          }
+          .change label {
+            font-size: 1em;
+            color: var(--bk-dark);
+          }
+          .change.active {
+            grid-template-areas: var(--areasDefault);
+          }
+          .change.active label,
+          .change.unActive label {
+            font-size: .8em;
+            color: var(--light-gray);
+          }
+          .change.active input,
+          .change.unActive input {
+            opacity: 1;
+            font-size: 1em;
+            padding-left: .5em;
+            padding-bottom: .5em;
+            border-bottom: 1px solid var(--light-gray);
+          }
+          .change.active input:focus,
+          .change.unActive input:focus {
+            border-bottom: 1px solid var(--bk-light);
+          }
+          .change.unActive {
+            grid-template-areas: var(--areasDefault);
+          }
+          /* Styles product */
+          .product {
+            grid-template-rows: var(--areasRowDefault);
+            grid-template-areas: var(--areasDefault);
+          }
+          .product input {
+            padding-left: 0;
+          }
+          .product label {
+            opacity: 0;
+          }
+          .product.active input {
+            padding-left: .5em;
+            border-bottom: 1px solid var(--bk-light);
+          }
+          .product.active label {
+            opacity: 1;
+          }
+
+          /* Styles Error */
+          .error p {
+            color: red;
+            font-size: .8em;
             display: block;
           }
-          .default.active {
-            grid-template-rows: var(--rowsDef);
-            grid-template-areas: var(--areasDef)
-          }
-          .default.active input {
-            display: block
-          }
-          .default.unActive {
-            grid-template-rows: repeat(3, 1em);
-            grid-template-areas:  "Input Icon"
-                                  "Label Icon"
-                                  "Error Icon"
-          }
-          .default.error {
-            grid-template-rows: var(--rowsDef);
-            grid-template-areas: var(--areasDef);
-          }
-          .default.error p {
+          .error label {
             color: red;
           }
-          /* Class product */
-          .Product {
-          }
-          .Product.active {
-            grid-template-rows: var(--rowsDef);
-            grid-template-areas: var(--areasDef);
-          }
-          .Product.active label {
-            display: block;
-          }
-          .Produc.active p {
-            display: block;
-          }
-          .Product.error {
-            grid-template-rows: var(--rowsDef);
-            grid-template-areas: var(--areasDef);
-          }
-          .Product.error input {
-            border: 1px solid transparent;
+          .error input,
+          .error input:focus {
             border-bottom: 1px solid red;
           }
-          .Product.error p {
-            color: red;
-          }
-          /* Class Field */
-          .Field {
-            grid-template-rows: 3em;
-            grid-template-areas:  "Input";
-          }
+
         `}</style>
       </article>
     )

@@ -401,38 +401,38 @@ class Categories extends Component {
           {/* //Pruebas */}
           <article>
             <span>
-              Input para productos
+              Input por defecto
             </span>
             <Input
               label='Label'
-              value='Input'
-              error='Error'
+              value='Defecto'
               placeholder='Adios'
-              className='Product'
-              active={true}
-              unActive={true}
-            />
-            <span>
-              Input para que cambia
-            </span>
-            <Input
-              label='Label'
-              value='Input'
-              placeholder='Adios'
-              active={true}
-              unActive={true}
-            />
-            <span>
-              Input para formularios
-            </span>
-            <Input
-              label='Label'
-              value='Input'
+              validate={true}
               error=''
+              active={true}
+              unActive={true}
+            />
+            <span>
+              Input para que cambie
+            </span>
+            <Input
+              label='Label'
+              value='Cambiante'
+              className='change'
               placeholder='Adios'
               active={true}
               unActive={true}
-              className='Field'
+            />
+            <span>
+              Input para producto
+            </span>
+            <Input
+              label='Label'
+              value='Producto'
+              className='product'
+              placeholder='Adios'
+              active={true}
+              unActive={true}
             />
           </article>
         </article>
