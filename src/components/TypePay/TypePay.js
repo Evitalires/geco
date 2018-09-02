@@ -1,7 +1,7 @@
 import React, { Fragment, Component } from 'react'
 import Button from '../Button/Button'
 import ProductSmall from '../Product/ProductSmall/ProductSmall'
-import { Modal } from '../../components/Modal/Modal'
+import Modal  from '../../components/Modal/Modal'
 import  Check from '../../components/Icons/check'
 import FieldCheck from './components/FieldCheck'
 

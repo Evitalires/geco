@@ -1,7 +1,7 @@
 import React, { Fragment, Component } from 'react'
 import Button from '../Button/Button'
 import Options from '../../components/Options/Options'
-import { Modal } from '../../components/Modal/Modal'
+import  Modal from '../../components/Modal/Modal'
 
 class ErrorModal extends Component {
   state = {

@@ -3,29 +3,20 @@ import Check from '../Icons/check.js'
 import Cross from '../Icons/cross.js'
 
 /**
+Input
   <Input
-    value={valor de input}
-    placeholder={placeholder para input}
-    label={texto del label}
-    icon={muestra al icono cuando tenga error o esté validado }
-    className={
-      "active"   => Se refiere al orden label, input, p,
-      "unActive" => Se refiere al orden input, label, p,
-      "default" => Se refiere al orden input
-    }
-    validate = {
-      "true" => Se refiere a los contornos con var(--bk-light) + icono
-    }
-    error={
-      content: muestra el error y sobreescribe el contexto
-      ||
-      null
-    }
-    onClick={función para click}
-    onChange={función que se activa con cada cambio}
-    onBlur={Función cuando se pierde el foco: state{"active", "unActive"}, function}
-  >
-  </Input>
+    label={input.label}
+    value={input.value}
+    className={input.className}
+    placeholder={input.placeholder}
+    active={input.active}
+    unActive={input.unActive}
+    validate={input.validate}
+    erro=={input.validate}
+    onChange=={this.changeInput}
+  />
+Input Change
+
 **/
 
 class Input extends Component {
@@ -34,23 +25,22 @@ class Input extends Component {
     value: this.props.value,
     placeholder: this.props.placeholder,
     error: this.props.error || '',
-    icon: this.props.icon || false,
     className: this.props.className || 'default',
     validate: this.props.validate,
     context: this.props.context || '',
-    // styles
-    height: this.props.height
   }
   icon = () => {
     let {
       error,
       validate
     } = this.state
-
+    console.log('función icon');
     if(validate == true || error != '') {
+      console.log('Props validate true');
       return true
     }
     else {
+      console.log('Props validate false');
       return false
     }
   }
@@ -65,21 +55,20 @@ class Input extends Component {
     this.setState({
       context: context || 'active'
     });
-    this.focus()
   }
   unActive = context => {
     this.setState({
       context: context || 'unActive'
     });
   }
-  error = context => {
+  error = text => {
     this.setState({
-      context: context
+      error: text
     })
   }
   click = event => {
     this.props.active && this.active();
-    this.state.error != '' && this.error();
+    this.props.focus && this.focus()
     this.props.onClick && this.props.onClick();
   }
   change = event => {
@@ -91,20 +80,18 @@ class Input extends Component {
   }
   blur = event => {
     this.props.unActive && this.unActive();
-    this.state.error != '' && this.error();
     this.props.onBlur && this.props.onBlur();
   }
-  componentWillMount  = () => {
-    this.state.error != '' && this.error('error')
-  }
-  componentWillReceiveProps = (props) => {
-    console.log('recibí nuevas propiedades');
-    if(props.error != '') {
-      this.error('error')
-    }
-    else {
-      this.error('')
-    }
+  componentWillReceiveProps = nextProps => {
+    this.setState({
+      label: nextProps.label,
+      value: nextProps.value,
+      placeholder: nextProps.placeholder,
+      error: nextProps.error || '',
+      className: nextProps.className || 'default',
+      validate: nextProps.validate,
+      context: nextProps.context || '',
+    })
   }
   render() {
     let {
@@ -116,15 +103,19 @@ class Input extends Component {
       className,
       context,
       placeholder,
-      //Styles
-      height
     } = this.state
     let id = Math.random()
     return(
       <article
         onClick={this.click}
         onBlur={this.blur}
-        className={`${className} ${context} ${validate && 'validate'}`}>
+        className={
+          `${className} ` +
+          `${context} ` +
+          `${validate ? 'validate ' : ''} ` +
+          `${error != '' ? ' error' : '' } `
+        }
+          >
         <label htmlFor="">{label}</label>
         <input
           type="text"
@@ -157,7 +148,9 @@ class Input extends Component {
             display: grid;
             grid-gap: .2em;
             grid-auto-flow: column;
-            grid-template-columns: ${this.icon ? "1fr 4em" : "100%" };
+            grid-template-columns: ${this.icon ? "var(--twoCol)" : "var(oneCol)" };
+            --twoCol: 1fr 2em;
+            --oneCol: 100%;
             --areasDefaultIcon: "Label Icon"
                                 "Input Icon"
                                 "Parrafo Icon";
@@ -168,7 +161,8 @@ class Input extends Component {
             --areasChange:  "Input"
                             "Label"
                             "Parrafo";
-            --areasChange:  "Input Icon"
+
+            --areasChangeIcon:  "Input Icon"
                             "Label Icon"
                             "Parrafo Icon";
           }
@@ -203,13 +197,12 @@ class Input extends Component {
           /* Styles Default */
           .default {
             grid-template-rows: var(--areasRowDefault);
+            grid-template-columns: var(--oneCol);
             grid-template-areas: ${this.icon ? 'var(--areasDefaultIcon)' : 'var(-areasDefault)' };
           }
           .default input {
             transition: .5s;
-            border-bottom: 1px solid ${
-              value.length == 0 ? 'var(--gray-light)' : 'transparent'
-            };
+            border-bottom: 1px solid var(--light-gray);
           }
           .default input:focus {
             border-bottom: 1px solid var(--bk-light);
@@ -217,13 +210,17 @@ class Input extends Component {
           .default.unActive input {
             border-bottom: 1px solid ${value.length == 0 ? 'var(--light-gray)' :   'transparent'};
           }
+          .default.validate {
+            grid-template-columns: var(--twoCol);
+          }
           .default.validate input {
             border-bottom: 1px solid var(--bk-light);
           }
           /* Styles Change */
           .change {
+            grid-template-columns: var(--oneCol);
             grid-template-rows: var(--areasRowDefault);
-            grid-template-areas: var(--areasChange);
+            grid-template-areas: ${this.icon ? 'var(--areasChangeIcon)' : 'var(-areasChange)' };;
           }
           .change input {
             padding: 0;
@@ -236,7 +233,8 @@ class Input extends Component {
             color: var(--bk-dark);
           }
           .change.active {
-            grid-template-areas: var(--areasDefault);
+            grid-template-columns: ${this.icon ? 'var(--twoCol)' : 'var(--oneCol)' };
+            grid-template-areas: ${this.icon ?  'var(--areasDefaultIcon)' : 'var(--areasDefault)'};
           }
           .change.active label,
           .change.unActive label {
@@ -256,12 +254,21 @@ class Input extends Component {
             border-bottom: 1px solid var(--bk-light);
           }
           .change.unActive {
-            grid-template-areas: var(--areasDefault);
+            grid-template-areas: ${this.icon ? 'var(--areasDefaultIcon)' : 'var(-areasDefault)' };
+          }
+          .change.validate.active,
+          .change.validate.unActive {
+            grid-template-columns: var(--twoCol);
+            grid-template-areas: ${this.icon ? 'var(--areasDefaultIcon)' : 'var(-areasDefault)' };
+          }
+          .change.validate.unActive {
+
           }
           /* Styles product */
           .product {
+            grid-template-columns: ${this.icon ? 'var(--twoCol)' : 'var(--oneCol)' };
             grid-template-rows: var(--areasRowDefault);
-            grid-template-areas: var(--areasDefault);
+            grid-template-areas: ${this.icon ? 'var(--areasDefaultIcon)' : 'var(-areasDefault)' };;
           }
           .product input {
             padding-left: 0;
@@ -278,17 +285,20 @@ class Input extends Component {
           }
 
           /* Styles Error */
+          .error {
+            grid-template-columns: var(--twoCol);
+          }
           .error p {
             color: red;
             font-size: .8em;
             display: block;
           }
           .error label {
-            color: red;
+            color: red !important;
           }
           .error input,
           .error input:focus {
-            border-bottom: 1px solid red;
+            border-bottom: 1px solid red !important;
           }
 
         `}</style>

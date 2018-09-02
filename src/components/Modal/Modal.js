@@ -97,7 +97,7 @@ class Modal extends Component {
                     text={ closerText }
                     justifySelf='right'
                     alignSelf='baseline'
-                    padding='.2em .5em 0 0'
+                    padding='0 0 .5em 0'
                     handleClick={this.close}
                     className={this.state.closeButton || ''}
                   />
