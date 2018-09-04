@@ -6,17 +6,15 @@ import Input from '../Input/Input'
 class Finder extends Component {
   state = {
     error: this.props.error,
-    type: 'search',
-    type: this.props.type,
     value: this.props.value,
-    placeholder: 'Buscar',
+    placeholder: this.props.placeholder,
     className: this.props.className || '',
     //Styles
+    inputColor: this.props.inputColor,
+    placeholderColor: this.props.placeholderColor,
     background: this.props.background,
     columnEnd: this.props.columnEnd,
     padding: this.props.padding,
-    height: this.props.height,
-    inputColor: this.props.inputColor
   }
   handleClick = event => {
     if(this.state.className.search('Focus') == -1) {
@@ -68,12 +66,16 @@ class Finder extends Component {
       padding,
       height,
       inputColor,
+      placeholder,
+      placeholderColor,
     } = this.state
     return (
       <Input
         type='text'
-        value={'Escribí algo'}
-        placeholder='Buscar'
+        value={''}
+        inputColor={inputColor}
+        placeholder={placeholder}
+        placeholderColor={placeholderColor}
         icon={
           <Search
             color='var(--light-gray)'

@@ -28,6 +28,9 @@ class Input extends Component {
     placeholder: this.props.placeholder,
     validate: this.props.validate,
     context: this.props.context || '',
+    //styles
+    inputColor: this.props.inputColor,
+    placeholderColor: this.props.placeholderColor
   }
   icon = () => {
     let {
@@ -117,6 +120,8 @@ class Input extends Component {
       className,
       placeholder,
       context,
+      inputColor,
+      placeholderColor
     } = this.state
     let id = Math.random()
     return(
@@ -201,12 +206,12 @@ class Input extends Component {
             transition: .3s;
             padding-left: .5em;
             padding-bottom: .5em;
-            color: var(--bk-dark);
+            color: ${inputColor != undefined ? inputColor : 'var(--bk-dark)'};
             background: transparent;
             border-bottom: 1px solid transparent;
           }
           input::placeholder {
-            color: red;
+            color: ${placeholderColor != undefined ? placeholderColor : 'var(--gray)'};
           }
           p {
             margin: 0;

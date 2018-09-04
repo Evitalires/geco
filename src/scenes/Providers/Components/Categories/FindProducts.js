@@ -36,7 +36,11 @@ class FindProducts extends Component {
         headerTitle={'Categoría'}
         headerTextAlign='center'
         header={
-          <Finder/>
+          <Finder
+            placeholder='Buscar productos'
+            inputColor='var(--white)'
+            placeholderColor='var(--light-gray)'
+          />
         }
 
         body={
