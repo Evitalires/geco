@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{ Component } from 'react'
 import RegisterProviders from './Components/RegisterProviders'
 import ListProviders from './Components/ListProviders/ListProviders'
 import Categories from './Components/Categories/Categories'
@@ -10,6 +10,7 @@ const ProvidersUI = (props) => {
     <section>
       <Finder
         placeholder='Buscar proveedor'
+        value=''
       >
         {
 

@@ -23,9 +23,9 @@ class Input extends Component {
   state = {
     label: this.props.label,
     value: this.props.value,
-    placeholder: this.props.placeholder,
     error: this.props.error || '',
     className: this.props.className || 'default',
+    placeholder: this.props.placeholder,
     validate: this.props.validate,
     context: this.props.context || '',
   }
@@ -35,7 +35,7 @@ class Input extends Component {
       validate
     } = this.state
     console.log('función icon');
-    if(validate == true || error != '') {
+    if(validate == true || error != '' || this.props.icon != undefined) {
       console.log('Props validate true');
       return true
     }
@@ -82,11 +82,25 @@ class Input extends Component {
     this.props.unActive && this.unActive();
     this.props.onBlur && this.props.onBlur();
   }
+  blurInput = event => {
+    this.setState({
+      value: event.target.value
+    })
+  }
+  widthInput = () => {
+    let width = (this.input.offsetWidth - 8) + 'px'
+    return width
+  }
+  componentDidMount() {
+    console.log(this.widthInput());
+    this.setState({
+      widthInput: this.widthInput(),
+    })
+  }
   componentWillReceiveProps = nextProps => {
     this.setState({
       label: nextProps.label,
       value: nextProps.value,
-      placeholder: nextProps.placeholder,
       error: nextProps.error || '',
       className: nextProps.className || 'default',
       validate: nextProps.validate,
@@ -101,8 +115,8 @@ class Input extends Component {
       view,
       validate,
       className,
-      context,
       placeholder,
+      context,
     } = this.state
     let id = Math.random()
     return(
@@ -118,30 +132,35 @@ class Input extends Component {
           >
         <label htmlFor="">{label}</label>
         <input
-          type="text"
+          // type="text"
           value={value}
           ref={this.setRef}
+          placeholder={placeholder}
           onChange={this.change}
+          onBlur={this.blurInput}
         />
         <p>{error}</p>
         {
           (this.icon) &&
-          <div className='Icon'>
-            {
-              (validate == true) &&
-                <Check
-                  size='1em'
-                  color='var(--bk-light)'
-                />
-            }
-            {
-              (error != '') &&
-                <Cross
-                  size='1em'
-                  color='red'
-                />
-            }
-          </div>
+            <div className='Icon'>
+              {
+                (validate == true) &&
+                  <Check
+                    size='1em'
+                    color='var(--bk-light)'
+                  />
+              }
+              {
+                (error != '') &&
+                  <Cross
+                    size='1em'
+                    color='red'
+                  />
+              }
+              {
+                (this.props.icon != undefined) && this.props.icon
+              }
+            </div>
         }
         <style jsx>{`
           article {
@@ -178,12 +197,16 @@ class Input extends Component {
             outline: none;
             font-size: 1em;
             grid-area: Input;
+            min-width: ${this.state.widthInput};
             transition: .3s;
             padding-left: .5em;
             padding-bottom: .5em;
             color: var(--bk-dark);
             background: transparent;
             border-bottom: 1px solid transparent;
+          }
+          input::placeholder {
+            color: red;
           }
           p {
             margin: 0;
@@ -197,7 +220,7 @@ class Input extends Component {
           /* Styles Default */
           .default {
             grid-template-rows: var(--areasRowDefault);
-            grid-template-columns: var(--oneCol);
+            grid-template-columns: ${this.icon ? "var(--twoCol)" : "var(oneCol)" };
             grid-template-areas: ${this.icon ? 'var(--areasDefaultIcon)' : 'var(-areasDefault)' };
           }
           .default input {

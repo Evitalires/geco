@@ -3,57 +3,14 @@ import Modal  from '../../../../components/Modal/Modal'
 import Add from '../../../../components/Icons/Add'
 import Button from '../../../../components/Button/Button'
 import Input from '../../../../components/Input/Input'
+import FindProducts from './FindProducts'
 
-class FindProducts extends Component {
-  state={
-    FindProducts: false,
 
-  }
-  FindProducts = () => {
-    this.setState({
-      FindProducts: true
-    });
-    this.props.onClick && this.props.onClick()
-  }
-  render(){
-    return(
-      <Modal
-        closerText='X'
-        className='modalBottom'
-        opened={this.state.FindProducts}
-        trigger={
-          <Button
-            text='Guardar'
-            className='light shadow'
-            handleClick={this.FindProducts}
-          />
-        }
-        headerTitle={'Buscando productos para la nueva categoria'}
-        headerTextAlign='center'
-
-        body={
-          <section>
-            <p>Buscador</p>
-            <p>Productos</p>
-          </section>
-        }
-        footer={
-          <section>
-            <p>Boton para guardar todos</p>
-            <p>Boton para guardar seleccionados</p>
-          </section>
-        }
-        footerJustifyContent='center'
-      />
-    )
-  }
-}
 
 class NewCategory extends Component {
   state ={
     modalNameNewCategory: false,
     NameNewCategory: '',
-    openNewCategory: false,
   }
   open = () => {
     this.setState({
@@ -62,7 +19,7 @@ class NewCategory extends Component {
   }
   close = () => {
     this.setState({
-      modalNameNewCategory: false
+      modalNameNewCategory: false,
     })
   }
   NameNewCategory = text => {
@@ -75,8 +32,7 @@ class NewCategory extends Component {
     } = this.state
     return(
       <Modal
-        closerText='X'
-        className='modalBottom'
+        className='Bottom'
         opened={this.state.modalNameNewCategory}
         trigger={
           <Add
@@ -104,11 +60,10 @@ class NewCategory extends Component {
         }
         footer={
           <FindProducts
-            onClick={this.close}
+            parent={this}
           />
         }
         footerJustifyContent='center'
-
       />
     )
   }

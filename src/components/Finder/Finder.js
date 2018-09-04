@@ -1,14 +1,15 @@
 import React, { Component } from 'react'
 import Field from '../Field/Field'
 import Search from '../Icons/search'
+import Input from '../Input/Input'
 
 class Finder extends Component {
   state = {
-    error: '',
+    error: this.props.error,
     type: 'search',
     type: this.props.type,
-    text: this.props.text || '',
-    placeholder: this.props.placeholder || '',
+    value: this.props.value,
+    placeholder: 'Buscar',
     className: this.props.className || '',
     //Styles
     background: this.props.background,
@@ -69,95 +70,17 @@ class Finder extends Component {
       inputColor,
     } = this.state
     return (
-      <section className={this.state.className}>
-        <input
-          ref={this.setRef}
-          value={this.state.text}
-          onClick={this.handleClick}
-          onBlur={this.handleBlur}
-          onChange={this.handleChange}
-          placeholder={this.state.placeholder}
-        />
+      <Input
+        type='text'
+        value={'Escribí algo'}
+        placeholder='Buscar'
+        icon={
           <Search
-            size={25}
-            color= {
-                    (this.state.className.search('Focus') > -1)
-                    ? 'var(--bk-light)' : 'var(--gray)'
-                   }
-            handleClick={this.handleSubmit}
-            className='Icon'
+            color='var(--light-gray)'
+            size={20}
           />
-        <p>
-          {this.state.error}
-        </p>
-        {
-          (this.props.children != undefined)
-          &&
-          <article className='Content'>
-            {
-              this.props.children
-            }
-          </article>
         }
-        <style jsx>{`
-          section {
-            padding: ${padding ? padding : '1em 1.5em'};
-            width:  ${columnEnd ? 'auto' : 'calc(100% - 48px)'};
-            background: ${background || 'var(--bk-dark)'};
-            display: grid;
-            grid-gap: 8px 8px;
-            ${columnEnd && `grid-column-end :  ${ columnEnd }`};
-            grid-template-columns: 1fr 2em;
-            grid-template-rows: ${height ? height : '2em' } auto;
-            grid-template-areas:  "input   Icon"
-                                  "Content Content";
-          }
-          input {
-            height: 34px;
-            border: none;
-            padding: 0px;
-            outline: none;
-            font-size: 24px;
-            min-width: 100%;
-            grid-area: input;
-            align-self: center;
-            color: ${inputColor ? inputColor : 'var(--white)'};
-            padding-bottom: 4px;
-            background: transparent;
-            border-bottom: 1px solid var(--gray);
-          }
-          input:focus {
-            border-bottom: 1px solid var(--bk-light);
-          }
-          .Icon {
-            grid-area: Icon;
-          }
-          p {
-            width: 100%;
-            margin: 0px;
-            display: none;
-            grid-area: p;
-            align-items: center;
-            text-align: center;
-            color: var(--gray);
-            font-size: 20px;
-            background: var(--white);
-          }
-          .Content {
-            grid-area: Content;
-          }
-          section.Error {
-            grid-template-rows: 40px 30px auto;
-            grid-template-areas:  "input   Icon"
-                                  "p       p"
-                                  "Content Content";
-          }
-          section.Error p {
-            display: grid;
-          }
-
-        `}</style>
-      </section>
+      />
     )
   }
 }

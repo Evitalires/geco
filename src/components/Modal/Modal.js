@@ -26,6 +26,8 @@ class Modal extends Component {
     //modal Closer
     closerText: this.props.closerText,
     closerClass: this.props.closerClass,
+    //Overlay
+    overlayBackground: this.props.overlayBackground,
     //Styles modal
       // Header
       headerBackground: this.props.headerBackground,
@@ -71,6 +73,7 @@ class Modal extends Component {
       headerHeight,
       footerAlignItems,
       footerJustifyContent,
+      overlayBackground,
     } = this.state
     return (
       <Fragment>
@@ -88,13 +91,13 @@ class Modal extends Component {
         { opened && (
           <Portal selector='#modal'>
             <div className='overlay'>
-              <div className={ 'modalContainer ' + className }>
+              <div className={ 'modalContainer ' + 'modal' + className }>
                 <div className="modalHeader">
                   <h1>
                     { headerTitle }
                   </h1>
                   <Button
-                    text={ closerText }
+                    text={ closerText || 'X' }
                     justifySelf='right'
                     alignSelf='baseline'
                     padding='0 0 .5em 0'
@@ -128,7 +131,7 @@ class Modal extends Component {
                   right: 0;
                   bottom: 0;
                   position: fixed;
-                  background-color: rgba(0, 0, 0, 0.7);
+                  background-color: ${overlayBackground !=  undefined ? 'transparent' : 'rgba(0, 0, 0, 0.7)'};
                 }
                 .modalHeader {
                   display: grid;
