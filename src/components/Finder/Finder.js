@@ -10,72 +10,62 @@ class Finder extends Component {
     placeholder: this.props.placeholder,
     className: this.props.className || '',
     //Styles
+    padding: this.props.padding,
     inputColor: this.props.inputColor,
     placeholderColor: this.props.placeholderColor,
     background: this.props.background,
+    columnStart: this.props.columnStart,
     columnEnd: this.props.columnEnd,
-    padding: this.props.padding,
+    rowStart: this.props.rowStart,
+    rowEnd: this.props.rowEnd,
   }
   handleClick = event => {
-    if(this.state.className.search('Focus') == -1) {
-      this.setState({ className: this.state.className + ' Focus' });
-    }
-    (this.props.handleClick) && this.props.handleClick(event)
+    (this.props.handleClick) && this.props.handleClick(event.target.value)
   }
   handleChange = event => {
-    this.setState({
-      text: event.target.value
-    });
     (this.props.handleChange) && this.props.handleChange(event.target.value)
   }
   handleBlur = event => {
-    let className = this.state.className.replace('Focus', '')
-    this.setState({ className: ''});
-
     (this.props.handleBlur) && this.props.handleBlur(event.target.value)
   }
   handleSubmit = (event) => {
     console.log('Debería hacer una petición');
   }
   handleError = error => {
-    if(this.state.className.search('Error') == -1 && error != false) {
-      this.setState({
-        className: this.state.className + ' Error'
-      })
-    }
-    else if (error == false) {
-      let className = this.state.className.replace(' Error', '')
-      this.setState({
-        className: className
-      })
-    }
   }
   componentWillReceiveProps(nextProps) {
     if(nextProps.error != undefined) {
       this.setState({
-        error: nextProps.error,
-        text: nextProps.text,
+        error: nextProps.error
       });
-      this.handleError(nextProps.error)
     }
   }
   render() {
     let {
-      columnEnd,
-      background,
-      padding,
-      height,
-      inputColor,
+      value,
       placeholder,
+      //styles
+      padding,
+      background,
+      inputColor,
       placeholderColor,
+      columnStart,
+      columnEnd,
+      rowStart,
+      rowEnd,
     } = this.state
     return (
       <Input
         type='text'
-        value={''}
+        value={value}
+        background={background}
         inputColor={inputColor}
         placeholder={placeholder}
         placeholderColor={placeholderColor}
+        columnStart={columnStart}
+        columnEnd={columnEnd}
+        rowStart={rowStart}
+        rowEnd={rowEnd}
         icon={
           <Search
             color='var(--light-gray)'

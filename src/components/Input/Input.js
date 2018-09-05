@@ -30,14 +30,18 @@ class Input extends Component {
     context: this.props.context || '',
     //styles
     inputColor: this.props.inputColor,
-    placeholderColor: this.props.placeholderColor
+    placeholderColor: this.props.placeholderColor,
+    background: this.props.background,
+    columnStart: this.props.columnStart,
+    columnEnd: this.props.columnEnd,
+    rowStart: this.props.rowStart,
+    rowEnd: this.props.rowEnd,
   }
   icon = () => {
     let {
       error,
       validate
     } = this.state
-    console.log('función icon');
     if(validate == true || error != '' || this.props.icon != undefined) {
       console.log('Props validate true');
       return true
@@ -120,10 +124,18 @@ class Input extends Component {
       className,
       placeholder,
       context,
+      //styles
       inputColor,
-      placeholderColor
+      placeholderColor,
+      background,
+      columnStart,
+      columnEnd,
+      rowStart,
+      rowEnd,
     } = this.state
+
     let id = Math.random()
+
     return(
       <article
         onClick={this.click}
@@ -224,9 +236,14 @@ class Input extends Component {
           }
           /* Styles Default */
           .default {
+            background: ${background != undefined ? background : 'transparent' };
             grid-template-rows: var(--areasRowDefault);
             grid-template-columns: ${this.icon ? "var(--twoCol)" : "var(oneCol)" };
             grid-template-areas: ${this.icon ? 'var(--areasDefaultIcon)' : 'var(-areasDefault)' };
+            grid-column-start: ${columnStart != undefined ? columnStart : ''};
+            grid-column-end: ${columnEnd != undefined ? columnEnd : ''};
+            grid-row-start: ${rowStart != undefined ? rowStart : ''};
+            grid-row-end: ${rowEnd != undefined ? rowEnd : ''};
           }
           .default input {
             transition: .5s;

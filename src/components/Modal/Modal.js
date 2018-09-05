@@ -34,6 +34,7 @@ class Modal extends Component {
       headerPadding: this.props.headerPadding,
       headerTextAlign: this.props.headerTextAlign,
       headerHeight: this.props.headerHeight,
+      closerPadding: this.props.closerPadding,
       // Body
       bodyPadding: this.props.bodyPadding,
       // Footer
@@ -74,6 +75,7 @@ class Modal extends Component {
       footerAlignItems,
       footerJustifyContent,
       overlayBackground,
+      closerPadding,
     } = this.state
     return (
       <Fragment>
@@ -100,7 +102,7 @@ class Modal extends Component {
                     text={ closerText || 'X' }
                     justifySelf='right'
                     alignSelf='baseline'
-                    padding='0 0 .5em 0'
+                    padding={ closerPadding || '0 0 .5em 0' }
                     handleClick={this.close}
                     className={this.state.closeButton || ''}
                   />
@@ -136,6 +138,7 @@ class Modal extends Component {
                 .modalHeader {
                   display: grid;
                   min-height: 2em;
+                  grid-gap: .5em 0px;
                   padding: ${headerPadding || '.5em'};
                   background: ${headerBackground};
                   grid-template-columns: 1fr 2em;

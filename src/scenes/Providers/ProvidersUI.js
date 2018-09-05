@@ -9,8 +9,10 @@ const ProvidersUI = (props) => {
   return (
     <section>
       <Finder
-        placeholder='Buscar proveedor'
         value=''
+        placeholder='Buscar proveedor'
+        background='var(--bk-dark)'
+        inputColor='var(--white)'
       >
         {
 
