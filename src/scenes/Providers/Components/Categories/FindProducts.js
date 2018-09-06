@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import Modal  from '../../../../components/Modal/Modal'
 import Button from '../../../../components/Button/Button'
 import Finder from '../../../../components/Finder/Finder'
@@ -100,21 +100,25 @@ class FindProducts extends Component {
             return(this.foundProduct())
           })
         }
+        footerBackground='var(--bk-dark)'
+        footerAutoFlow='column'
+        footerJustifyContent='space-evenly'
         footer={
-          <section>
+          <>
             <Button
               text='Guardar'
-              className='light shadow'
+              className='border shadow'
               handleClick={this.FindProducts}
             />
             <Button
               text='Guardar todos'
-              className='light shadow'
+              className='border shadow'
+              color='var(--white)'
+              colorBorder='var(--white)'
               handleClick={this.FindProducts}
             />
-          </section>
+          </>
         }
-        footerJustifyContent='center'
       />
     )
   }

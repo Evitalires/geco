@@ -5,8 +5,8 @@ class Button extends Component {
     //Primary props
     text: this.props.text,
     className: this.props.className,
-    colorPrimary: this.props.colorPrimary,
-    colorSecondary: this.props.colorSecondary,
+    color: this.props.color,
+    colorBorder: this.props.colorBorder,
     //style props
     overflow: this.props.overflow,
     textOverflow: this.props.textOverflow,
@@ -31,8 +31,8 @@ class Button extends Component {
     let {
       text,
       className,
-      colorPrimary,
-      colorSecondary,
+      color,
+      colorBorder,
       //style props
       overflow,
       textOverflow,
@@ -80,8 +80,12 @@ class Button extends Component {
             button:hover {
               color: var(--bk-light);
             }
+            button.border {
+              border: 1px solid var(--gray);
+            }
             button.border:hover {
-              border: 1px solid var(--bk-light);
+              color: ${color ? color : 'var(--bk-light)' };
+              border: 1px solid ${colorBorder ? colorBorder : 'var(--bk-light)'};
             }
             button.shadow:hover {
               box-shadow: var(--shadow);

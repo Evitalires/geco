@@ -39,7 +39,10 @@ class Modal extends Component {
       bodyPadding: this.props.bodyPadding,
       // Footer
       footerAlignItems: this.props.footerAlignItems,
-      footerJustifyContent: this.props.footerJustifyContent
+      footerJustifyContent: this.props.footerJustifyContent,
+      footerBackground: this.props.footerBackground,
+      footerPadding: this.props.footerPadding,
+      footerAutoFlow: this.props.footerAutoFlow,
   }
   open = () => {
     this.setState({ opened: true })
@@ -67,6 +70,7 @@ class Modal extends Component {
       className,
       headerTitle,
       closerText,
+      closerPadding,
       headerBackground,
       headerTextAlign,
       bodyPadding,
@@ -74,8 +78,10 @@ class Modal extends Component {
       headerHeight,
       footerAlignItems,
       footerJustifyContent,
+      footerBackground,
+      footerPadding,
+      footerAutoFlow,
       overlayBackground,
-      closerPadding,
     } = this.state
     return (
       <Fragment>
@@ -160,7 +166,10 @@ class Modal extends Component {
                 .modalFooter {
                   display: grid;
                   align-items: ${footerAlignItems};
-                  justify-content: ${footerJustifyContent}
+                  grid-auto-flow: ${footerAutoFlow ? footerAutoFlow : ''};
+                  padding: ${footerPadding ? footerPadding : '1em'};
+                  justify-content: ${footerJustifyContent ? footerJustifyContent : ''};
+                  background: ${footerBackground ? footerBackground : 'transparent' };
                 }
                 .modalContainer {
                   position: relative;
