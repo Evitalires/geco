@@ -4,6 +4,7 @@ import Numbers from '../../../components/Form/Numbers'
 import Select from '../../../components/Select/Select'
 import AssignDay from '../../../components/AssignDay/AssignDay'
 import Catalogue from '../../../components/Catalogue/Catalogue'
+import Input from '../../../components/Input/Input'
 import Button from '../../../components/Button/Button'
 
 class RegisterProviders extends Component {
@@ -128,10 +129,10 @@ class RegisterProviders extends Component {
     else {
       return (
         <section>
-          <Text
-            value={ name }
+          <Input
             label='Nombre'
-            handleBlur={this.saveName}
+            value=''
+            error=''
           />
           <Select
             options={['Cédula de Ciudadanía', 'NIT',  'Otro']}
@@ -139,11 +140,12 @@ class RegisterProviders extends Component {
             selecText={ typeDocumentation || 'Selecciona una'}
             handleAnswer={this.typeDocumentation}
           />
-          <Numbers
-            value={ numberId }
+          <Input
             label='Número de identificación'
-            handleBlur={this.numberId}
+            value=''
+            error=''
           />
+
           <Select
             options={['Exento', 'Gravado', 'Otro']}
             mainText={'Razón social'}
@@ -156,42 +158,40 @@ class RegisterProviders extends Component {
             selecText={ payMethod || 'Selecciona uno' }
             handleAnswer={this.payMethod}
           />
-          <Numbers
-            value={ cellPhone }
+          <Input
             label='Celular'
-            handleBlur={this.cellPhone}
+            value=''
+            error=''
           />
-          <Numbers
-            value={ number }
+          <Input
+            value=''
+            error=''
             label='Teléfono'
-            handleBlur={this.phone}
           />
-          <Text
-            value={ mail }
+          <Input
             label='Mail'
-            handleBlur={this.mail}
+            value={ mail }
+            error=''
           />
-          <Text
-            value={ direction }
-            label='Dirección'
-            handleBlur={this.direction}
+          <Input
+          label='Dirección'
+          value=' '
           />
           <AssignDay
             assignDay={this.AssignDay}
           />
           <Catalogue/>
           <Button
-            type='button'
-            text={ 'Guardar' }
-            className={'buttonLight'}
-            handleClick={this.close}
-            background='var(--bk-light)'
-            textColor='var(--white)'
+            text='Guardar'
+            className='light'
             justifySelf='center'
+            handleClick={this.close}
           />
           <style jsx>{`
             section {
               display: grid;
+              grid-gap: 1em 0;
+              margin: 1em;
             }
           `}</style>
         </section>

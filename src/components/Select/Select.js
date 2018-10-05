@@ -1,8 +1,8 @@
-import React from 'react'
+import React, {Component, Fragment} from 'react'
 import ListCheck from '../ListCheck/ListCheck'
 import SelectBox from './components/SelectBox'
 
-class Select extends React.Component {
+class Select extends Component {
   state = {
     hidden: true,
     options: this.props.options,
@@ -13,10 +13,12 @@ class Select extends React.Component {
       this.setState({hidden: !this.state.hidden})
   }
   handleSelect = text => {
+    console.log('Recibí un textooo');
+    console.log(text);
     this.setState({
       selecText: text
-    })
-    this.handleAnswer(text)
+    });
+    //this.handleAnswer(text)
   }
   handleAnswer = text => {
     (this.props.handleAnswer) && this.props.handleAnswer(text)
@@ -26,10 +28,16 @@ class Select extends React.Component {
       <article
         onClick={this.handleClick}
         >
-          <h1>{this.state.mainText}</h1>
-        {
+          <h1>{this.state.mainText} || {this.state.selecText}</h1>
+          <ListCheck
+            options={this.state.options}
+            select={this.state.selecText}
+            handleSelect={this.handleSelect}
+          />
+        {/* {
+
           (this.state.hidden)
-          ? <SelectBox
+          && <SelectBox
             showIcon={true}
             text={this.state.selecText}
             className={
@@ -37,34 +45,17 @@ class Select extends React.Component {
               ? 'select'
               : 'unSelect' }
             />
-          : <React.Fragment>
-              <SelectBox
-                className='unSelect'
-                showIcon={false}
-              />
-              <section>
-                <ListCheck
-                  options={this.state.options}
-                  select={this.state.selecText}
-                  handleSelect={this.handleSelect}
-                />
-              </section>
-              <SelectBox className='select' showIcon={true}/>
-            </React.Fragment>
-        }
+        } */}
         <style jsx>{`
           h1 {
-            color: #788895;
-            font-weight: 100;
+            font-size: 1em;
+            font-weight: normal;
+            color: var(--light-gray);
           }
           article {
-            padding-bottom: 24px;
-            border-bottom: 1px solid #788895;
-          }
-          section {
-            border: 1px solid #788895;
+            border: 1px solid var(--light-gray);
             border-top: none;
-            padding: 0px 24px 48px 16px;
+            padding: 0px 1em 2em 1em;
           }
         `}</style>
       </article>

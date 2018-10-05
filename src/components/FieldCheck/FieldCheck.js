@@ -1,120 +1,100 @@
 import React, { Component, Fragment } from 'react'
-import Check from '../../components/Icons/check'
+import CheckOption from '../../components/Icons/CheckOption'
+import Input from '../../components/Input/Input'
 
 class FieldCheck extends Component {
   state = {
-    selected: this.props.selected,
+    click: false,
     text: this.props.text,
-    checked: this.props.checked,
-    id: this.props.text.split(' ').join('')
+    selected: this.props.selected,
+    //Styles
+    fillCircle: 'transparent',
+    strokeCircle:'var(--light-gray)',
+    fillCheck: 'transparent',
   }
-  handleClick = event => {
-    //Setting styles
-    this.label.style.color = '#48ACEC'
-    this.input.style.border = '2px solid #48ACEC'
-    this.label.style.borderBottom = '1px solid #48ACEC'
-    if(this.check.className.search(/checked/) < 1) {
-      this.check.className = this.check.className.replace(/noChecked/, 'checked')
-    }
-    (this.props.handleClick) && this.props.handleClick(this.state.text)
+  handleClick = () => {
+    let styleOption = this.styleOption(this.state.click, this.state.selected)
+    this.setState({
+      fillCircle: styleOption.fillCircle,
+      strokeCircle: styleOption.strokeCircle,
+      fillCheck: styleOption.fillCheck,
+    });
+    this.props.handleClick && this.props.handleClick(this.state.text)
   }
-  handleBlur = event => {
-    setTimeout(() => {
-      if(this.state.selected != false && this.state.selected != this.state.text) {
-        //unsetting styles
-        this.label.style.color = '#788895'
-        this.input.checked = false
-        this.input.style.border = '2px solid #788895'
+  styleOption = click => {
 
-        this.label.style.borderBottom = '1px solid #788895'
-        if(this.check.className.search(/noChecked/) < 1) {
-          this.check.className = this.check.className.replace(/checked/, 'noChecked')
-        }
+    let style = {}
+    if (click) {
+      style = {
+        fillCircle: 'transparent',
+        strokeCircle:'var(--light-gray)',
+        fillCheck: 'transparent'
       }
-    }, 100)
-  }
-  setRef = element => {
-    this.input = element
-    if(this.input != null) {
-      this.check = this.input.nextElementSibling
-      this.label = this.input.parentElement.parentElement
+      this.setState({ click: false });
     }
-  }
-  componentDidMount() {
-    //The code below works for keep styles of this component if this is selected
-    if(this.state.checked) {
-       setTimeout(() => this.handleClick(), 0)
+    else if(!click) {
+      style = {
+        fillCircle: 'transparent',
+        strokeCircle:'var(--bk-light)',
+        fillCheck: 'var(--bk-light)',
+      }
+      this.setState({ click: true });
     }
+    return style
+  }
+
+  handleBlur = event => {
+
   }
   componentWillReceiveProps(nextProps) {
-    this.setState({selected: nextProps.selected})
-    this.handleBlur()
+    this.setState({selected: nextProps.selected});
+    if(nextProps.selected != this.state.text) {
+      this.setState({
+        click: false,
+        fillCircle: 'transparent',
+        strokeCircle:'var(--light-gray)',
+        fillCheck: 'transparent',
+      })
+    }
   }
   render() {
+    let {
+      text,
+    } = this.state
     return(
-      <Fragment>
-            <label
-              className='FieldCheck'
-              htmlFor={this.state.id}
-              onClick={this.handleClick}
-              onBlur={this.handleBlur}
-              >
-              {this.state.text}
-              <div
-                className='box'
-                onClick={this.handleClick}
-                >
-                  <input
-                    type="radio"
-                    id={this.state.id}
-                    ref={this.setRef}
-                  />
-                  <div className='noChecked'>
-                    <Check size={20} color='#48ACEC'/>
-                  </div>
-                </div>
-              <style jsx>{`
-                .FieldCheck {
-                  width: 100%;
-                  height: 40px;
-                  color: #788895;
-                  font-size: 24px;
-                  margin-top: 8px;
-                  display: flex;
-                  align-items: center;
-                  justify-content:space-between;
-                  border-bottom: 1px solid #788895;
-                }
-                .FieldCheck p {
-                  display: block;
-                }
-                input {
-                  margin: 0;
-                  width: 20px;
-                  height: 20px;
-                  outline: none;
-                  appearance: none;
-                  border-radius: 100%;
-                  border: 2px solid #788895;
-                  background-color: transparent;
-                }
-                .FieldCheck .box {
-                  width: 20px;
-                  display: flex;
-                  height: 30px;
-                  align-items:center;
-                }
-                .noChecked {
-                  display: none;
-                }
-                .checked {
-                  margin: -3px 3px;
-                  position: absolute;
-                }
-              `}
-              </style>
-            </label>
-      </Fragment>
+      <div>
+        <p
+          onClick={ this.handleClick }
+          >
+          { text }
+        </p>
+        <CheckOption
+          size='1.2em'
+          viewBox='0 0 20 18'
+          fillCircle={ this.state.fillCircle }
+          strokeCircle={ this.state.strokeCircle }
+          fillCheck={ this.state.fillCheck }
+          handleClick={this.handleClick}
+        />
+        <style jsx>{`
+          div {
+            display: grid;
+            grid-auto-flow: column;
+            grid-template-columns: 1fr 2em;
+            grid-template-rows: 1.5em;
+          }
+          div p {
+            margin: 0px;
+            color: var(--light-gray);
+          }
+          div:hover p {
+            color: var(--black)
+          }
+          div p::first-letter {
+            text-transform: capitalize;
+          }
+        `}</style>
+      </div>
     )
   }
 }

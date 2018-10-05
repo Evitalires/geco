@@ -24,6 +24,7 @@ class Input extends Component {
     label: this.props.label,
     value: this.props.value,
     error: this.props.error || '',
+    icon: false,
     className: this.props.className || 'default',
     placeholder: this.props.placeholder,
     validate: this.props.validate,
@@ -42,13 +43,16 @@ class Input extends Component {
       error,
       validate
     } = this.state
+    //
     if(validate == true || error != '' || this.props.icon != undefined) {
-      console.log('Props validate true');
-      return true
+      this.setState({
+        icon: true
+      })
     }
     else {
-      console.log('Props validate false');
-      return false
+      this.setState({
+        icon: false
+      })
     }
   }
   setRef = element => {
@@ -98,8 +102,10 @@ class Input extends Component {
     let width = (this.input.offsetWidth - 8) + 'px'
     return width
   }
+  componentWillMount() {
+    this.icon()
+  }
   componentDidMount() {
-    console.log(this.widthInput());
     this.setState({
       widthInput: this.widthInput(),
     })
@@ -120,6 +126,7 @@ class Input extends Component {
       value,
       error,
       view,
+      icon,
       validate,
       className,
       placeholder,
@@ -184,7 +191,6 @@ class Input extends Component {
             display: grid;
             grid-gap: .2em;
             grid-auto-flow: column;
-            grid-template-columns: ${this.icon ? "var(--twoCol)" : "var(oneCol)" };
             --twoCol: 1fr 2em;
             --oneCol: 100%;
             --areasDefaultIcon: "Label Icon"
@@ -231,15 +237,15 @@ class Input extends Component {
             grid-area: Parrafo;
           }
           .Icon {
-            display: grid;
+            display: ${icon ? 'grid' : 'none'};
             grid-area: Icon;
           }
           /* Styles Default */
           .default {
             background: ${background != undefined ? background : 'transparent' };
             grid-template-rows: var(--areasRowDefault);
-            grid-template-columns: ${this.icon ? "var(--twoCol)" : "var(oneCol)" };
-            grid-template-areas: ${this.icon ? 'var(--areasDefaultIcon)' : 'var(-areasDefault)' };
+            grid-template-columns: ${ icon ? "var(--twoCol)" : "var(--oneCol)" };
+            grid-template-areas: ${ icon ? 'var(--areasDefaultIcon)' : 'var(--areasDefault)' };
             grid-column-start: ${columnStart != undefined ? columnStart : ''};
             grid-column-end: ${columnEnd != undefined ? columnEnd : ''};
             grid-row-start: ${rowStart != undefined ? rowStart : ''};
@@ -265,7 +271,7 @@ class Input extends Component {
           .change {
             grid-template-columns: var(--oneCol);
             grid-template-rows: var(--areasRowDefault);
-            grid-template-areas: ${this.icon ? 'var(--areasChangeIcon)' : 'var(-areasChange)' };;
+            grid-template-areas: ${ icon ? 'var(--areasChangeIcon)' : 'var(--areasChange)' };
           }
           .change input {
             padding: 0;
@@ -278,8 +284,8 @@ class Input extends Component {
             color: var(--bk-dark);
           }
           .change.active {
-            grid-template-columns: ${this.icon ? 'var(--twoCol)' : 'var(--oneCol)' };
-            grid-template-areas: ${this.icon ?  'var(--areasDefaultIcon)' : 'var(--areasDefault)'};
+            grid-template-columns: ${ icon ? 'var(--twoCol)' : 'var(--oneCol)' };
+            grid-template-areas: ${ icon ?  'var(--areasDefaultIcon)' : 'var(--areasDefault)'};
           }
           .change.active label,
           .change.unActive label {
@@ -299,21 +305,21 @@ class Input extends Component {
             border-bottom: 1px solid var(--bk-light);
           }
           .change.unActive {
-            grid-template-areas: ${this.icon ? 'var(--areasDefaultIcon)' : 'var(-areasDefault)' };
+            grid-template-areas: ${ icon ? 'var(--areasDefaultIcon)' : 'var(--areasDefault)' };
           }
           .change.validate.active,
           .change.validate.unActive {
             grid-template-columns: var(--twoCol);
-            grid-template-areas: ${this.icon ? 'var(--areasDefaultIcon)' : 'var(-areasDefault)' };
+            grid-template-areas: ${ icon ? 'var(--areasDefaultIcon)' : 'var(--areasDefault)' };
           }
           .change.validate.unActive {
 
           }
           /* Styles product */
           .product {
-            grid-template-columns: ${this.icon ? 'var(--twoCol)' : 'var(--oneCol)' };
+            grid-template-columns: ${ icon ? 'var(--twoCol)' : 'var(--oneCol)' };
             grid-template-rows: var(--areasRowDefault);
-            grid-template-areas: ${this.icon ? 'var(--areasDefaultIcon)' : 'var(-areasDefault)' };;
+            grid-template-areas: ${ icon ? 'var(--areasDefaultIcon)' : 'var(--areasDefault)' };;
           }
           .product input {
             padding-left: 0;

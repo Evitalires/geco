@@ -11,9 +11,10 @@ class ListCheck extends Component {
     select: this.props.select
   }
   handleClick = text => {
+    console.log('Recibí un texto');
     (this.props.handleSelect) && this.props.handleSelect(text)
   }
-  handleChange = event => {
+  handleChange = text => {
     let label = event.target.parentElement.parentElement
     this.setState({select: label.textContent})
     this.saveChanges(label.textContent)
@@ -49,9 +50,6 @@ class ListCheck extends Component {
             </ul>
           </article>
         <style jsx>{`
-          article {
-            padding: 8px;
-          }
           article ul {
             padding: 0px;
             margin: 0px;

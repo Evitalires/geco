@@ -18,8 +18,10 @@ const ProvidersUI = (props) => {
 
         }
       </Finder>
-      <Tab selected={ props.selected || 'Categorías' } >
-        <RegisterProviders title='Registrar'/>
+      <Tab selected={ props.selected || 'Registrar' } >
+        <RegisterProviders
+          title='Registrar'
+        />
         <ListProviders
           title='Provedores'
           handleNewProvider={props.handleNewProvider}
