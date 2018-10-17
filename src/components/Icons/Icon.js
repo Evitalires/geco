@@ -40,7 +40,7 @@ const Icon = (props) => {
           align-self: stretch;
           justify-content: ${justifyContent || 'center'};
           transform: rotate(${rotate});
-          position: ${position};
+          position: ${position || 'relative'};
           top: ${top};
           left: ${left};
           right: ${right};

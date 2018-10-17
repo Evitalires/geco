@@ -1,61 +1,136 @@
 import React, {Component, Fragment} from 'react'
 import ListCheck from '../ListCheck/ListCheck'
 import SelectBox from './components/SelectBox'
+import Triangle from './../Icons/triangle'
+import Check from './../Icons/check'
 
 class Select extends Component {
   state = {
-    hidden: true,
+    hidden: this.props.hidden || false,
+    context: 'default',
     options: this.props.options,
-    mainText: this.props.mainText,
-    selecText: this.props.selecText
+    text: this.props.text,
+    suggest: this.props.suggest ||'Selecciona una',
+    selected: this.props.selected || ''
   }
   handleClick = event => {
-      this.setState({hidden: !this.state.hidden})
+    this.setContext();
+    this.hidden();
+  }
+  setContext = () => {
+    if(this.state.hidden) {
+      this.setState({
+        context: 'default',
+      })
+    }
+    else {
+      this.setState({
+        context: 'active',
+      })
+    }
+  }
+  hidden = () => {
+    this.setState({
+      hidden: !this.state.hidden
+    })
   }
   handleSelect = text => {
     console.log('Recibí un textooo');
     console.log(text);
     this.setState({
-      selecText: text
+      suggest: text,
+      context: 'validate'
     });
+    this.hidden()
     //this.handleAnswer(text)
   }
   handleAnswer = text => {
     (this.props.handleAnswer) && this.props.handleAnswer(text)
   }
   render(){
+    let {
+      context,
+      hidden,
+      text,
+      suggest,
+      selected
+    } = this.state
     return (
       <article
-        onClick={this.handleClick}
+        className={ context }
         >
-          <h1>{this.state.mainText} || {this.state.selecText}</h1>
-          <ListCheck
-            options={this.state.options}
-            select={this.state.selecText}
-            handleSelect={this.handleSelect}
-          />
-        {/* {
-
-          (this.state.hidden)
-          && <SelectBox
-            showIcon={true}
-            text={this.state.selecText}
-            className={
-              (this.props.selecText != this.state.selecText)
-              ? 'select'
-              : 'unSelect' }
+          <h1>{ text }</h1>
+          <div
+            className='selectHeader'
+            >
+            <h1
+              onClick={this.handleClick}>
+              {
+                suggest
+              }
+            </h1>
+            {
+              (this.state.context == 'validate')
+              ? <Check
+                size='1em'
+                color='var(--bk-light)'
+                handleClick={this.handleClick}/> : <Triangle
+                size='1em'
+                color={
+                  this.state.hidden
+                  ? 'var(--white)'
+                  : 'var(--light-gray)'
+                }
+                optionsRotate={ ["90deg", "30deg"] }
+                handleClick={this.handleClick}/>
+            }
+          </div>
+          {
+            (this.state.hidden)
+            &&
+            <ListCheck
+              options={this.state.options}
+              context={this.state.context}
+              selected={this.state.selected}
+              handleSelect={this.handleSelect}
             />
-        } */}
+          }
         <style jsx>{`
-          h1 {
-            font-size: 1em;
+          article {
+            padding: 0px;
+            display: grid;
+            grid-template-rows: 1.5em 2em;
+          }
+          article h1 {
+            font-size: .9em;
             font-weight: normal;
             color: var(--light-gray);
           }
-          article {
-            border: 1px solid var(--light-gray);
-            border-top: none;
-            padding: 0px 1em 2em 1em;
+          .selectHeader {
+            display: grid;
+            align-content: center;
+            align-items: center;
+            grid-auto-flow: column;
+            grid-template-rows: 1.5em;
+            grid-template-columns: 1fr 2em;
+            border: 1px solid var(--light-gray)
+          }
+          .selectHeader h1 {
+            font-size: 1em;
+            padding-left: .5em;
+          }
+          .default {
+            border-bottom: 1px solid var(--light-gray)
+          }
+          .active .selectHeader {
+            background: var(--bk-light);
+            border: 1px solid var(--bk-light);
+          }
+          .active .selectHeader h1 {
+            color: var(--white);
+          }
+          .validate .selectHeader {
+            border: 1px solid var(--bk-light);
           }
         `}</style>
       </article>

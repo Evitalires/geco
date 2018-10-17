@@ -134,10 +134,25 @@ class RegisterProviders extends Component {
             value=''
             error=''
           />
+          {/* Deafult */}
           <Select
             options={['Cédula de Ciudadanía', 'NIT',  'Otro']}
-            mainText={'Tipo de identificación'}
-            selecText={ typeDocumentation || 'Selecciona una'}
+            text={'Tipo de identificación'}
+            selected={ typeDocumentation }
+            handleAnswer={this.typeDocumentation}
+          />
+          {/* Active */}
+          <Select
+            options={['Cédula de Ciudadanía', 'NIT',  'Otro']}
+            text={'Tipo de identificación'}
+            selected={ typeDocumentation }
+            handleAnswer={this.typeDocumentation}
+          />
+          {/* Error */}
+          <Select
+            options={['Cédula de Ciudadanía', 'NIT',  'Otro']}
+            text={'Tipo de identificación'}
+            selected={ typeDocumentation }
             handleAnswer={this.typeDocumentation}
           />
           <Input
@@ -148,14 +163,14 @@ class RegisterProviders extends Component {
 
           <Select
             options={['Exento', 'Gravado', 'Otro']}
-            mainText={'Razón social'}
-            selecText={ reasonSocial || 'Selecciona uno' }
+            text={'Razón social'}
+            selected={ reasonSocial || 'Selecciona uno' }
             handleAnswer={this.reasonSocial}
           />
           <Select
             options={['Exento', 'Gravado', 'Otro']}
-            mainText={'Método de pago'}
-            selecText={ payMethod || 'Selecciona uno' }
+            text={'Método de pago'}
+            selected={ payMethod || 'Selecciona uno' }
             handleAnswer={this.payMethod}
           />
           <Input

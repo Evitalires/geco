@@ -24,6 +24,7 @@ class FieldCheck extends Component {
   styleOption = click => {
 
     let style = {}
+    console.log(this.state.selected == this.state.text);
     if (click) {
       style = {
         fillCircle: 'transparent',
@@ -45,6 +46,16 @@ class FieldCheck extends Component {
 
   handleBlur = event => {
 
+  }
+  componentDidMount() {
+    if(this.state.selected == this.state.text) {
+      this.setState({
+        click: true,
+        fillCircle: 'transparent',
+        strokeCircle:'var(--bk-light)',
+        fillCheck: 'var(--bk-light)',
+      })
+    }
   }
   componentWillReceiveProps(nextProps) {
     this.setState({selected: nextProps.selected});
@@ -88,7 +99,7 @@ class FieldCheck extends Component {
             color: var(--light-gray);
           }
           div:hover p {
-            color: var(--black)
+            color: var(--bk-dark)
           }
           div p::first-letter {
             text-transform: capitalize;
